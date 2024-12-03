@@ -1,9 +1,9 @@
 ﻿/*
 本AHK由 黑钨重工 在原版基础上修改 免费开源
+所有开源项目 https://github.com/Furtory
 仅适用于封装V1版本的chm帮助文档 V2版本帮助文档请到此链接下载https://wyagd001.github.io/
 本封装源来自于https://github.com/wyagd001/wyagd001.github.io/tree/master
-本人所有教程和脚本严禁转载到此论坛 https://www.autoahk.com/
-
+本人所有教程和脚本严禁转载到此论坛以防被用于收费盈利 https://www.autoahk.com/
 */
 
 #NoEnv
