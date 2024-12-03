@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>StringSplit | AutoHotkey v1</title>
+<meta name="description" content="The StringSplit command separates a string into an array of substrings using the specified delimiter characters." />
+<meta name="ahk:equiv-v2" content="lib/StrSplit.htm" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>StringSplit</h1>
+<p>使用指定的分隔字符把一个字符串分解成多个子字符串并保存到数组中.</p>
+<p class="warning"><span class="ver">[v1.1.13+]</span> <strong>过时的:</strong> 不推荐在新脚本中使用此命令. 请使用 <a href="StrSplit.htm">StrSplit</a> 函数代替.</p>
+<pre class="Syntax"><span class="func">StringSplit</span>, OutputArray, InputVar <span class="optional">, DelimiterChars, OmitChars</span></pre>
+
+<h2 id="Parameters">参数</h2>
+<dl>
+
+  <dt>OutputArray</dt>
+  <dd>
+    <p>用来存储从 <em>InputVar</em> 分解出来的每个子字符串的<a href="../misc/Arrays.htm#pseudo">伪数组</a>名. 例如, 如果指定 MyArray, 那么 MyArray0 中会保存分解出来的子字符串的数目(没有则为 0), 首个子字符串为保存到 MyArray1, 第二个保存到 MyArray2 等.</p>
+     <p>在<a href="../Functions.htm">函数</a>中, 要创建全局而不是局部的伪数组, 必须先在函数中<a href="../Functions.htm#Global">声明</a> MyArray0 为全局变量(对于<a href="../Functions.htm#AssumeGlobal">假设全局</a>函数, 反之亦成). 但是, 通常需要对每一个元素进行定义, 否则可能引起<a href="../Functions.htm#ArrayConfusion">混乱的根源</a>. 详见: <a href="../Functions.htm#PseudoArrays">函数</a>.</p>
+  </dd>
+
+  <dt>InputVar</dt>
+  <dd>
+     <p>需要被分解的输入变量的名称. 不要把名称括在百分号中, 除非您希望使用变量的内容作为被解析的变量名.</p>
+    <p class="note"><strong>注意:</strong> <em>InputVar</em> 不能是 <em>OutputArray</em> 中的一个变量. </p>
+  </dd>
+
+  <dt>DelimiterChars(分隔符)</dt>
+  <dd>
+    <p>如果为空或省略, 那么将把 <em>InputVar</em> 中的每个字符解析为单独的子字符串.</p>
+      <p>否则, 请指定一个或多个字符(区分大小写), 其中的每个都被用来确定 <em>InputVar</em> 中子字符串之间的边界. 由于分隔符不被视为子字符串的一部分, 所以它们不会被保存到 <em>OutputArray</em>. 此外, 如果 <em>InputVar</em> 中一对分隔字符之间不存在其他字符, 那么相应的数组元素会被置空.</p>      
+      <p>例如: <code>`,</code>(转义的逗号) 将根据逗号每次出现的位置分割字符串. 同样地, 使用 <code>%A_Space%%A_Tab%</code> 作为分隔符将在 <em>InputVar</em> 中每次遇到空格或 tab 时创建一个新的数组元素. </p>
+      <p>要使用字符串而不是字符作为分隔符, 首先使用 <a href="StringReplace.htm">StringReplace</a> 把这个字符串在所有出现的地方替换为文本中从未使用的单个字符, 例如这些特殊字符之一: <code>&cent;&curren;&yen;&brvbar;&sect;&copy;&ordf;&laquo;&reg;&micro;&para;</code>. 参考这个例子, 其中使用字符串 &lt;br&gt; 作为分隔符:</p>
+<pre>StringReplace, NewHTML, HTMLString, &lt;br&gt;, ``, All  <em>; 把所有 &lt;br&gt; 替换为重音符.</em>
+StringSplit, MyArray, NewHTML, ``  <em>; 使用重音符分隔字符串.</em></pre>
+     <p>在 <span class="ver">[v1.1.13+]</span>, 请使用 <code>MyArray := <a href="StrSplit.htm">StrSplit</a>(HTMLString, "&lt;br&gt;")</code>.</p>
+  </dd>
+
+  <dt>OmitChars</dt>
+  <dd>
+    <p>如果为空或省略, 则不会排除任何字符. 否则, 请指定要从每个数组元素的开始和结尾部分移除的字符列表(区分大小写) 例如, 如果 <em>OmitChars</em> 是 <code>%A_Space%%A_Tab%</code>, 那么每个元素中开始和结尾部分(但中间的不会) 的空格和 tab 会被移除.</p>
+      <p>如果 <em>DelimiterChars</em> 为空或省略, 那么 <em>OmitChars</em> 表示需要从数组中排除的那些字符.</p>
+      <p>与其他大多数命令的最后一个参数不同, <em>OmitChars</em> 中的逗号必须进行转义(<code>`,</code>).</p>
+  </dd>
+
+</dl>
+
+<h2 id="Remarks">备注</h2>
+<p>如果数组元素已经存在, 那么 StringSplit 命令只会改变其前面 N 个元素的值, 此处 N 为在 <em>InputVar</em> 中的子字符串的数目. 原来存在的第 N 个元素之后的其他元素会保持不变. 因此, 最好使用零元素(MyArray0) 来确定此命令实际分解出了多少项.</p>
+<p>空格和 tab 等空白字符会被保留, 除非它们被作为分隔符或包含在 <em>OmitChars</em> 中. 当 <a href="AutoTrim.htm">AutoTrim</a> 开启(默认) 时, 通过将其赋值给自身, 可以把空格和 tab 从每个变量的两端移除. 例如: <code>MyArray1 := %MyArray1%</code>.</p>
+<p>要分割标准 CSV(逗号分隔值) 格式的字符串, 请使用<a href="LoopParse.htm">解析循环</a>, 因为它具有内置的 CSV 处理功能.</p>
+<p>要在拆分字段之前以不同的顺序排列, 请使用 <a href="Sort.htm">Sort</a> 命令.</p>
+<p>如果您不需要把子字符串长时间的存储到内存中, 建议使用<a href="LoopParse.htm">解析循环</a>, 尤其在 <em>InputVar</em> 非常大时可以节约大量内存. 例如:</p>
+<pre>Colors := "red,green,blue"
+Loop, Parse, Colors, `,
+    MsgBox Color number %A_Index% is %A_LoopField%.</pre>
+
+<h2 id="Related">相关</h2>
+<p><a href="StrSplit.htm">StrSplit()</a>, <a href="LoopParse.htm">解析循环</a>, <a href="../misc/Arrays.htm">数组</a>, <a href="Sort.htm">Sort</a>, <a href="SplitPath.htm">SplitPath</a>, <a href="IfInString.htm">IfInString</a>, <a href="StringGetPos.htm">StringGetPos</a>, <a href="StringMid.htm">StringMid</a>, <a href="StringTrimLeft.htm">StringTrimLeft</a>, <a href="StringTrimLeft.htm">StringTrimRight</a>, <a href="StringLen.htm">StringLen</a>, <a href="StringLower.htm">StringLower</a>, <a href="StringLower.htm">StringUpper</a>, <a href="StringReplace.htm">StringReplace</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExSpace">
+<p><a class="ex_number" href="#ExSpace"></a> 将一个句子拆分成单词组, 并报告第四个单词.</p>
+<pre>TestString := "This is a test."
+StringSplit, word_array, TestString, %A_Space%, .  <em>; 忽略句点.</em>
+MsgBox, The 4th word is %word_array4%.</pre>
+</div>
+
+<div class="ex" id="ExComma">
+<p><a class="ex_number" href="#ExComma"></a> 将一个以逗号分隔的颜色列表拆分成一个子字符串组, 并逐个遍历它们.</p>
+<pre>Colors := "red,green,blue"
+StringSplit, ColorArray, Colors, `,
+Loop, %ColorArray0%
+{
+    this_color := ColorArray%A_Index%
+    MsgBox, Color number %A_Index% is %this_color%.
+}</pre>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>StrCompare - 语法 &amp; 使用 | AutoHotkey v2</title>
+<meta name="description" content="The StrCompare function compares two strings alphabetically." />
+<meta name="ahk:equiv-v1" content="index.htm" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css">
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>StrCompare</h1>
+<p>按字母顺序比较两个字符串.</p>
+<pre class="Syntax">Result := <span class="func">StrCompare</span>(String1, String2 <span class="optional">, CaseSense</span>)</pre>
+
+<h2 id="Parameters">参数</h2>
+<dl>
+  <dt>String1, String2</dt>
+  <dd>
+    <p>类型: <a href="../Concepts.htm#strings">字符串</a></p>
+    <p>要比较的字符串.</p>
+  </dd>
+  <dt>CaseSense</dt>
+  <dd>
+    <p>类型: <a href="../Concepts.htm#strings">字符串</a>或<a href="../Concepts.htm#boolean">整数(布尔值)</a></p>
+    <p>如果省略, 则默认为 <em>Off</em>. 否则, 指定下列值之一:</p>
+    <p><strong>On</strong> 或 <strong>1</strong>(true): 比较区分大小写.</p>
+    <p><strong>Off</strong> 或 <strong>0</strong>(false): 比较不区分大小写, 即字母 A-Z 被视为与其小写字母相同.</p>
+    <p id="Locale"><strong>Locale:</strong> 根据当前用户的区域设置规则, 比较是不区分大小写的. 例如, 在大多数英语及西欧地区, 不仅将 A-Z 视为等同于它们的小写形式, 同时也将非-ASCII 字母(如 Ä 和 Ü) 视为等同的. 根据被比较字符串的性质, <em>Locale</em> 比 <em>Off</em> 慢 1 到 8 倍.</p>
+    <p id="Logical"><strong>Logical:</strong> 类似 <em>Locale</em>, 但字符串中的数字被视为数字内容, 而不是文本. 例如, <code>"A2"</code> 被认为小于 <code>"A10"</code>. 然而, 如果两个数字仅因前导零的存在而不同, 则前导零的字符串可能被视为 <u>小于</u> 另一个字符串. 确切的行为可能会在不同的操作系统版本中有所不同.</p>
+  </dd>
+</dl>
+
+<h2 id="Return_Value">返回值</h2>
+<p>类型: <a href="../Concepts.htm#numbers">整数</a></p>
+<p>指示 <em>String1</em> 和 <em>String2</em> 之间的关系, 该函数返回以下内容之一:</p>
+<ul>
+  <li>0, 如果 <em>String1</em> 等于 <em>String2</em></li>
+  <li>正整数, 如果 <em>String1</em> 大于 <em>String2</em></li>
+  <li>负整数, 如果 <em>String1</em> 小于 <em>String2</em></li>
+</ul>
+<p>要检查两个字符串之间的特定关系, 请将结果与 0 进行比较. 例如:</p>
+<pre>a_less_than_b := StrCompare(a, b) &lt; 0
+a_greater_than_or_equal_to_b := StrCompare(a, b) &gt;= 0</pre>
+
+<h2 id="Remarks">备注</h2>
+<p>此函数通常用于 <a href="Sort.htm#callback">sort 回调</a>.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="Sort.htm">Sort</a>, <a href="VerCompare.htm">VerCompare</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExCaseSens">
+<p><a class="ex_number" href="#ExCaseSens"></a> 展示不区分大小写和区分大小写比较的区别.</p>
+<pre>MsgBox StrCompare("Abc", "abc") <em>; 返回 0</em>
+MsgBox StrCompare("Abc", "abc", true) <em>; 返回 -1</em></pre>
+</div>
+
+</body>
+</html>

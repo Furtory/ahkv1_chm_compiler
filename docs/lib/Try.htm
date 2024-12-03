@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Try | AutoHotkey v1</title>
+<meta name="description" content="The Try statement guards one or more statements against runtime errors and exceptions thrown by the Throw statement." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>Try <span class="ver">[v1.1.04+]</span></h1>
+
+<p>守护一个或多个<a href="../Concepts.htm#statement">语句</a>不受 <a href="Throw.htm">Throw</a> 语句抛出的运行时错误和异常的影响.</p>
+
+<pre class="Syntax"><span class="func">Try</span> <i>Statement</i></pre>
+<pre class="Syntax" style="line-height: 100%">
+<span class="func">Try</span>
+{
+    <i>Statements</i>
+}
+</pre>
+<h2 id="Remarks">备注</h2>
+<p><em>Try</em> 语句后常跟着<a href="Block.htm">代码区块</a>(括在大括号中的一个或多个<a href="../Concepts.htm#statement">语句</a>). 如果仅需执行单个语句, 那么此语句可以和 <em>Try</em> 放在同一行或在其下一行, 并且可以省略大括号. 要指定仅在 <em>Try</em> 捕获到错误时执行的代码, 请使用 <a href="Catch.htm">Catch</a> 语句.</p>
+<p><a href="Throw.htm">Throw</a> 语句或程序在运行遇到错误时会抛出异常. 当 <em>Try</em> 区块或由其调用的函数抛出异常时, 将进行下列操作:</p>
+<ul>
+  <li>如果该区块有相应的 <a href="Catch.htm">Catch</a> 语句, 则继续执行该语句.</li>
+  <li>如果没有 <em>Catch</em> 语句但有 <a href="Finally.htm">Finally</a> 语句, 则执行该语句并在结束后自动再次抛出异常.</li>
+  <li>如果 <em>Catch</em> 语句和 <em>Finally</em> 语句都没有, 则继续执行 <em>Try</em> 区块外的下一行.</li>
+</ul>
+<p>如果在 <em>Try</em> 区块外执行时抛出异常, 则显示错误信息并退出当前线程.</p>
+<p><a href="Block.htm#otb">One True Brace(OTB) 风格</a>可以用在 <em>Try</em>. 例如:</p>
+<pre>try {
+    ...
+} catch e {
+    ...
+}</pre>
+
+<h2 id="Related">相关</h2>
+<p><a href="Catch.htm">Catch</a>, <a href="Throw.htm">Throw</a>, <a href="Finally.htm">Finally</a>, <a href="Block.htm">区块</a>, <a href="OnError.htm">OnError()</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ex_basic"></a> 演示 <em>Try-Catch</em> 和 <em>Throw</em> 的基本概念.</p>
+<pre>try  <em>; 尝试执行的代码.</em>
+{
+    HelloWorld()
+    MakeToast()
+}
+<a href="Catch.htm">catch</a> e  <em>; 处理由上面区块产生的首个错误/异常.</em>
+{
+    MsgBox, An exception was thrown!`nSpecifically: %e%
+    <a href="Exit.htm">Exit</a>
+}
+
+HelloWorld()  <em>; 总是成功.</em>
+{
+    MsgBox, Hello, world!
+}
+
+MakeToast()  <em>; 总是失败.</em>
+{
+    <em>; 立即跳到 try 区块的错误处理程序:</em>
+    <a href="Throw.htm">throw</a> A_ThisFunc " is not implemented, sorry"
+}
+</pre>
+</div>
+
+<div class="ex" id="ex_el">
+<p><a class="ex_number" href="#ex_el"></a> 演示使用 <em>Try-Catch</em> 代替 <a href="../misc/ErrorLevel.htm">ErrorLevel</a>.</p>
+<pre>try
+{
+    <em>; 下列语句尝试备份某些指定类型的文件:</em>
+    FileCopy, %A_MyDocuments%\*.txt, D:\Backup\Text documents
+    FileCopy, %A_MyDocuments%\*.doc, D:\Backup\Text documents
+    FileCopy, %A_MyDocuments%\*.jpg, D:\Backup\Photos
+}
+catch
+{
+    MsgBox, 16,, There was a problem while backing the files up!
+    ExitApp
+}
+</pre>
+</div>
+
+<div class="ex" id="ex_com">
+<p><a class="ex_number" href="#ex_com"></a> 演示使用 <em>Try-Catch</em> 处理 COM 错误. 有关下面使用的 COM 对象的详情, 请参阅 <a href="https://learn.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa227633(v=vs.60)">Using the ScriptControl (Microsoft Docs)</a>.</p>
+<pre>try
+{
+    obj := <a href="ComObjCreate.htm">ComObjCreate</a>("ScriptControl")
+    obj.ExecuteStatement("MsgBox ""This is embedded VBScript""")
+    obj.InvalidMethod() <em>; 此行会产生运行时错误.</em>
+}
+catch e
+{
+    <em>; 关于 e 对象的更多细节, 请参阅 <a href="Throw.htm#Exception">Exception()</a>.</em>
+    MsgBox, 16,, % "Exception thrown!`n`nwhat: " e.what "`nfile: " e.file
+        . "`nline: " e.line "`nmessage: " e.message "`nextra: " e.extra
+}
+</pre>
+</div>
+
+<div class="ex" id="ex_nesting">
+<p><a class="ex_number" href="#ex_nesting"></a> 演示嵌套的 <em>Try-Catch</em> 语句</p>
+<pre>try Example1() <em>; 单个语句可以和 Try 放在同一行.</em>
+catch e
+    MsgBox, Example1() threw %e%.
+
+Example1()
+{
+    try Example2()
+    catch e
+    {
+        if (e = 1)
+            throw e <em>; 重新抛出这个异常, 这样调用者可以捕获它.</em>
+        else
+            MsgBox, Example2() threw %e%.
+    }
+}
+
+Example2()
+{
+    Random, o, 1, 2
+    throw o
+}</pre>
+</div>
+
+</body>
+</html>

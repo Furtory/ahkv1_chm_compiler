@@ -1,0 +1,69 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>OnClipboardChange - 语法 &amp; 使用 | AutoHotkey v2</title>
+<meta name="description" content="The OnClipboardChange function registers a function to be called automatically whenever the clipboard's content changes." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>OnClipboardChange</h1>
+<p>注册一个每当剪贴板内容发生改变时, 回自动调用的<a href="../Functions.htm">函数</a>.</p>
+
+<pre class="Syntax"><span class="func">OnClipboardChange</span> Callback <span class="optional">, AddRemove</span></pre>
+<h2 id="Parameters">参数</h2>
+<dl>
+
+  <dt>Callback</dt>
+  <dd>
+    <p>类型: <a href="../misc/Functor.htm">函数对象</a></p>
+    <p>要调用的函数.</p>
+    <p>回调函数接受一个参数, 可以<a href="../Functions.htm#intro">定义</a>如下:</p>
+    <pre class="NoIndent">MyCallback(DataType) { ...</pre>
+    <p>虽然你给参数的名称并不重要, 但是它会被赋值为下面的数字之一:</p>
+    <ul>
+      <li>0 = 剪贴板当前为空.</li>
+      <li>1 = 剪贴板包含可以用文本形式表示的内容(包括从资源管理器窗口<a href="A_Clipboard.htm#CopiedFiles">复制的文件</a>).</li>
+      <li>2 = 剪贴板包含完全是非文本的内容, 例如图片.</li>
+    </ul>
+    <p>如果不需要相应的信息, 可以省略回调的参数, 但在这种情况下必须指定星号, 例如 <code>MyCallback(*)</code>.</p>
+    <p>如果这是最近的或仅有的回调, 其返回值会被忽略. 否则, 此回调会返回一个非零整数来阻止随后的回调被调用.</p>
+  </dd>
+  
+  <dt>AddRemove</dt>
+  <dd>
+    <p>类型: <a href="../Concepts.htm#numbers">整数</a></p>
+    <p>如果省略, 则默认为 1. 否则, 指定下列数字之一:</p>
+    <ul>
+      <li>1 = 在任何先前的注册回调之后调用该回调.</li>
+      <li>-1 = 在任何先前的注册回调之前调用该回调.</li>
+      <li>0 = 不调用该回调.</li>
+    </ul>
+  </dd>
+
+</dl>
+
+<h2 id="Remarks">备注</h2>
+<p>如果剪贴板在回调已经运行时发生更改, 则剪贴板通知事件会丢失. 如果不希望这样, 请使用 <a href="Critical.htm">Critical</a>. 不过, 这样做也会缓冲/延迟 OnClipboardChange 线程运行时发生的其他<a href="../misc/Threads.htm">线程</a>(例如按下热键).</p>
+<p>如果是脚本本身改变了剪贴板内容, 脚本中的回调或标签通常不会立即执行; 也就是说紧接在改变剪贴板语句后面的语句就像提前运行了一样. 要强制立即执行这个回调, 请在改变剪贴板内容后使用短暂的延迟, 例如 <code><a href="Sleep.htm">Sleep</a> 20</code>.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="A_Clipboard.htm">A_Clipboard</a>, <a href="OnExit.htm">OnExit</a>, <a href="OnMessage.htm">OnMessage</a>, <a href="CallbackCreate.htm">CallbackCreate</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ExBasic"></a> 在每次剪贴板更改时简要显示工具提示.</p>
+<pre>OnClipboardChange ClipChanged
+
+ClipChanged(DataType) {
+    ToolTip "剪贴板数据类型: " DataType
+    Sleep 1000
+    ToolTip  <em>; 关闭工具提示.</em>
+}</pre>
+</div>
+
+</body>
+</html>

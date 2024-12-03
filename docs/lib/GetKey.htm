@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>GetKeyName() / GetKeyVK() / GetKeySC() | AutoHotkey v1</title>
+<meta name="description" content="The GetKeyName, GetKeyVK and GetKeySC functions retrieve the name/text, virtual key code or scan code of a key." />
+<meta name="ahk:equiv-v2" content="lib/GetKeyName.htm" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>GetKeyName(), GetKeyVK(), GetKeySC() <span class="ver">[v1.1.01+]</span></h1>
+
+<p>获取按键的名称/文本, 虚拟按键码或扫描码.</p>
+
+<pre class="Syntax">
+String := <span class="func">GetKeyName</span>(Key)
+Number := <span class="func">GetKeyVK</span>(Key)
+Number := <span class="func">GetKeySC</span>(Key)
+</pre>
+<h2 id="Parameters">参数</h2>
+<dl>
+
+  <dt>Key</dt>
+  <dd><p>可以为 VK 或 SC 码, 例如 <code>"vkA2"</code>  或 <code>"sc01D"</code>, 以及它们的组合, 或<a href="../KeyList.htm">键名</a>. 例如, <code>GetKeyName("vk1B")</code> 和 <code>GetKeyName("Esc")</code> 都返回 "Escape", 而 <code>GetKeyVK("Esc")</code> 返回 27. 注意, VK 和 SC 码必须为十六进制. 可用 <code><a href="Format.htm">Format</a>("vk{:x}", vk_code)</code> 或 <code>Format("sc{:x}", sc_code)</code> 将十进制转换为十六进制.</p></dd>
+
+</dl>
+
+<h2 id="Return_Value">返回值</h2>
+<p>函数返回 <em>Key</em> 的名称, 虚拟键码或扫描码.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="GetKeyState.htm">GetKeyState</a>, <a href="../KeyList.htm">按键列表</a>, <a href="Format.htm">Format()</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ExBasic"></a> 报告指定键的信息.</p>
+<pre>key  := "LWin" <em>; 任何一个按键都可以.</em>
+
+name := GetKeyName(key)
+vk   := GetKeyVK(key)
+sc   := GetKeySC(key)
+
+MsgBox, % Format("按键名称:`t{}`n虚拟键码:`t{:X}`n扫描键码:`t{:X}", name, vk, sc)</pre>
+</div>
+
+</body>
+</html>

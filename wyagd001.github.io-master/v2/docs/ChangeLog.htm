@@ -1,0 +1,270 @@
+﻿	<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>变更 &amp; 新功能 | AutoHotkey v2</title>
+<meta name="description" content="Changes and new features introduced by the current branch of AutoHotkey development." />
+<meta name="ahk:equiv-v1" content="AHKL_ChangeLog.htm" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="static/theme.css" rel="stylesheet" type="text/css" />
+<script src="static/content.js" type="text/javascript"></script>
+</head>
+<body>
+<h1>变更 &amp; 新功能</h1>
+<p><a href="v2-changes.htm">v1.1 到 v2.0 的更改</a>涵盖了 v1.1 和 v2.0 之间的差异.</p>
+<p>有关更改的全部技术细节, 请参阅 <a href="https://github.com/AutoHotkey/AutoHotkey/tree/alpha">GitHub</a>.</p>
+
+<h2 id="v2.0.18">2.0.18 - 2024 年 7 月 6 日</h2>
+<p>修复 当 GetClipboardData 返回 NULL 时, A_Clipboard 静默退出的问题.</p>
+<p>修复 <code>a.b[c] := d</code>, 以便 <code>a.b</code> 在没有 setter 的情况下调用 getter.</p>
+
+<h2 id="v2.0.17">2.0.17 - 2024 年 6 月 5 日</h2>
+<p>优化 WinText 参数.[<a href="https://github.com/AutoHotkey/AutoHotkey/pull/335">PR #335</a> (Descolada)]</p>
+<p>变更 UnsetError 消息, 建议使用全局声明, 而不是在变量名后添加 "(与全局名称相同)".</p>
+<p>变更 VarUnset 的警告信息, 使其与 UnsetError 一致.</p>
+<p>修复 自增/自减操作符在 var 未设置时抛出 UnsetError, 而不是 TypeError.</p>
+<p>修复 OwnProps 在属性删除自己的情况下安全地分配属性名称的问题.</p>
+<p>修复 在没有块的控制流语句下的箭头函数中工作的断点.</p>
+<p>修复 在步出函数时, 调试器在调用行中断的问题.(此行为在版本 31 中添加，并在 v1.1.30.00 中被打破.)</p>
+<p>从作为新线程调用的函数中跳出, 现在在被中断的行中断, 而不是等到到达下一行.</p>
+<p>修复 调试器不删除临时断点, 这些断点在计算 DBGp property_get 或 context_get 时被忽略.</p>
+
+<h2 id="v2.0.16">2.0.16 - 2024 年 5 月 30 日</h2>
+<p>修复 在某些情况下发送到标准输出的加载时错误, 显示不正确的文件/行号.</p>
+<p>修复 ExitApp 在加载时错误/警告对话框使用退出码 2 的问题.</p>
+<p>修复 在当前用户(非管理员) 安装中定位 WindowSpy.ahk 的问题.</p>
+<p>修复 DBGp property_get 分页项错误(再次).</p>
+<p>修复 如果指定了 Length/Buffer 并且 <a href="https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> 不支持目标代码页的 WC_NO_BEST_FIT_CHARS 标志时, StrPut 失败的问题.</p>
+<p>修复 如果服务器请求客户端身份验证, Download 尝试匿名身份验证.</p>
+
+<h2 id="v2.0.15">2.0.15 - 2024 年 5 月 16 日</h2>
+<p>修复 DBGp property_get 由于分页错误而无法检索属性的问题(自 v2.0.14 起).</p>
+<p>修复 DBGp 属性计算导致没有 Catch 的 Try 失败的问题(自 v2.0.14 起).</p>
+<p>修复 &lt;base&gt; 调试器伪属性泄漏引用的问题(自 v2.0.14 起).</p>
+
+<h2 id="v2.0.14">2.0.14 - 2024 年 5 月 6 日</h2>
+<p>修复 错误对话框以便在文本聚焦时也能处理字母快捷键.</p>
+<p>修复 MonthCal W-<em>n</em>(月份) 宽度值不受 DPI 缩放的影响.</p>
+<p>修复 Click 不返回整数的问题.</p>
+<p>修复 将 <code><i>key</i>::try {</code> 检测为错误的问题.</p>
+<p>修复 <code>:B0*O:XY::Z</code> 以产生 XYZ, 而非 XZ(抑制了 Y).</p>
+<p>修复 Send 使任何先前的 <code>{<i>modifier</i> Down}</code> 即使在物理按键被按住的情况下仍然有效.</p>
+<p>改进 在弹出菜单时脚本获取焦点的可靠性.</p>
+
+<p><strong>调试器改进:</strong></p>
+<p>修复 在处理另一条命令期间发送的 stdout/stderr 数据包, 以免破坏待处理的响应.</p>
+<p>修复 <code>property_get -n &lt;exception&gt;.message</code> 及类似问题.</p>
+<p>修复 当属性返回带有字符串的临时对象(如 <code>x.y.z</code> where <code>y =&gt; {z:"a"}</code>) 时, property_get 的结果被破坏的问题.</p>
+<p>修复 在处理另一条命令时收到异步命令而导致崩溃的问题.</p>
+<p>修复 通过 property_set 抑制异常后, 不被删除的问题.</p>
+<p>修复 <code>property_get -c 0 -d 0</code> 允许使用全局变量, 因为 <code>-d 1</code> 已允许使用全局变量.</p>
+<p>修复 property_get 无法正确分页枚举项的问题.</p>
+
+<p>改进 property_get 使其支持带一个参数的属性获取器(以前只有隐式 __Item property 属性支持此功能).</p>
+<p>改进 property_get 以支持原始值属性. 值仍必须包含在变量中或从属性中返回.</p>
+<p>改进 property_get 允许调用 &lt;=1 个参数的函数.</p>
+<p>改进 property_get to 以支持浮点键/参数.</p>
+
+<p>变更 调试器以抑制属性计算过程中的异常.</p>
+<p>变更 调试器忽略由 __Enum 引发的错误(视为无项目).</p>
+<p>变更 &lt;enum&gt; 伪属性使其需要 __Enum. 这可防止对象本身作为枚举器被调用.</p>
+<p>在调试器中优化了少量代码.</p>
+
+<h2 id="v2.0.13">2.0.13 - 2024 年 4 月 20 日</h2>
+<p>更改 热键函数, 如果选项包含无效选项则抛出 ValueError.</p>
+<p>修复 在退格键作为撤销操作时, InputHook 遵守 +S 选项.</p>
+<p>修复 调试器, 在枚举期间安全地处理属性删除.</p>
+<p>修复 OLE 剪贴板内容(例如错误对话框文本) 在退出时丢失.</p>
+<p>修复 检测热键上的无效后缀, 例如 <code>Hotkey "a pu"</code>.</p>
+<p>修复 DllCall <code>AStr*</code> arg 类型仅在地址发生变化时才复制回去.</p>
+<p>修复 #Include 正确地 "关闭" 它读取的任何内置变量(对实际脚本没有已知影响).</p>
+<p>修复 具有两个不同 ahk_id 值的 WinTitles 无法匹配.</p>
+
+<h2 id="v2.0.12">2.0.12 - 2024 年 3 月 23 日</h2>
+<p>修复 当 Gui 拥有所有者窗口或 +DPIScale 属性时, Gui 的 GetPos/GetClientPos.</p>
+<p>修复 在文件循环中, Until 阻止子文件夹递归.</p>
+<p>修复 当参数类型为 UStr 时, DllCall 抛出错误的问题.</p>
+<p>修复 每次正则表达式调出发生的内存泄漏.</p>
+<p>修复 Send 由于竞争条件而错误释放修饰符的问题. 例如, 如果其他键盘钩子比脚本自己的钩子安装得更晚, <code>~LAlt::Send "{Blind}x"</code> 间歇性地释放 LAlt.</p>
+<p>修复 图标加载器在存在相同大小的多个位图时, 优先选择更高的位深度的问题.</p>
+<p>修复 如果 SendInput 已经释放 RAlt 且键盘布局中没有 AltGr, SendInput 无法释放 LCtrl 的问题.</p>
+<p>修复 在修饰符键改变后重复按键时, 键松开不会被触发. 例如, <code>F1::Send "{Ctrl down}"</code> 应该允许 <code>F1 up::</code> 在键被释放时执行, 即使 Ctrl 是按下的, 但在键重复发生后不允许执行.</p>
+<p>修复 涉及 #HotIf 的错误信息, 而不是 #IfWin. [PR #327]</p>
+<p>修复 OwnProps 错误地跳过带有可选参数的属性.</p>
+<p>修复 克隆动态属性的不一致行为.</p>
+<ul>
+  <li>OwnProps 不会跳过需要参数的克隆属性.</li>
+  <li>参数不被递归传递给无参数属性(即允许 <code>a.b[c]</code> 计算为 <code>(a.b)[c]</code>).</li>
+</ul>
+<p>修复 在网络子系统不起作用时, SysGetIPAddresses 导致的 Critical 错误; 例如在 Windows 安全模式下.</p>
+<p>更改 在无法确定焦点时, ControlGetFocus 返回 0, 例如当控制台窗口处于活动状态时.</p>
+
+<h2 id="v2.0.11">2.0.11 - 2023 年 12 月 23 日</h2>
+<p>新增 一个解决方案, 在 Windows 10 第一个显示的菜单不接受键盘输入.</p>
+<p>修复 <a href="lib/Gui.htm#Add">Add 方法(Gui)</a> to 支持 DateTime 控件的 ShortDate 选项.</p>
+<p>修复 多级函数嵌套的引用计数错误.</p>
+<p>修复 <code>#include &lt;x&gt;</code> 在函数内部使用会导致加载时崩溃的问题.</p>
+<p>修复 <code>ListView.Opt("NoSort")</code>.</p>
+<p>修复 克隆没有自有属性的对象时发生的内存泄漏.</p>
+<p>修复 #include 和 FileInstall(未编译) 按<a href="https://learn.microsoft.com/windows/win32/intl/handling-sorting-in-your-applications#sort-strings-ordinally">顺序</a>比较文件名, 而不是按语言比较文件名的问题.</p>
+
+<h2 id="v2.0.10">2.0.10 - 2023 年 9 月 24 日</h2>
+<p>修复 在 #HotIf 之后使用命名函数热键时崩溃的问题.</p>
+<p>修复 以点结尾的原义数字使行延续中断的问题.</p>
+<p>修复 预增/减 能与链式数组索引配合使用.</p>
+<p>修复 OnNotify/OnCommand 应用样式仅适用于 OnEvent.</p>
+<p>修复 使用 <code>emptydir\*</code> 时, FileExist/DirExist 泄漏句柄的问题.</p>
+<p>修复 当只有文件匹配时, DirExist 泄漏句柄的问题.</p>
+
+<h2 id="v2.0.9">2.0.9 - 2023 年 9 月 17 日</h2>
+<p>修复 带有 X 选项的热键的堆叠.</p>
+<p>修复 如果函数位于堆栈底部, 调试器不列出局部变量的问题.</p>
+<p>修复 Gui 线程显示在调试器的调用堆栈.</p>
+<p>修复 &amp;/ByRef 的一些组合导致 ExitApp 中的堆栈溢出.</p>
+
+<h2 id="v2.0.8">2.0.8 - 2023 年 9 月 11 日</h2>
+<p>修复 在未设置时, ByRef 参数错误地将默认值赋值给调用者的 VarRef 问题.</p>
+<p>修复 一些影响抑制 Alt/Ctrl/Shift/Win 热键的问题, 例如:</p>
+<ul>
+  <li><code>*LCtrl::</code> 从活动窗口阻止屏蔽 LCtrl, 但是发送 Alt 键组合会失败, 因为系统认为 Ctrl 是按下的, 因此会发送 WM_KEYDOWN, 而不是 WM_SYSKEYDOWN.</li>
+  <li><code>*LAlt::</code> 导致系统忘记任何先前的 <code>{LAlt DownR}</code>, 所以 <code>LCtrl::LAlt</code> 这样的重映射在 LAlt 物理按下时, 会表现地不正常, 即使 LAlt 被抑制.</li>
+  <li>系统对修饰符键的底层跟踪与逻辑状态不匹配的其他潜在问题.</li>
+</ul>
+<p>修复 一些影响延续片段的问题:</p>
+<ul>
+  <li>Join 选项中的转义序列被转换两次, 造成 <code>````</code> 变为一个原义的 <code>`</code> 而不是两个, <code>``n</code> 变为一个换行符, 等等.</li>
+  <li>如果延续片段采用相同类型的引号括起来并且缺少 <code>`</code> 选项, <code>`"</code> 或 <code>`'</code> 将产生一个原义反引号并结束字符串, 而不是产生一个原义的引号.</li>
+</ul>
+<p>优化 延续片段中引号和反引号的自动转义.</p>
+<p>修复 breakpoint_list(调试器) 在包含胖箭头函数的行上返回重复项的问题.</p>
+<p>修复 <code>+BackgroundDefault</code> 无法覆盖 Gui 的 BackColor 属性.</p>
+
+<h2 id="v2.0.7">2.0.7 - 2023 年 9 月 2 日</h2>
+<p>修复 MouseClickDrag 允许省略 X1 和 Y1.</p>
+<p>修复 鼠标 AltTab 热键不抑制前缀热键的执行, 如 <code>1 &amp; WheelDown::AltTab</code> 中的 <code>1::</code> . (Broken by v2.0.4)</p>
+<p>修复 钩子热键不能识别 SendInput 按下的修饰符的问题.</p>
+<p>修复 A_AhkPath 不依赖于用于启动进程的命令行的大小写/格式.</p>
+<p>修复 在涉及组的窗口搜索期间堆损坏的问题. (Broken by v2.0.6)</p>
+<p><strong>Launcher</strong></p>
+<p>修复 如果 #Requires 后跟除 <code>; prefer <i>xxx</i></code> 之外的注释时, #Requires 无法检测的问题.(Broken by v2.0.6)</p>
+<p>修复 语法检测错误解释多行自动替换热字串.</p>
+<p><strong>Window Spy</strong></p>
+<p>修改 字体为 Segoe UI 9 号字, 与 Dash 一致.</p>
+
+<h2 id="v2.0.6">2.0.6 - 2023 年 8 月 30 日</h2>
+<p>修复 一些模糊的 COM 调用, 如 <code>x.y</code> 作为 <code>x.y()</code>.</p>
+<p>修复 断点上的控制流语句被 "hit" 时, 返回一个在它下面的行的胖箭头函数.</p>
+<p>修复 <code>Default :</code> 不与它下面的行合并. 这阻止了 <code>Default :</code> 在 Switch 块的末尾使用, 并导致任何后续行采用 Default 的行号.</p>
+<p>优化 ProcessGetPath, ProcessSetPriority 和 ProcessClose 在给定有效 PID 时, 不扫描所有进程, 即使对进程的访问被拒绝.</p>
+<p>修复 <code>LWin::Alt</code> 无法激活某些 Alt 组合键的问题.</p>
+<p>修复 <code>x is y</code> 抛出的 TypeError, 说 "Class" 而不是 "Object".</p>
+<p>修复 WinTitle 支持超过 1023 个字符的条件.</p>
+<p>修复 在同一变量的不同别名上使用 <code>&amp;ref</code> 时的问题.</p>
+<p>修复 可选参数默认表达式(除了简单的原义值) 阻止假设全局/假设静态的使用.</p>
+
+<h2 id="v2.0.5">2.0.5 - 2023 年 8 月 12 日</h2>
+<p>修复 通过 COM 枚举对象时由于不正确的引用计数而导致的内存泄漏. [PR# 325]</p>
+<p>修复 内部调用 __Enum 不调用 __Call 的问题.</p>
+<p>修复 有关参数 #65535 的错误消息.</p>
+<p>修复 不正确的 IEnumVARIANT 返回计数.</p>
+<p>修复 当错误应该为非零值时, Download 抛出 OSError(0) 的问题.</p>
+<p>修复 当传递最小参数数时, LV.Add/Insert/Modify 崩溃的问题.</p>
+<p>修复 堆栈跟踪排除对 Error 子类的 __new 调用的问题.</p>
+
+<h2 id="v2.0.4">2.0.4 - 2023 年 7 月 3 日</h2>
+<p>更改 错误/警告对话框上的 Reload 按钮, 显式关闭对话框, 即使当前脚本实例没有终止.</p>
+<p>删除 对 <code>return var</code> 的优化, 该优化导致在 <code>finally</code> 块中访问该变量时显示为空白.</p>
+<p>修复 Default(Switch) 允许冒号前的空格.</p>
+<p>修复 在 Length 通过 <code>unset</code> 或 <code>var?</code> "显式省略", Array.Prototype.RemoveAt 返回移除值.</p>
+<p>修复 当 ComObject 传递给 for 循环时只指定第二个变量时的崩溃.</p>
+<p><strong>更改 合并 v1.1.37.00 和 v1.1.37.01 的变更:</strong></p>
+<p>修改 COM 方法和属性调用, 将大整数作为 VT_I8, 而不是 VT_R8(浮点) 传递, 因此保留了原来的类型和精度. 32 位范围内的整数仍作为 VT_I4 传递.</p>
+<p>新增 对带有 IDispatch 包装的 AutoHotkey 对象的双变量枚举器(for-loops) 的支持. 调用对象的脚本和对象本身都必须运行在支持的 AutoHotkey 版本.</p>
+<p>修复 通过 IDispatch(COM) 调用 AutoHotkey 方法时, 省略的参数接收其默认值, 而不是 "可选参数标记" 的问题. 在以前的版本中, <em>调用</em> COM 方法时, 已经完成了反向转换.</p>
+<p>修复 <code>VerCompare(a, "&gt;" b)</code>, 并略微减少了代码大小.</p>
+<p>修复 AltTab-related 相关的加载时错误, 使之与其他错误一致.</p>
+<p>修复 由 ComObject 包装器抛出的错误, 如果它是通过对象/COM 调用的, 不会被正确传播.</p>
+<p>修复 热键 GUI 控件, 允许将符号 <code>^</code>, <code>!</code> 和 <code>+</code> 设置为热键.</p>
+<p>修复 热键控件, 当其值被设置为一个符号时, 包括修饰符.</p>
+<p>修复 InputHook.KeyOpt() 单字符的潜在错误行为.</p>
+<ul>
+<li>删除选项可能不会影响相应的 SC.</li>
+<li>选项可能也适用于 sc000.</li>
+</ul>
+<p>修复 自定义组合的错误, 即如果单独用 #HotIf 禁用 <code>a::</code>, 一组热键如 <code>a &amp; b::</code>, <code>a::</code> 和 <code>a up::</code> 将不能抑制 <kbd>a</kbd> 的释放.</p>
+<p>修复 一个错误, 即一个键按下事件能被热键正确抑制, 但在 SendLevel &gt; 0 的情况下, 发送一个额外的键按下, 会阻止随后的键松开被抑制, 即使由于 #InputLevel, 忽略发送的事件.</p>
+<p>修复 <code>a &amp; b up::</code> 在 <code>a &amp; b::</code> 存在, 但被 #HotIf 禁用的情况下, 不会抑制 <kbd>b</kbd> 的问题.</p>
+<p>修复 热键由于竞争状态而无法触发的问题. 如果修饰符热键(如 <code>~*RWin::</code>) 太早调用 Send 或 GetKeyState, 操作系统可能会报告 RWin 没有按下, 因此修饰符的钩子的状态将被 "纠正", 热键将错误地触发或无法触发. 只有当另一个键盘钩子比脚本自己的钩子安装得更晚时才可能发生这种情况, 因为在这种情况下,操作系统不会更新按键的状态, 直到另一个钩子的线程恢复并返回..</p>
+<p>修复 热字串使用 #HotIf 设置的最后找到的窗口.</p>
+<p>修复 任何尝试重新安装键盘或鼠标钩子的问题, 如果操作系统已自动卸载该钩子. 在进行任何此类尝试之前, 仍有必要满足某些条件.</p>
+<p>优化 内置 IDispatch 缓存的 COM 属性名的分配.</p>
+<p>重构 代码以支持 AutoHotkey 作为 DLL 的构建配置.</p>
+
+<h2 id="v2.0.3">2.0.3 - 2023 年 6 月 19 日</h2>
+<p>修复 <code>Hotkey("a", "b")</code> 去使用原始的函数 "b", 而不是 "a". [PR #318]</p>
+<p>修复 在文件读取循环中使用 FileSetAttribute 时崩溃的问题. [PR #323]</p>
+<p>修复 重复 Gui 控件名称错误, 以正确中止线程.</p>
+<p>修复 DateTime/MonthCal 范围选项不应用最小值.</p>
+<p>修复 <code>s[x] =&gt; x</code> 和其他以 "s" 开头的单行属性.</p>
+<p>修复 在包含 <code>=&gt;</code> 的静态行中删除断点的错误.</p>
+<p>修复 当点击时, Button 控件不成为默认.</p>
+<p>修复 没有找到像素, PixelSearch 取消设置 X.</p>
+<p>修复 带转义序列的热字串导致下一行被跳过.</p>
+<p>修复 当 "ahk_" 在字符 2 时, WinTitle 忽略字符 1.</p>
+<p>修复 重映射, 以利用右手修饰符已经按下. 例如, <code>+x::+y</code> 将不再释放 RShift 来按下 LShift.</p>
+<p>更改 <code>a == b &amp;&amp; c()</code> 和类似情况的错误消息, 以避免暗指传统的 <code>=</code>.</p>
+<p>改进 某些情况下意外续行的错误信息.</p>
+<p>修复 允许保留字作为方法名的问题, 如文档所示.</p>
+<p>修复 一些键盘消息的重复 OnMessage 调用.</p>
+<p>修复 过早删除互引用闭包的问题.</p>
+<p>修复 SetFont 允许在 Options 参数中使用前导空格的问题.</p>
+<p>修复 <code>{ASC nnnn}</code> 的发送.</p>
+<p>修复 <code>a.base := a</code> 抛出错误的问题.</p>
+<p>修复 <code>x.y := unset</code> 导致崩溃或未定义的行为.</p>
+<p>修复 GuiControl.Move() 相对于 GUI 的客户端区域的问题，即使 GUI 不是它的父界面.</p>
+<p>修复 Menu Add 覆盖由 Menu Insert 附加的项目.</p>
+<strong>Launcher</strong>
+<p>在没有参数的情况下运行, 运行 Dash, 而不是在文档中显示旧的欢迎页面.</p>
+<p>修复 版本选择 GUI 在未选择版本的情况下按 Enter 键时引发错误的问题. [PR UX/#4]</p>
+<p>检查版本不存在是否可以下载时, 抑制错误.</p>
+<p>修复 如果 UAC 被禁用, 没有版本下载提示, 不显示 UAC 屏蔽的问题.</p>
+<p>修复 #Requires 解释的问题.</p>
+<ul>
+<li>支持省略 "v" 前缀.</li>
+<li>支持运算符(<code>&gt; &gt;= &lt; &lt;= =</code>).</li>
+<li>版本号支持单独的数字.</li>
+</ul>
+<strong>Installation</strong>
+<p>修复 命令行使用的默认安装目录.</p>
+<p>重命名 开始菜单快捷方式 "AutoHotkey" 为 "AutoHotkey Dash".</p>
+<p>修复 当以 SYSTEM 运行时的 EnableUIAccess.</p>
+<p>修复 在选择证书时验证私钥的 EnableUIAccess.</p>
+<strong>Dash</strong>
+<p>修复 启动配置 GUI 更新 "以管理员身份运行" 和 "以UI访问运行" 选项.</p>
+<p>修复 启动配置 GUI 中的 Up/Down 键的处理.</p>
+
+<h2 id="v2.0.2">2.0.2 - 2023 年 1 月 2 日</h2>
+<p>修复 短 DllCall 参数类型和无效类型的未定义行为.</p>
+<p>修复 AutoHotkey 二进制文件的(非字符串) 版本号.</p>
+<p>修复 参数类型错误以显示正确的参数编号.</p>
+
+<h2 id="v2.0.1">2.0.1 - 2023 年 1 月 1 日</h2>
+<p>修复 Func.IsOptional(1) 在某些情况下, 错误的返回 0 的问题.</p>
+<p>修复 当 Gui 是自己的事件接收器时, Gui 事件处理函数不删除 Gui 参数.</p>
+<p>修复 当没有可用的描述时, COM 错误不显示 "(null)".</p>
+<p>修复 ToolTip 间歇性出现在错误的位置.</p>
+<p>修复 __Enum(unset) 允许数组, 匹配和 Gui 的第二个变量.</p>
+<p>修复 #include &lt;&gt; 错误消息显示 "Script library" 而不是 "Function library" 的问题.</p>
+<p>修复 带有 Critical 的新线程无法阻止消息检查的问题.</p>
+<p>优化 DllCall 类型名称的转换.</p>
+<p>优化 代码.</p>
+
+<h2 id="Pre-Release">预发布</h2>
+<p>有关 v2.0.0 版本之前的更改历史, 请参阅以下内容(但注意一些更改已被取代):</p>
+<ul>
+  <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=24&t=110696">v2.0 候选版本</a></li>
+  <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=24&t=95688">v2.0-beta 版本</a></li>
+  <li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=37&t=2120">v2.0-alpha 版本</a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>#NoEnv | AutoHotkey v1</title>
+<meta name="description" content="The #NoEnv directive avoids checking empty variables to see if they are environment variables (recommended for all new scripts)." />
+<meta name="ahk:equiv-v2" content="v2-changes.htm#NoEnv" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>#NoEnv <span class="ver">[v1.0.43.08+]</span></h1>
+
+<p>不检查空变量是否为<a href="../Concepts.htm#environment-variables">环境变量</a>(推荐所有新脚本使用).</p>
+<pre class="Syntax"><span class="func">#NoEnv</span></pre>
+<p>在脚本的任意位置指定该指令可以避免脚本检查空变量是否为环境变量. 例如:</p>
+<pre>#NoEnv
+MsgBox %WinDir%</pre>
+<p>上面这个例子中 <u>不会</u> 检索 "WinDir" 环境变量(尽管这可以通过在脚本顶部附近加上 <code>WinDir := A_WinDir</code> 来解决).</p>
+<p>建议所有的新脚本使用这个指令, 因为:</p>
+<ol>
+  <li>每当表达式或命令中使用空变量时, 这样可以显著提升性能. 当使用没有加引号的参数类型(例如 <code>int</code> 与 <code>"int"</code>) 时, <a href="DllCall.htm">DllCall</a> 函数的性能也能得到提升.</li>
+  <li>它能避免由于环境变量意外地和脚本中使用的变量名称相同时引起的脚本错误.</li>
+  <li><a href="https://autohotkey.com/v2/">AutoHotkey v2</a> 中把这种行为设为默认的.</li>
+</ol>
+<p>为了自然过渡到 #NoEnv, 添加了内置变量 <a href="../Variables.htm#ComSpec">ComSpec</a> 和 <a href="../Variables.htm#ProgramFiles">ProgramFiles</a>. 它们与同名的环境变量包含了相同的内容.</p>
+<p>当 #NoEnv 有效时, 脚本中应该使用 <a href="EnvGet.htm">EnvGet</a> 来获取环境变量或使用内置变量, 例如 <a href="../Variables.htm#WinDir">A_WinDir</a>.</p>
+<p>和其他指令一样, #NoEnv 不能有条件地执行.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="EnvGet.htm">EnvGet</a>, <a href="../Variables.htm#ComSpec">Comspec</a>, <a href="../Variables.htm#ProgramFiles">ProgramFiles</a>, <a href="../Variables.htm#WinDir">A_WinDir</a></p>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>Automating Winamp | AutoHotkey v2</title>
+<meta name="description" content="Learn how to control Winamp via hotkey even when it is minimized or inactive." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+
+<body>
+<h1>自动化 Winamp</h1>
+
+<p>这个页面演示了即使 Winamp 处于最小化或不活动状态时如何通过热键控制它. 这些代码已经在 Winamp 2.78c 上测试成功, 在其他主要版本应该也能良好运行. 请提交改进改进方法到论坛.</p>
+<p>这个例子设置 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> 热键为按下 Winamp 的暂停/取消暂停按钮:</p>
+<pre>^!p::
+{
+    if not WinExist("ahk_class Winamp v1.x")
+        return
+<em>; 否则, 上面设置了下面要使用的 "上次找到的" 窗口.</em>
+<a href="../lib/ControlSend.htm">ControlSend</a> "c"  <em>; 暂停/取消暂停</em>
+}</pre>
+<p>这里是 Winamp 2.x (在其他版本中可能也有效) 中的一些快捷键. 上面的例子可以改用这些按键:</p>
+<table class="info" style="width:50%">
+  <tr>
+    <th style="width:29%">要发送的键</th>
+    <th>效果</th>
+  </tr>
+  <tr>
+    <td><code>c</code></td>
+    <td>暂停/取消暂停</td>
+  </tr>
+  <tr>
+    <td><code>x</code></td>
+    <td>播放/重放/取消暂停</td>
+  </tr>
+  <tr>
+    <td><code>v</code></td>
+    <td>停止</td>
+  </tr>
+  <tr>
+    <td><code>+v</code></td>
+    <td>渐隐停止</td>
+  </tr>
+  <tr>
+    <td><code>^v</code></td>
+    <td>当前音轨结束后停止</td>
+  </tr>
+  <tr>
+    <td><code>b</code></td>
+    <td>下一首</td>
+  </tr>
+  <tr>
+    <td><code>z</code></td>
+    <td>上一首</td>
+  </tr>
+  <tr>
+    <td><code>{left}</code></td>
+    <td>后退 5 秒</td>
+  </tr>
+  <tr>
+    <td><code>{right}</code></td>
+    <td>前进 5 秒</td>
+  </tr>
+  <tr>
+    <td><code>{up}</code></td>
+    <td>增大音量</td>
+  </tr>
+  <tr>
+    <td><code>{down}</code></td>
+    <td>减小音量</td>
+  </tr>
+</table>
+<p>下面这个例子获取 Winamp 中当前活动的音轨号:</p>
+<pre>
+TrackNumber := <a href="../lib/SendMessage.htm">SendMessage</a>(0x0400, 0, 120,, "ahk_class Winamp v1.x")
+if (TrackNumber != "")
+{
+    TrackNumber += 1  <em>; Winamp 的计数从 0 开始, 所以加 1 进行调整.</em>
+    MsgBox "Track #" TrackNumber " is active or playing."
+}</pre>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>WinActive() | AutoHotkey v1</title>
+<meta name="description" content="The WinActive function checks if the specified window is active and returns its unique ID (HWND)." />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>WinActive()</h1>
+<p>检查指定的窗口是否处于活动状态, 并返回其唯一 ID(HWND).</p>
+<pre class="Syntax">UniqueID := <span class="func">WinActive</span>(<span class="optional">WinTitle, WinText, ExcludeTitle, ExcludeText</span>)</pre>
+
+<h2 id="Parameters">参数</h2>
+<dl>
+
+  <dt>WinTitle, WinText, ExcludeTitle, ExcludeText</dt>
+  <dd>
+    <p>如果这些都是空白或省略, 将使用<a href="../misc/WinTitle.htm#LastFoundWindow">上次找到的窗口</a>. 否则, 为 <em>WinTitle</em> 指定<a href="../misc/WinTitle.htm">窗口标题或其他条件</a>, 来标识目标窗口, 和/或为 <em>WinText</em> 指定目标窗口的单个文本元素的子字符串(由包含的 Window Spy 实用程序显示).</p>
+    <p><em>ExcludeTitle</em> 和 <em>ExcludeText</em> 可用于根据标题或文本排除一个或多个窗口. 它们的规范类似于 <em>WinTitle</em> 和 <em>WinText</em>, 除了 <em>ExcludeTitle</em> 不识别除窗口标题之外的任何条件.</p>
+    <p>窗口标题和文本是区分大小写的. 默认情况下, 不检测隐藏窗口, 而检测隐藏文本元素, 除非使用 <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a> 和 <a href="DetectHiddenText.htm">DetectHiddenText</a> 进行更改. 默认情况下, 窗口标题必须以指定的 <em>WinTitle</em> 或 <em>ExcludeTitle</em> 开头才能匹配, 除非使用 <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a> 进行更改.</p>
+  </dd>
+
+</dl>
+
+<h2 id="Return_Value">返回值</h2>
+<p>函数返回匹配指定条件的活动窗口的<a href="../misc/WinTitle.htm#ahk_id">唯一 ID(HWND)</a>(为十六进制整数). 如果不匹配, 则函数返回 0.</p>
+<p>因为所有非零数字被视为 "true", 所以每当 <em>WinTitle</em> 为活动时, <code>if WinActive("WinTitle")</code> 语句为真.</p>
+
+<h2 id="Remarks">备注</h2>
+<p>如果省略所有参数, 那么将使用<a href="../misc/WinTitle.htm#LastFoundWindow">上次找到的窗口</a>.</p>
+<p>如果活动窗口符合匹配, 那么<a href="../misc/WinTitle.htm#LastFoundWindow">上次找到的窗口</a>将更新为当前活动窗口. </p>
+<p>获取活动窗口的唯一 ID 的简便方法是使用 <code>ActiveHwnd := WinExist("A")</code>.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="IfWinActive.htm">IfWinActive / IfWinNotActive</a>, <a href="WinExist.htm">WinExist()</a>, <a href="SetTitleMatchMode.htm">SetTitleMatchMode</a>, <a href="DetectHiddenWindows.htm">DetectHiddenWindows</a>, <a href="../misc/WinTitle.htm#LastFoundWindow">上次找到的窗口</a>, <a href="WinActivate.htm">WinActivate</a>, <a href="WinWaitActive.htm">WinWaitActive</a>, <a href="WinWait.htm">WinWait</a>, <a href="WinWaitClose.htm">WinWaitClose</a>, <a href="_IfWinActive.htm">#IfWinActive/Exist</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExLastFound">
+<p><a class="ex_number" href="#ExLastFound"></a> 关闭记事本或另一个窗口, 这取决于 WinActive 函数找到的是哪个窗口. 注意, "ahk_" 关键字和它的标准值之间的空格可以省略; 这在使用变量时特别有用, 如第二个 WinActive 所示.</p>
+<pre>if WinActive("ahk_class Notepad") or WinActive("ahk_class" ClassName)
+    WinClose <em>; 使用 WinActive 找到的窗口.</em></pre>
+</div>
+
+</body>
+</html>

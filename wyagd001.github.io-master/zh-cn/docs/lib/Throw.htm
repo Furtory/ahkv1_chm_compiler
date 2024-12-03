@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Throw | AutoHotkey v1</title>
+<meta name="description" content="The Throw statement signals the occurrence of an error. This signal can be caught by a Try-Catch statement." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>Throw <span class="ver">[v1.1.04+]</span></h1>
+
+<p>发生错误时发出信号. 此信号可以被 <a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> 语句捕获.</p>
+
+<pre class="Syntax"><span class="func">Throw</span> <span class="optional">, Expression</span></pre>
+<h2 id="Parameters">参数</h2>
+<dl>
+
+  <dt>Expression</dt>
+  <dd><p><span class="ver">[v1.1.05+]</span>: 如果省略, 抛出一个附带默认消息的<a href="#Exception">异常对象</a>.</p>
+      <p>否则, 指定一个存储在 <a href="Catch.htm">Catch</a> 的 OutputVar 的值.</p>
+      <p>由于这个参数是一个<a href="../Variables.htm#Expressions">表达式</a>, 因此以下示例都是有效的:</p>
+<pre>throw 3
+throw "literal string"
+throw MyVar
+throw i + 1
+throw { what: "Custom error", file: A_LineFile, line: A_LineNumber } <em>; 抛出一个<a href="Object.htm">对象</a></em></pre>
+<p>此参数总是为表达式, 所以变量引用不应该括在<a href="../FAQ.htm#percent">百分号</a>中, 除非执行<a href="../Variables.htm#ref">展开双重引用</a>.</p>
+<p><span class="ver">[v1.1.05+]</span>: 如果省略, 则抛出带默认消息的 <a href="#Exception">exception 对象</a>.</p></dd>
+
+</dl>
+
+<h2 id="Exception">Exception()</h2>
+<p>创建一个具有属性的对象, 这也是与<a href="Catch.htm#RuntimeErrors">运行时错误</a>创建的异常所通用的:</p>
+<pre class="Syntax"><span class="func">Exception</span>(Message <span class="optional">, What, Extra</span>)</pre>
+<p>此对象包含以下属性:</p>
+<ul>
+  <li><strong>Message:</strong> 错误消息或 <a href="../misc/ErrorLevel.htm">ErrorLevel</a> 值.</li>
+  <li><strong>What:</strong> 错误发生时正在或即将执行的命令或函数的名称.</li>
+  <li><strong>Extra:</strong> 错误的额外信息.</li>
+  <li><strong>File:</strong> 包含发生错误的语句的脚本文件的完整路径.</li>
+  <li><strong>Line:</strong> 发生错误的语句行号.</li>
+</ul>
+<p>如果省略 <em>What</em> , 则默认为当前函数或子程序的名称. 否则, 它可以为字符串或到调用堆栈顶部的负偏移. 例如, 使用值 -1 来设置 <code>Exception.What</code> 为当前函数或子线程名称, 且设置 <code>Exception.Line</code> 和 <code>Exception.File</code> 为调用它的行号和文件. 不过, 如果这个脚本已经被<a href="../Scripts.htm#ahk2exe">编译</a>或者偏移是无效的, <em>What</em> 将转换为一个字符串.</p>
+<p><em>Message</em> 和 <em>Extra</em> 被转换为字符串. 如果一个异常抛出而且没有被获取, 它们将在错误日志中显示.</p>
+<pre>try
+    SomeFunction()
+catch e
+    MsgBox % "Error in " e.What ", which was called at line " e.Line 
+
+SomeFunction() {
+    throw Exception("Fail", -1)
+}</pre>
+
+<h2 id="Related">相关</h2>
+<p><a href="Try.htm">Try</a>, <a href="Catch.htm">Catch</a>, <a href="Finally.htm">Finally</a>, <a href="OnError.htm">OnError()</a></p>
+<h2 id="Examples">示例</h2>
+<p>请参阅 <a href="Try.htm#Examples">Try</a>.</p>
+
+</body>
+</html>

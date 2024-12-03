@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>概念和约定 | AutoHotkey v1</title>
+<meta name="description" content="Learn details about some general concepts and conventions used by AutoHotkey, with focus on explanation rather than code." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="static/theme.css" rel="stylesheet" type="text/css" />
+<script src="static/content.js" type="text/javascript"></script>
+</head>
+<body>
+<h1>概念和约定</h1>
+<p>本文档涵盖了 AutoHotkey 所使用的一些通用概念和约定, 重点放在解释而不是代码上. 不会假定读者之前具备任何脚本或编程的知识, 但应准备好将要学习新的术语.</p>
+<p>有关语法的更多具体细节, 请参阅<a href="Language.htm">脚本语言</a>.</p>
+
+<h2 id="toc">目录</h2>
+<ul>
+  <li><a href="#values">值</a>
+  <ul>
+    <li><a href="#strings">字符串</a></li>
+    <li><a href="#numbers">数字</a></li>
+    <li><a href="#boolean">布尔值</a></li>
+    <li><a href="#nothing">空值</a></li>
+    <li><a href="#objects">对象</a></li>
+    <li><a href="#object-protocol">对象协议</a></li>
+  </ul></li>
+  <li><a href="#variables">变量</a>
+  <ul>
+    <li><a href="#uninitialised-variables">未初始化变量</a></li>
+    <li><a href="#built-in-variables">内置变量</a></li>
+    <li><a href="#environment-variables">环境变量</a></li>
+    <li><a href="#caching">缓存</a></li>
+  </ul></li>
+  <li><a href="#functions">函数/命令</a></li>
+  <li><a href="#control-flow">控制流</a></li>
+  <li><a href="#details">细节</a>
+  <ul>
+    <li><a href="#string-encoding">字符编码</a></li>
+    <li><a href="#pure-numbers">纯数字</a></li>
+    <li><a href="#names">名称</a></li>
+    <li><a href="#variable-references">变量引用与值</a></li>
+    <li><a href="#references-to-objects">对象的引用</a></li>
+  </ul></li>
+</ul>
+<!-- TODO:
+Scope/declarations
+Technical terms: dynamic, default
+Classes
+Exception handling
+-->
+
+<h2 id="values">值</h2>
+<p><em>值</em> 只是程序中的一条信息. 例如, 要发送的键名或要运行的程序名, 热键被按下的次数, 要激活的窗口的标题, 或在程序或脚本中具有某种意义的其他任何内容.</p>
+<p>AutoHotkey 支持这些类型的值:</p>
+<ul>
+  <li><a href="#strings">字符串</a>(文本)</li>
+  <li><a href="#numbers">数字</a>(整数和浮点数)</li>
+  <li><a href="#objects">对象</a></li>
+</ul>
+<p>其他一些相关的概念:</p>
+<ul>
+  <li><a href="#boolean">布尔值</a></li>
+  <li><a href="#nothing">空值</a></li>
+</ul>
+
+<h3 id="strings">字符串</h3>
+<p><em>字符串</em> 只是文本. 每个字符串实际上是一个序列或由字符组成的 <em>字符串</em>, 但可以视为单个实体. 字符串的 <em>长度</em> 是序列中字符的数量, 而字符串中字符的 <em>位置</em> 只是该字符的序号. 在 AutoHotkey 中按惯例, 第一个字符在位置 1.</p>
+<p id="numeric-strings"><strong>数字字符串:</strong> 当数学运算或比较需要时, 数字字符串(或任何其他受支持的<a href="#numbers">数字格式</a>) 自动解释为数字. 在 AutoHotkey v1 中, 如果两个值都是数值型的, 即使两个值都是字符串, 也会进行数值比较. 但是, 直接在表达式中使用的带引号字符串(或与带引号的字符串连接的结果) 始终不被认为是数字.</p>
+<p>文本在脚本中的书写方式取决于上下文. 有关详细信息, 请参阅<a href="Language.htm#legacy-syntax">传统语法</a>和<a href="Language.htm#strings">字符串(在表达式中)</a>.
+<p>有关字符串如何工作的更详细说明, 请参阅<a href="#string-encoding">字符编码</a>.</p>
+
+<h3 id="numbers">数字</h3>
+<p>AutoHotkey 支持这些数字格式:</p>
+<ul>
+  <li>十进制整数, 如 <code>123</code>, <code>00123</code> 或 <code>-1</code>.</li>
+  <li>十六进制整数, 如 <code>0x7B</code>, <code>0x007B</code> 或 <code>-0x1</code>.</li>
+  <li>十进制浮点数, 如 <code>3.14159</code>.</li>
+</ul>
+<p>除本文档注明外, 十六进制数字必须使用 <code>0x</code> 或 <code>0X</code> 前缀. 这个前缀必须写在 <code>+</code> 或 <code>-</code> 符号之后(如果存在), 并且在前导零之前. 例如, <code>0x001</code> 有效, 但 <code>000x1</code> 无效.</p>
+<p>带小数点的数字总是被认为是浮点数, 即使小数部分是零. 例如, <code>42</code> 和 <code>42.0</code> 通常可以互换, 但并非总是如此. 科学记数法也是公认的, 但前提是存在一个小数点(如 <code>1.0e4</code> 和 <code>-2.1E-4</code>).</p>
+<p>小数点分隔符总是一个点, 即使用户的区域设置指定了一个逗号.</p>
+<p>当数字被转换为字符串时, 它是根据当前的<a href="lib/SetFormat.htm#remarks">整数或浮点格式</a>进行格式化. 尽管 <a href="lib/SetFormat.htm">SetFormat</a> 命令可以用来更改当前的格式, 但通常使用 <a href="lib/Format.htm">Format</a> 函数格式化字符串会更好. 浮点数也可以使用 <a href="lib/Math.htm#Round">Round</a> 函数进行格式化.</p>
+<p>有关数字值的范围和精度的详细信息, 请参阅<a href="#pure-numbers">纯数字</a>.</p>
+
+<h3 id="boolean">布尔值</h3>
+<p><em>布尔值</em> 可以是 <em>true(真)</em> 或 <em>false(假)</em>. 布尔值用于表示具有两种可能状态的任何东西, 例如表达式的 <em>真假</em>. 例如, 当 x 小于或等于 y 的值时, 表达式 <code>(x &lt;= y)</code> 是 <em>真</em>. 布尔值也可以表示 <em>是</em> 或 <em>否</em>, <em>开</em> 或 <em>关</em>, <em>下</em> 或 <em>上</em>(如 <a href="lib/GetKeyState.htm#function">GetKeyState</a>) 等等.</p>
+<p>AutoHotkey 没有特定的布尔类型, 因此它使用整数值 <code>0</code> 表示假, 而 <code>1</code> 表示真. 当要求判断一个值的真假时, 空白或零值被认为是假, 而所有其他值被认为是真. (对象总是被视为真.)</p>
+<p>单词 <code>true</code> 和 <code>false</code> 是值分别为 1 和 0 的<a href="#built-in-variables">内置变量</a>. 使用它们可以增加脚本的可读性.</p>
+
+<h3 id="nothing">空值</h3>
+<p>AutoHotkey 中没有像其他语言那样有一个独特的表示 <em>nothing</em>, <em>null</em>, <em>nil</em> 或 <em>undefined(未定义)</em> 的值. 相反, 一个空字符串(长度为零的字符串) 通常具有这个含义.</p>
+<p>如果一个<a href="#variables">变量</a>或参数被称为 "空" 或 "空白", 通常意味着一个空字符串(长度为零的字符串).</p>
+
+<h3 id="objects">对象</h3>
+<p>通常有两种方式看待对象:</p>
+<ul>
+  <li>一个对象包含一组值, 允许这组值本身被视为一个值. 例如, 一个对象可以包含一个 <em>数组</em> 或一系列的项目, 或者一组相关的值, 如屏幕上某个位置的 X 坐标和 Y 坐标. 通过将对象与其他对象组合, 对象可用于构建复杂的结构.</li>
+  <li>一个对象可以表示一个 <em>事物</em>, 一个 <em>服务</em>, 或其他东西, 并且可以为脚本提供与这个事物或服务交互的方法. 例如, <em>BankAccount(银行账户)</em> 对象可能具有诸如账号, 当前余额和账户所有者等属性, 以及提取或存入金额的方法.</li>
+</ul>
+<p>适当的使用对象(特别是 <a href="Objects.htm#Custom_Classes">classes(类)</a>) 能产生 <em>模块化</em> 和 <em>可重复使用</em> 的代码. 模块化代码通常更容易测试, 理解和维护. 例如, 人们可以改进或修改一段代码, 而不需要知道其他段的细节, 也不必对这些段做相应的修改. 可重复使用的代码节省了时间, 避免了一遍又一遍地为相同或相似的任务编写和测试代码.</p>
+<p>当你将一个对象赋值给一个<a href="#variables">变量</a>时, 如 <code>myObj := {}</code>, 你存储的不是对象本身, 而是对象的<a href="#references-to-objects"><em>引用</em></a>. 复制该变量, 如 <code>yourObj := myObj</code>, 创建一个新的对 <em>同一</em> 对象的引用. 如 <code>myObj.ans := 42</code> 这样的改变会影响 <code>myObj.ans</code> 和 <code>yourObj.ans</code>, 因为它们都指向同一个对象. 但是, <code>myObj := Object()</code> 只影响变量 <em>myObj</em>, 不影响变量 <em>yourObj</em>, yourObj 仍然指向原始对象.</p>
+
+<h3 id="object-protocol">对象协议</h3>
+<p class="note">本节以这些概念为基础, 这些概念将在后面的章节中介绍: <a href="#variables">变量</a>, <a href="#functions">函数</a></p>
+<p>对象通过 <em>消息传递</em> 的原理工作. 您不知道对象的代码或变量实际驻留在哪里, 因此您必须将消息传递给对象, 如 "give me <em>foo</em>" 或 "go do <em>bar</em>", 并依赖对象来响应消息. AutoHotkey 中的对象支持以下基本消息:</p>
+<ul>
+  <li><strong>Get(获取)</strong> 一个值.</li>
+  <li><strong>Set(设置)</strong> 一个值, 使用 <code>:=</code>.</li>
+  <li><strong>Call(调用)</strong> 一个方法, 使用 <code>()</code>.</li>
+</ul>
+<p>每个消息可以有一个或多个<a href="#parameters">参数</a>(对于 <strong>Set(设置)</strong>, 需要值). 通常至少有一个参数, 它被解释为属性或方法的名称, 键或数组索引, 具体取决于对象以及使用方法. 消息的参数使用三种不同的模式指定: <code>.Name</code>, <code>[Parameters]</code> 和 <code>(Parameters)</code>, 其中 <em>Name</em> 是文字的<a href="#names">名称或标识符</a>, <em>Parameters</em> 是参数列表(如子表达式), 可以是空/空白(<code>[]</code> 或 <code>()</code>).</p>
+<p>对于 <strong>Get(获取)</strong> 和 <strong>Set(设置)</strong>, <code>.Name</code> 和 <code>[Parameters]</code> 可以互换使用, 也可以组合使用:</p>
+<pre>myObj[arg1, arg2, ..., argN]
+myObj.name
+myObj.name[arg2, ..., argN]
+</pre>
+<p>对于 <strong>Call(调用)</strong>, <code>.Name</code> 和 <code>[Parameter]</code> 可以互换使用, 并且必须总是跟着 <code>(Parameters)</code>:</p>
+<pre>myObj.name(arg2, ..., argN)
+myObj[arg1](arg2, ..., argN)
+</pre>
+<p>请注意, 如果 <code>name</code> 已经存在, 它将成为第一个参数. <code>myObj.name</code> 相当于 <code>myObj["name"]</code>, 而 <code>myObj.123</code> 相当于 <code>myObj[123]</code>. 这适用于所有类型的对象, 因此总是可以在运行时计算属性或方法的名称, 而不是将其硬编码到脚本中.</p>
+<p>虽然 <em>name</em> 或 <em>arg1</em> 被认为是第一个参数, 但是请记住这些只是 <em>消息</em>, 而且对象可以以任何方式自由处理它们. 在如上所示的方法调用中, 通常对象使用 <em>name</em> 或 <em>arg1</em> 来标识哪个方法应该被调用, 然后只有 <em>arg2</em> 和之后的部分被传递给方法. 实际上, <em>arg2</em> 成为方法的第一个表观参数.</p>
+<p>一般来说, <strong>Set</strong> 与赋值有相同的含义, 所以它使用相同的运算符:</p>
+<pre>myObj[arg1, arg2, ..., argN] := value
+myObj.name := value
+myObj.name[arg2, ..., argN] := value
+</pre>
+<p>目前, <strong>Set</strong> 允许使用 "hybrid(混合)" 语法, 但最好不要使用它:</p>
+<pre>myObj.name(arg2, ..., argN) := value
+</pre>
+<p>从技术上讲, <code>value</code> 作为 <em>Set</em> 消息的最后一个参数传递; 然而, 这个细节几乎与脚本作者无关. 一般来说, 人们可以简单地将其视为 "被赋值的值".</p>
+
+<h2 id="variables">变量</h2>
+<p>一个变量允许您使用一个名称作为一个值的占位符. 在脚本运行期间, 这个值可能会重复更改. 例如, 一个热键可以使用一个变量 <code>press_count</code> 来计算它被按下的次数, 并且当 <code>press_count</code> 是 3 的倍数(每第三次按下) 时, 发送一个不同的键. 即使只有一次赋值的变量也是有用的. 例如, <code>WebBrowserTitle</code> 变量可用于在更改首选 Web 浏览器或者由于软件更新而导致<a href="misc/WinTitle.htm">标题</a>或<a href="misc/WinTitle.htm#ahk_class">窗口类</a>发生更改时, 更容易更新代码.</p>
+<p>在 AutoHotkey 中, 需要使用它们时就可以创建变量. 每个变量都 <em>不是</em> 永久性地限制在一个<a href="#values">数据类型</a>中, 而是可以保存任何类型的值: 字符串, 数字或对象. 每个变量从空/空白开始; 换句话说, 每个新创建的变量都包含一个空字符串, 直到它被赋予其他值.</p>
+<p>一个变量有三个主要方面:</p>
+<ul>
+  <li>变量的 <em>名称</em>.</li>
+  <li>变量本身.</li>
+  <li>变量的 <em>值</em>.</li>
+</ul>
+<p>某些适用于变量名称的限制 - 请参阅<a href="#names">名称</a>了解详细信息. 简而言之, 坚持使用由 ASCII 字母(不区分大小写), 数字和下划线组成的名称是最安全的, 并避免使用以数字开头的名称.</p>
+<p>变量名称具有 <strong><em>作用域(范围)</em></strong>, 该范围定义了代码中的哪些位置可使用变量名称来引用该特定变量; 换句话说, 哪些位置变量是 <em>visible(可见的)</em>. 如果一个变量在一个给定的范围内是不可见的, 那么相同的名称可以引用一个不同的变量. 两个变量可能同时存在, 但只有一个对脚本的每个部分是可见的. <a href="Functions.htm#Global">全局变量</a>在 "全局范围"(即函数之外) 中是可见的, 但通常必须<a href="Functions.htm#Global">声明</a>为使其在函数内可见. <a href="Functions.htm#Local">局部变量</a>只在创建它们的函数内部可见.</p>
+<p>一个变量可以被认为是一个值的容器或存储位置, 所以你会经常发现文档引用变量的值作为 <em>变量的内容</em>. 对于变量 <code>x := 42</code>, 我们也可以说变量 x 的值是 42, 或者 x 的值是 42.</p>
+<p>值得注意的是, 一个变量和它的值是不一样的. 例如, 我们可以说 "<code>myArray</code> 是一个数组", 但是我们真正的意思是 myArray 是一个包含对数组的引用的变量. 我们通过使用变量的名称来引用其值, 但是 "myArray" 实际上只是变量的名称; 数组对象不知道它有一个名称, 并且可以被许多不同的变量引用(因此有很多的名称).</p>
+
+<h3 id="uninitialized-variables"><span id="uninitialised-variables"></span>未初始化变量</h3>
+<p><em>初始化</em> 变量是给它分配一个起始值. 虽然程序会自动初始化所有的变量(一个空字符串是默认值), 但是脚本在使用之前初始化它的变量是一个好习惯. 这样, 任何阅读脚本的人都可以看到脚本将使用哪些变量以及他们预期具有的起始值.</p>
+<p>脚本通常需要初始化任何预期包含数字的变量. 例如, 如果 x 从未被赋值 <code>x := x + 1</code> 将不起作用, 因为 <em>空字符串</em> 被认为是非数字的. 脚本应该分配一个起始值, 如 <code>x := 0</code>. 有些情况下空值 <em>是</em> 被假定为 0, 但是最好不要依赖这个方法.</p>
+<p><a href="lib/IsSet.htm">IsSet</a> 可用于确定变量是否已初始化, 例如在第一次使用全局或静态变量时进行初始化.</p>
+<p>脚本作者可以使用 <a href="lib/_Warn.htm">#Warn</a> 指令来帮助查找变量被使用而未被脚本初始化的情况.</p>
+
+<h3 id="built-in-variables">内置变量</h3>
+<p>程序中内置了许多有用的变量, 可以通过任何脚本来引用. 除了 <a href="misc/Clipboard.htm">Clipboard</a>, <a href="misc/ErrorLevel.htm">ErrorLevel</a> 和<a href="Scripts.htm#cmd">命令行参数</a>外, 这些变量是只读的; 也就是说, 他们的内容不能被脚本直接改变. 按照惯例, 这些变量中的大部分以前缀 <code>A_</code> 开头, 所以最好避免使用这个前缀作为你自己的变量.</p>
+<p>某些变量如 <a href="Variables.htm#KeyDelay">A_KeyDelay</a> 和 <a href="Variables.htm#TitleMatchMode">A_TitleMatchMode</a> 代表控制脚本行为的设置, 并为每个<a href="misc/Threads.htm">线程</a>保留不同的值. 这允许由新线程(如热键, 菜单, 计时器等) 启动的子例程在不影响其他线程的情况下更改设置.</p>
+<p>一些特殊的变量不是周期性地更新, 而是脚本引用变量时检索或计算它们的值. 例如, <a href="misc/Clipboard.htm">Clipboard</a> 以文本形式检索剪贴板的当前内容, <a href="Variables.htm#TimeSinceThisHotkey">A_TimeSinceThisHotkey</a> 计算自热键被按下以来经过的毫秒数.</p>
+<p>相关: <a href="Variables.htm#BuiltIn">内置变量列表</a>.</p>
+
+<h3 id="environment-variables">环境变量</h3>
+<p>环境变量由操作系统维护. 在命令提示符中输入 SET 并回车后, 您可以看到环境变量列表.</p>
+<p>脚本中可以使用 <a href="lib/EnvSet.htm">EnvSet</a> 创建新的环境变量或改变现有环境变量的内容. 系统的其他部分不会看到这种添加和改变. 但是, 通过调用 <a href="lib/Run.htm">Run</a> 或 <a href="lib/Run.htm">RunWait</a> 启动的任何程序或脚本会继承其父脚本的环境变量的副本.</p>
+<p>推荐在所有新脚本中使用 <a href="lib/EnvGet.htm">EnvGet</a> 来获取环境变量, 例如 Path:</p>
+<pre>EnvGet, OutputVar, Path  <em>; 有关解释, 请参阅 #NoEnv.</em></pre>
+<p>如果脚本中没有 <a href="lib/_NoEnv.htm">#NoEnv</a> 指令, 则读取一个空变量将返回具有该名称(如果有的话) 的环境变量的值. 这可能会导致混淆, 所以建议所有新脚本使用 <code>#NoEnv</code>.</p>
+
+<h3 id="caching">缓存</h3>
+<p>尽管变量通常被认为是持有单个值, 而该值具有不同的类型(字符串, 数字或对象), 但在 <code>myString + 1</code> 和 <code>MsgBox %myNumber%</code> 等情况下, AutoHotkey 会自动在数字和字符串之间进行转换. 由于这些转换可能非常频繁地发生, 因此只要转换了变量, 就会将结果 <em>缓存</em> 在变量中.</p>
+<p>实际上, 变量可以同时包含字符串和数字. 通常, 这只是为了改善脚本的性能不下降, 但是如果变量同时包含字符串和数字, 那它是数字, 还是字符串呢? 在至少两种情况下, 这种多义性会导致意外行为:</p>
+<ol>
+  <li>COM 对象. 为了将参数传递给 COM 对象, 程序必须将变量的内容转换为数字 <em>或</em> 字符串. 如果传递错误类型的值, 某些 COM 对象会引发异常. 如果变量同时具有数字和字符串, 则使用数字. 通常这会得到正确的结果, 但有时不会.</li>
+  <li>对象不能将同时包含数字和字符串的字串存储为键或值. 由于数字的内存效率更高, 因此如果变量同时具有两者, 则使用数字(除了用作键的浮点值).</li>
+</ol>
+<p><a href="lib/SetFormat.htm">SetFormat</a> 的慢速模式强制分配一个纯数字, 以便立即将该数字转换为一个字符串. 对于整数, 这个数字也被存储, 所以除了性能之外, 这不会有不利的影响. 对于浮点数, 不存储数字, 因为 SetFormat 会影响值的精度, 甚至可能会截断所有的小数位数. 换句话说, SetFormat 的慢速模式可防止纯浮点数存储在变量中.</p>
+<p>取一个变量的地址有效地将变量的值转换为一个字符串, 禁用缓存直到变量的地址改变(这发生在容量改变时). 这既是为了向后兼容, 也是因为脚本可以随时通过其地址间接地改变值, 使得缓存不准确.</p>
+
+<h3 id="Related">相关</h3>
+<ul>
+  <li><a href="Variables.htm#Intro">变量</a>: 基本用法和示例.</li>
+  <li><a href="Variables.htm#cap">变量的容量和内存占用</a>: 有关限制的详细信息.</li>
+</ul>
+
+<h2 id="functions">函数/命令</h2>
+<p><em>函数</em> 或 <em>命令</em> 是脚本 <em>执行某些操作</em> 的基本手段.</p>
+<p>实质上, 函数和命令是一回事, 所以这里解释的概念适用于两者. 然而, AutoHotkey v1 的悠久历史和强化向后兼容性, 导致了需要传统语法的 <em>命令</em> 和需要表达式语法的<em>函数</em> 之间的差异.</p>
+<p>命令和函数可以有很多不同的目的. 一些函数可能只是执行一个简单的计算, 而另一些可以立即看到效果, 比如移动一个窗口. AutoHotkey 的优势之一就是脚本可以轻松地自动执行其他程序, 并通过简单地调用几个函数执行许多其他常见任务. 有关示例, 请参阅<a href="lib/index.htm">命令和函数列表</a>.</p>
+<p>在整篇文档中, 一些常见的词汇的使用方式对于没有经验的人来说可能并不是通俗易懂的. 下面是一些与函数和命令相关的常用单词/短语:</p>
+<dl>
+  <dt id="call">调用函数或命令</dt>
+  <dd><p><em>调用</em> 函数或命令会导致程序调用, 执行或计算它. 换句话说, <em>函数调用</em> 暂时将控制权从脚本转移到函数. 函数完成其目的时, 它将控制权 <em>返回</em> 给脚本. 换句话说, 函数调用之后的任何代码都不会执行, 直到函数完成.</p>
+  <p>但是, 有时一个函数或命令可以在用户看到它的效果之前完成. 例如, <a href="lib/Send.htm">Send</a> 命令 <em>发送</em> 键击, 但可能会在键击到达其目的地并返回其预期效果之前返回.</p></dd>
+  <dt id="parameters">参数</dt>
+  <dd><p>通常一个命令或函数接受 <em>参数</em>, 告诉它如何操作或操作什么. 每个参数都是一个<a href="#values">值</a>, 如字符串或数字. 例如, <a href="lib/WinMove.htm">WinMove</a> 移动一个窗口, 所以它的参数告诉它要移动哪个窗口以及移动到哪里. Parameter(参数) 也可以被称为 <em>arguments(参数)</em>. 常用的缩写包括 <em>param</em> 和 <em>arg</em>.</p></dd>
+  <dt id="pass-parameters">传递参数</dt>
+  <dd><p>参数被 <em>传递</em> 给一个函数或命令, 这意味着函数或命令被调用时每个参数都会指定一个值. 例如, 可以 <em>传递</em> 键的名称给 <a href="lib/GetKeyState.htm">GetKeyState</a> 以确定该键是否被按下.</p></dd>
+  <dt id="return-a-value">返回值</dt>
+  <dd><p>函数 <em>返回</em> 一个值, 所以函数的结果通常称为 <em>返回值</em>. 例如, <a href="lib/StrLen.htm">StrLen()</a> 返回字符串中的字符数. 命令不直接返回结果; 作为代替, 他们将结果存储在一个<a href="#variables">变量</a>中. 函数也可以这样做, 比如当有多个结果时.</p></dd>
+</dl>
+<p>函数和命令通常期望参数以特定的顺序写入, 因此每个参数值的含义取决于它在逗号分隔的参数列表中的位置. 有些参数可以省略, 在这种情况下参数可以留空, 但是其后面的逗号只能在所有剩余的参数都省略的情况下才能省略. 例如, <a href="lib/ControlSend.htm">ControlSend</a> 的语法是:</p>
+<pre class="Syntax"><span class="func">ControlSend</span>, Control, Keys <span class="optional">, WinTitle, WinText, ExcludeTitle, ExcludeText</span></pre>
+<p>方括号表示所包含的参数是可选的(方括号本身不应出现在实际的代码中). 但是, 除非指定了 <em>Keys</em>, 否则 ControlSend 是无用的, 通常还必须指定目标窗口. 例如:</p>
+<pre>ControlSend, Edit1, ^{Home}, A  <em>; 正确. 控件被指定.</em>
+ControlSend, ^{Home}, A         <em>; 不正确: 参数不匹配.</em>
+ControlSend,, ^{Home}, A        <em>; 正确. 省略控件.</em>
+</pre>
+
+<h3 id="methods">方法</h3>
+<p><em>方法</em>是对特定<a href="#objects">对象</a>进行操作的函数. 虽然只能有一个名为 <code>Send</code> 的函数(例如), 但可以有许多名为 <code>Send</code> 的方法, 因为每个对象(或对象的类) 可以以不同的方式响应. 因此, 目标对象(可能是变量或子表达式) 被指定为方法名的左侧, 而不是参数列表中的左边. 有关详细信息, 请参阅<a href="#object-protocol">对象协议</a>.</p>
+
+<h2 id="control-flow">控制流</h2>
+<p><em>控制流</em> 是执行单个语句的顺序. 通常,  语句从上到下依次执行, 但控制流语句可以重写这一点, 例如, 指定应重复执行语句, 或者仅在满足某一条件时才这样做.</p>
+<dl>
+  <dt id="statement">语句</dt>
+  <dd><p><em>语句</em> 只是语言中最小的独立元素, 表示一些要执行的操作. 在 AutoHotkey 中, 语句包括命令, 任务, 函数调用和其他表达式. 但是, 指令, 标签(包括热键和热字串), 以及没有赋值的声明都不是语句; 当程序首次启动时, 在脚本 <em>执行</em> 之前, 它们将被处理.</p></dd>
+  <dt id="execute">执行</dt>
+  <dd><p>实施, 执行, 求值, 使生效, 等等. <em>执行</em> 基本上与非编程语言有相同的含义.</p></dd>
+  <dt id="cf-body">主体(正文)</dt>
+  <dd><p>控制流语句的 <em>主体</em> 是它所应用的语句或语句组. 例如, <a href="Language.htm#if-statement">if 语句</a>的主体仅在满足特定条件时执行.</p></dd>
+</dl>
+<p>例如, 请考虑以下简单的指令集:</p>
+<ol>
+  <li>打开记事本</li>
+  <li>等待记事本出现在屏幕上</li>
+  <li>输入 "Hello, world!"</li>
+</ol>
+<p>我们一步一个脚印, 当一步完成时, 我们继续下一步. 同样, 程序或脚本中的控制通常从一个语句流向下一个语句. 但是如果我们想在一个现有的记事本窗口中输入呢? 考虑一下这套经过修改的指令:</p>
+<ol>
+  <li>如果(If) 记事本没有运行:
+<ol>
+  <li>打开记事本</li>
+  <li>等待记事本出现在屏幕上</li>
+</ol>
+</li>
+  <li>否则:
+<ol>
+  <li>激活记事本</li>
+</ol>
+</li>
+  <li>输入 "Hello, world!"</li>
+</ol>
+<p>所以我们要么打开记事本, 要么激活记事本, 取决于它是否已经在运行. #1 是 <em>条件语句</em>, 也被称为 <em>if 语句</em>; 也就是说, 只有满足条件时, 我们才执行它的 <em>主体(正文)</em>(#1.1 - #1.2). #2 是 <em>else 语句</em>; 我们只有在前一个 <em>if 语句</em>(#1) 的条件不满足时才执行它的主体(#2.1). 根据条件, 控制 <em>流</em> 有两种方式: #1(如果为真) &rarr; #1.1 &rarr; #1.2 &rarr; #3; 或 #1(如果为假) &rarr; #2 (else) &rarr; #2.1 &rarr; #3.</p>
+<p>上面的说明可以转换成下面的代码:</p>
+<pre>if (not WinExist("ahk_class Notepad"))
+{
+    Run Notepad
+    WinWait ahk_class Notepad
+}
+else
+    WinActivate ahk_class Notepad
+Send Hello`, world{!}
+</pre>
+<p>在我们书写的指令中, 我们使用了缩进和编号来对语句进行了分组. 脚本工作有点不同. 尽管缩进使得代码更容易阅读, 但在 AutoHotkey 中, 它并不影响语句的分组. 作为替代, 如上所示, 语句通过将它们括在花括号中进行分组. 这被称为一个<a href="lib/Block.htm"><em>块</em></a>.</p>
+<p class="note">有关语法的详细信息 - 即如何在 AutoHotkey 中编写或识别控制流程语句 - 请参阅<a href="Language.htm#control-flow">控制流</a>.</p>
+
+<h2 id="details">细节</h2>
+
+<h3 id="string-encoding">字符编码</h3>
+<p>字符串中的每个字符都可以用一个名为 <em>序号</em> 或 <em>字符编码</em> 的数字表示. 例如, 值 "Abc" 将被表示如下:</p>
+<table class="info" style="width: 8em; text-align: center">
+  <tr><td>A</td><td>b</td><td>c</td></tr>
+  <tr><td>65</td><td>98</td><td>99</td><td>0</td></tr>
+</table>
+<p><strong>编码:</strong> 字符串的 <em>编码</em> 定义了符号如何映射到序数, 以及序数到字节. 尽管有许多不同的编码, 但是由于所有由 AutoHotkey 支持的编码都包含 ASCII 作为子集, 所以字符编码 0 到 127 总是具有相同的含义. 例如, 'A' 的字符编码总是 65.</p>
+<p id="null-termination"><strong>空终止符:</strong> 每个字符串都以 "空终止符" 结束, 换句话说, 二进制值为零的字符标志着字符串的结束. 字符串的长度不需要存储, 因为它可以通过空终止符的位置推断出来. 为了提高性能, AutoHotkey 有时也存储长度, 比如字符串存储在变量中时.</p>
+<p class="warning"><strong>注意:</strong> 由于依赖于空终止符, AutoHotkey v1 通常不支持包含空终止符的字符串. 可以使用 <a href="lib/VarSetCapacity.htm">VarSetCapacity()</a> 和 <a href="lib/NumPut.htm">NumPut()</a> 或 <a href="lib/DllCall.htm">DllCall()</a> 创建这样的字符串, 但是可能会产生不一致的结果.</p>
+<p id="native-encoding"><strong>原生编码:</strong> 尽管 AutoHotkey 提供了使用各种编码处理文本的方法, 但是内置的命令和函数--在某种程度上包括语言本身--都假定字符串值是在一个特定的编码中. 这被称为 <em>原生</em> 编码. 原生编码取决于 AutoHotkey 的版本:</p>
+<ul>
+  <li>
+<p>AutoHotkey 的 Unicode 版本使用 UTF-16. UTF-16 字符串中最小的元素是两个字节(16 位). 序号在 0 到 65535(U+FFFF) 范围内的 Unicode 字符是由一个与序号相等的单一的 16 位编码单元来表示, 而在 65536(U+10000) 到 1114111(U+10FFFF) 范围内的字符是由 <em>代理项对</em> 表示的; 也就是说, 需要在 0xD800 和 0xDFFF 范围内的两个 16 位编码单元来表示一个字符. (关于代理项对的进一步解释以及对它们进行编码或解码的方法, 请自行在网上搜索.)(译者注: 基本字符 "一" 的序号为 19968 相等的编码为 0x4E00, 扩展字符 "&#150370;" 的编码由代理项对表示为 0xD852 0xDF62)</p>
+</li>
+  <li>
+<p>AutoHotkey 的 ANSI 版本使用系统默认的 ANSI 代码页, 这取决于系统区域设置或 "非 Unicode 程序的语言" 系统设置. ANSI 字符串的最小元素是一个字节(8 位). 但是, 某些代码页包含由多个字节序列表示的字符(这些字符总是非 ASCII 字符).</p>
+</li>
+</ul>
+<p id="character"><strong>字符:</strong> 一般来说, 本文档的其他部分使用的术语 "字符" 表示的是字符串的最小单位; ANSI 字符串的字节和 Unicode(UTF-16) 字符串的 16 位编码单元. 出于实际的原因, 字符串的长度和字符串中的位置是通过计数这些固定大小的单位来测量的, 尽管它们可能不是完整的 Unicode 字符.</p>
+<p><a href="lib/FileRead.htm">FileRead</a>, <a href="lib/FileAppend.htm">FileAppend</a>, <a href="lib/FileOpen.htm">FileOpen()</a> 和 <a href="lib/File.htm">File 对象</a>提供了在具有特定编码的文件中读写文本的方法.</p>
+<p><a href="lib/StrGet.htm">StrGet()</a> 和 <a href="lib/StrPut.htm">StrPut()</a> 函数可用于在原生编码和某些其他指定编码之间转换字符串. 但是, 这些通常只与数据结构和 <a href="lib/DllCall.htm">DllCall()</a> 函数结合使用. 直接传入或传出 <a href="lib/DllCall.htm">DllCall()</a> 的字符串可以通过使用 <code>AStr</code> 或 <code>WStr</code> 参数类型转换为 ANSI 或 UTF-16.</p>
+<p>处理 AutoHotkey ANSI 和 Unicode 版本之间差异的技术可以在 <a href="Compat.htm#Format">Unicode 和 ANSI</a> 下找到.</p>
+
+<h3 id="pure-numbers">纯数字</h3>
+<p><em>纯</em> 数字或 <em>二进制</em> 数字是以计算机的 CPU 可以直接使用的格式(例如执行数学运算) 存储在内存中的数字. 在大多数情况下, AutoHotkey 会自动根据需要在数字字符串和纯数字之间进行转换, 很少区分这两种类型. AutoHotkey 主要为纯数字使用两种数据类型:</p>
+<ul>
+  <li>64 位有符号整数(<em>int64</em>).</li>
+  <li>64 位二进制浮点数(IEEE 754 国际标准的 <em>double</em> 或 <em>binary64</em> 格式).</li>
+</ul>
+<p>换句话说, 脚本受以下限制的影响:</p>
+<ul>
+  <li>
+<p>整数必须在 -9223372036854775808(-0x8000000000000000 或 -2<sup>63</sup>) 到 9223372036854775807(0x7FFFFFFFFFFFFFFF 或 2<sup>63</sup>-1) 的范围内. 尽管字符串中可以包含更大的值, 但是将字符串转换为数字(例如在数学运算中使用该字符串)  的尝试可能会产生不一致的结果.</p>
+</li>
+  <li>
+<p>浮点数字通常支持 15 位精度. 但是, 将浮点数字转换为字符串会使数字根据当前的<a href="lib/SetFormat.htm#Float">浮点格式</a>进行四舍五入的操作, 默认为小数点后 6 位. 如果 <a href="lib/SetFormat.htm">SetFormat</a> 的 "慢速" 模式存在于脚本的任意位置, 数字赋值给<a href="#variables">变量</a>时, <em>总是</em> 转为字符串.</p>
+</li>
+</ul>
+<p><strong>注意:</strong> 二进制浮点格式不能精确地表示一些小数, 所以一个数字四舍五入到最接近的可表示数字. 例如:</p>
+<pre>SetFormat FloatFast, 0.17  <em>; 显示 "超载" 精度</em>
+MsgBox % 0.1 + 0           <em>; 0.10000000000000001</em>
+MsgBox % 0.1 + 0.2         <em>; 0.30000000000000004</em>
+MsgBox % 0.3 + 0           <em>; 0.29999999999999999</em>
+MsgBox % 0.1 + 0.2 = 0.3   <em>; 0(不相等, 结果为假)</em>
+</pre>
+<p>解决这个问题的一个策略是避免直接比较, 而是比较相差. 例如:</p>
+<pre>MsgBox % Abs((0.1 + 0.2) - (0.3)) &lt; 0.0000000000000001
+</pre>
+<p>另一个策略是在比较之前总是转换为字符串(从而应用四舍五入). 在指定精确度时, 通常有两种方法可以做到这一点, 这两者都显示如下:</p>
+<pre>MsgBox % Round(0.1 + 0.2, 15) = Format("{:.15f}", 0.3)
+</pre>
+
+<h3 id="names">名称</h3>
+<p>AutoHotkey 使用相同的一组规则来命名各种东西, 包括, 变量, 函数, <a href="lib/GroupAdd.htm">窗口组</a>, <a href="lib/Gui.htm">GUI</a>, 类和方法:</p>
+<ul>
+  <li><strong>大小写敏感性:</strong> ASCII 字符不区分大小写. 例如, <code>CurrentDate</code> 等同于 <code>currentdate</code>. 但是, 大写的非 ASCII 字符例如 '&Auml;' <em>不</em> 被认为等于他们的小写字母, 不管当前用户的区域设置如何. 这有助于脚本在多个语言环境中保持一致.</li>
+  <li><strong>最大长度:</strong> 253 个字符.</li>
+  <li><strong>允许的字符:</strong> 字母, 数字, 非 ASCII 字符和以下符号: _ # @ $</li>
+</ul>
+<p>考虑到命名的惯例, 通常在命名变量时最好仅使用字母, 数字和下划线(例如: <em>CursorPosition</em>, <em>Total_Items</em> 和 <em>entry_is_valid</em>). 这样的风格可以让熟悉其他计算机语言的人更容易理解您的脚本.</p>
+<p>尽管<a href="#variables">变量</a>名可以完全由数字组成, 但通常这样的名称仅用于<a href="Scripts.htm#cmd_args_old">传入的命令行参数</a>. 这样数值名称的变量不能用在表达式中, 因为它们会被看成是数字而不是变量. 最好避免以数字开头, 因为这样的名称是容易混淆的并且在 AutoHotkey v2 中会被认为是无效的.</p>
+<p>由于以下字符可能保留用于 AutoHotkey v2 中的其他用途, 因此建议避免使用它们: # @ $</p>
+<p>类中的属性名称与变量名具有相同的规则和限制, 但不允许上面列出的三个字符(# @ $). 尽管可以在方法定义中使用它们, 但调用这种方法需要使用方括号. 例如, <code>myObject.@home()</code> 是无效的, 但 <code>myObject["@home"]()</code> 是可以接受的.</p>
+
+<h3 id="variable-references">变量引用与值</h3>
+<p>变量的某些属性模糊了变量与其值之间的界限, 但区分它们是很重要的. 特别是, 在考虑<a href="#objects">对象</a>和 ByRef 参数的时候.</p>
+<p>虽然我们可以说变量 <code>myArray</code> <em>包含</em> 一个数组(这是一个对象类型), 但变量包含的不是数组本身, 而是对数组的 <em>引用或指针</em>. 任意数量的变量都可以包含对同一对象的引用. 在这种情况下, 将变量看作只是一个名称可能会有所帮助. 例如, 给一个人一个昵称并不会导致克隆人的存在.</p>
+<p>默认情况下, 变量 <em>按值</em> 传递给用户定义的函数. 换句话说, 变量所包含的值被复制到与该函数的参数对应的变量中. <strong>ByRef</strong> 参数允许您 <em>通过引用</em> 传递一个变量, 或换句话说, 使函数的一个参数成为变量的 <em>别名</em>, 从而允许函数为变量赋一个新值.</p>
+<p>因为变量只包含对对象的 <em>引用</em>, 而不是对象本身, 所以当您将这样的变量传递给非 ByRef 参数时, 函数接收到的是对同一对象的引用. 这允许函数修改对象, 但它不允许函数修改函数调用者使用的 <em>变量</em>, 因为该函数只具有对对象的引用, 而不是变量.</p>
+
+<h3 id="references-to-objects">对象的引用</h3>
+<p>脚本仅通过对对象的 <em>引用</em> 间接与对象进行交互. 创建对象时, 对象是在您不能控制的地方创建的, 并给您一个引用. 将此引用传递给函数或将其存储在变量或其他对象中会创建对 <em>同一</em> 对象的新引用. 通过简单地使用赋值将其替换为任何其他数值, 可以释放引用. 只有在所有引用都已释放后, 才会删除对象; 不能显式删除对象, 也不应该去尝试这样做.</p>
+<pre>ref1 := Object()  <em>; 创建一个对象并储存第一个引用</em>
+ref2 := ref1      <em>; 创建一个对同一对象的新引用</em>
+ref1 := ""        <em>; 释放第一个引用</em>
+ref2 := ""        <em>; 释放第二个引用; 对象被删除</em>
+</pre>
+<p>如果难以理解的话, 可以尝试将一个对象看作出租单位. 当你租一个单位时, 你会得到一个你可以用来访问单位的钥匙. 您可以获得更多钥匙并使用它们访问同一个设备, 但是当您使用完该设备时, 您必须将所有钥匙交还给租赁代理. 通常这个单位不会被 <em>删除</em>, 但也许租赁代理将有你留下的任何垃圾删除掉; 就像存储在对象中的任何值在对象被删除时被释放一样.</p>
+
+</body>
+</html>

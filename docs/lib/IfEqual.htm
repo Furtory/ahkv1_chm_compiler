@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>If (传统型) | AutoHotkey v1</title>
+<meta name="description" content="The IfEqual, IfNotEqual, IfLess, IfLessOrEqual, IfGreater and IfGreaterOrEqual statements specify statements to execute if the comparison evaluates to true." />
+<meta name="ahk:equiv-v2" content="lib/If.htm" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>If / IfEqual / IfNotEqual / IfLess / IfLessOrEqual / IfGreater / IfGreaterOrEqual</h1>
+<p>指定在<a href="../Variables.htm">变量</a>与值的比较结果为 true 时执行的一个或多个<a href="../Concepts.htm#statement">语句</a>.</p>
+<p class="warning"><strong>过时的:</strong> 不推荐在新脚本中使用传统 If 语句. 有关详情, 请参阅<a href="../Language.htm#if-statement">脚本语言: If 语句</a>, 请使用 <a href="IfExpression.htm">If (表达式)</a> 代替.</p>
+<pre class="Syntax">
+<span class="func">IfEqual</span>, Var <span class="optional">, Value</span>          <em>; if Var = Value</em>
+<span class="func">IfNotEqual</span>, Var <span class="optional">, Value</span>       <em>; if Var != Value</em>
+<span class="func">IfLess</span>, Var <span class="optional">, Value</span>           <em>; if Var &lt; Value</em>
+<span class="func">IfLessOrEqual</span>, Var <span class="optional">, Value</span>    <em>; if Var &lt;= Value</em>
+<span class="func">IfGreater</span>, Var <span class="optional">, Value</span>        <em>; if Var &gt; Value</em>
+<span class="func">IfGreaterOrEqual</span>, Var <span class="optional">, Value</span> <em>; if Var &gt;= Value</em>
+</pre>
+
+<h2 id="Parameters">参数</h2>
+<dl>
+  <dt>Var</dt>
+  <dd><a href="../Variables.htm">变量</a>名. 除了<a href="../Language.htm#dynamic-variables">双重引用</a>, 否则必须省略百分号. 与其他命令的输入变量不同, 不支持<a href="../Language.htm#-expression">百分号前缀</a>.</dd>
+  <dt>Value</dt>
+  <dd>如果为空或省略, <em>Var</em>将与空字符串进行比较. 否则, 请指定<a href="../Language.htm#unquoted-text">不加引号的文本</a>或<a href="../Concepts.htm#numbers">数字</a>. 变量引用必须用百分号括起来(例如 %var2%).</dd>
+</dl>
+
+<h2 id="Remarks">备注</h2>
+<p>如果 <em>Var</em> 和 <em>Value</em> 都为纯数值, 那么它们将被作为数字而不是字符串进行比较. 其他情况下, 它们将被作为字符串按字母顺序进行比较(即字母次序将决定 <em>Var</em> 是大于, 等于或小于 <em>Value</em>).</p>
+<p>如果 <em>If</em> 拥有多行, 那么这些行必须用大括号括起来(创建一个<a href="Block.htm">区块</a>). 但是, 如果只有一行属于 <em>If</em>, 则大括号是可选的. 例如:</p>
+<pre>if count &lt;= 0
+{
+    WinClose Untitled - Notepad
+    MsgBox There are no items present.
+}</pre>
+<p>注意类命令的 If 语句允许与一个<a href="../Language.htm#commands">命令</a>或类命令的<a href="../Language.htm#control-flow">控制流语句</a>写在同一行, 但是拼写错误的命令名称将被视为原义文本. 换句话说, 这些都是有效的:</p>
+<pre>IfEqual, x, 1, Sleep, 1
+IfGreater, x, 1, EnvAdd, x, 2</pre>
+<p>但这些是无效的:</p>
+<pre>if x = 1 Sleep 1
+IfGreater, x, 1, x += 2</pre>
+<p><a href="IfExpression.htm#otb">One True Brace(OTB) 风格</a> <strong>不</strong> 能用于传统的 if 语句中. 它只能与 <a href="IfExpression.htm">If (表达式)</a> 一起使用.</p>
+<p>相关提示, 语句 <a href="IfBetween.htm">If Var [not] between Low and High</a> 判断变量是否在两个值之间, 而 <a href="IfIn.htm">If Var [not] in/contains MatchList</a> 可以用来判断变量内容是否存在于值列表中.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="IfExpression.htm">If (表达式)</a>, <a href="StringCaseSense.htm">StringCaseSense</a>, <a href="SetExpression.htm">赋值表达式(:=)</a>, <a href="IfIn.htm">If Var [not] in/contains MatchList</a>, <a href="IfBetween.htm">If Var [not] between Low and High</a>, <a href="IfInString.htm">IfInString</a>, <a href="Block.htm">区块</a>, <a href="Else.htm">Else</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExOne">
+<p><a class="ex_number" href="#ExOne"></a>: 如果 <var>counter</var> 大于或等于 1, 则休止 10&nbsp;ms.</p>
+<pre>if counter &gt;= 1
+    Sleep, 10</pre>
+</div>
+
+<div class="ex" id="ExMultiple">
+<p><a class="ex_number" href="#ExMultiple"></a> 如果 <var>counter</var> 大于或等于 1, 关闭记事本并休止 10&nbsp;ms.</p>
+<pre>if counter &gt;= 1   <em>; 若要执行多行, 请将这些行用大括号括起来:</em>
+{
+    WinClose, Untitled - Notepad
+    Sleep 10
+}</pre>
+</div>
+
+<div class="ex" id="ExComplex">
+<p><a class="ex_number" href="#ExComplex"></a> 本例执行如下:</p>
+<ol>
+  <li>如果 <var>MyVar</var> 等于 <var>MyVar2</var>, 显示 "The contents of MyVar and MyVar2 are identical."</li>
+  <li>否则如果 <var>MyVar</var> 为空:
+    <ol>
+      <li>显示 "MyVar is empty/blank. Continue?" 并等待用户输入.</li>
+      <li>如果用户按下 "No", 停止进一步检查.</li>
+    </ol>
+  </li>
+  <li>否则如果 <var>MyVar</var> 不是逗号, 显示 "The value in MyVar is not a comma.".</li>
+  <li>否则显示 "The value in MyVar is a comma.".</li>
+</ol>
+<pre>if MyVar = %MyVar2%
+    MsgBox The contents of MyVar and MyVar2 are identical.
+else if MyVar =
+{
+    MsgBox, 4,, MyVar is empty/blank. Continue?
+    IfMsgBox, No
+        Return
+}
+else if MyVar != ,
+    MsgBox The value in MyVar is not a comma.
+else
+    MsgBox The value in MyVar is a comma.</pre>
+</div>
+
+<div class="ex" id="ExBoolean">
+<p><a class="ex_number" href="#ExBoolean"></a> 如果 <var>Done</var> 既不是空也不是零, 显示 "The variable Done is neither empty nor zero.".</p>
+<pre>if Done
+    MsgBox The variable Done is neither empty nor zero.</pre>
+</div>
+
+</body>
+</html>

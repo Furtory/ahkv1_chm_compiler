@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>Else - 语法 &amp; 使用 | AutoHotkey v2</title>
+<meta name="description" content="The Else statement specifies one or more statements to execute if an If statement evaluates to false." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>Else</h1>
+<p>如果相关联语句的主体没有执行, 指定一个或多个<a href="../Concepts.htm#statement">语句</a>去执行.</p>
+<pre class="Syntax"><span class="func">Else</span> <i>语句</i></pre>
+<pre class="Syntax"><span class="func">Else</span>
+{
+    <i>语句</i>
+}</pre>
+
+<h2 id="Remarks">备注</h2>
+<p><em>Else</em> 的每次使用都必须附属于(与之关联的) 其上方的 <a href="If.htm">If</a>, <a href="Catch.htm">Catch</a>, <a href="For.htm">For</a>, <a href="Loop.htm">Loop</a> 或 <a href="While.htm">While</a> 语句. <em>Else</em> 始终附属于其上方最近的且无主的语句, 除非使用<a href="Block.htm">区块</a>来改变该行为. <em>Else</em> 语句执行的条件取决于关联语句:</p>
+<ul>
+  <li><a href="If.htm">If 表达式</a>: 表达式计算为假.</li>
+  <li><a href="For.htm">For</a>, <a href="Loop.htm">Loop</a>(任何类型), <a href="While.htm">While</a>: 循环的迭代次数为零.</li>
+  <li><a href="LoopRead.htm">Loop Read</a>: 如上所述, 但是 <em>Else</em> 的存在也可以防止在没有找到文件或路径时抛出错误. 因此, 如果文件为空或不存在, <em>Else</em> 就会执行.</li>
+  <li><a href="Try.htm">Try</a>...<a href="Catch.htm">Catch</a>: 在 <em>Try</em> 块中没有抛出异常.</li>
+</ul>
+<p><em>Else</em> 可以在同一行上紧跟着任何其他的单个<a href="../Concepts.htm#statement">语句</a>. 这通常用于 "else if" 梯形结构(请参阅底部的例子).</p>
+<p>如果 <em>Else</em> 拥有多行, 那么这些行必须用大括号括起来(创建一个<a href="Block.htm">区块</a>). 但是, 如果只有一行属于 <em>Else</em>, 则大括号是可选的. 例如:</p>
+<pre>if (count &gt; 0)  <em>; 下一行可以不需要使用大括号括住, 因为它只有单独一行.</em>
+    MsgBox "Press OK to begin the process."
+else  <em>; 下面这部分必须使用大括号括起来, 因为它含有多行.</em>
+{
+    WinClose "Untitled - Notepad"
+    MsgBox "There are no items present."
+}</pre>
+<p><a href="Block.htm#otb">One True Brace(OTB) 风格</a>可以用于 <em>Else</em> 前后. 例如:</p>
+<pre>if IsDone {
+    <em>; ...</em>
+} else if (x &lt; y) {
+    <em>; ...</em>
+} else {
+    <em>; ...</em>
+}</pre>
+
+<h2 id="Related">相关</h2>
+<p><a href="Block.htm">区块</a>, <a href="If.htm">If</a>, <a href="../Language.htm#control-flow">控制流语句</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ExBasic"></a> <em>Else</em> 语句的常见用法. 本例执行如下:</p>
+<ol>
+  <li>如果记事本存在:
+    <ol>
+      <li>激活它</li>
+      <li>发送字符串 "This is a test." 然后是 <kbd>Enter</kbd>.</li>
+    </ol>
+  </li>
+  <li>否则(即如果记事本不存在):
+    <ol>
+      <li>激活另一个窗口</li>
+      <li>在坐标 100, 200 处左击</li>
+    </ol>
+  </li>
+</ol>
+<pre>if WinExist("Untitled - Notepad")
+{
+    WinActivate
+    Send "This is a test.{Enter}"
+}
+else
+{
+    WinActivate "Some Other Window"
+    MouseClick "Left", 100, 200
+}</pre>
+</div>
+
+<div class="ex" id="ExOtherUsages">
+<p><a class="ex_number" href="#ExOtherUsages"></a>  展示 <em>Else</em> 语句可以使用的不同的样式.</p>
+<pre>if (x = 1)
+    firstFunction()
+else if (x = 2) <em>; "else if" 类型</em>
+    secondFunction()
+else if x = 3
+{
+    thirdFunction()
+    Sleep 1
+}
+else defaultFunction()  <em>; 即任何单个语句都可以和 Else 放在同一行.</em></pre>
+</div>
+
+<div class="ex" id="ExLoop">
+<p><a class="ex_number" href="#ExLoop"></a> 如果一个循环的迭代次数为零, 则执行一些代码.</p>
+<pre>
+<em>; 显示文件或 Internet Explorer 窗口/标签页.</em>
+for window in ComObject("Shell.Application").Windows
+    MsgBox "Window #" A_Index ": " window.LocationName
+else
+    MsgBox "No shell windows found."
+</pre>
+</div>
+
+</body>
+</html>

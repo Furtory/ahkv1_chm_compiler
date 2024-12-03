@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>Type - 语法 &amp; 使用 | AutoHotkey v2</title>
+<meta name="description" content="The Type function returns the class name of a value." />
+<meta name="ahk:equiv-v1" content="index.htm" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>Type</h1>
+<p>返回值的类名.</p>
+<pre class="Syntax">ClassName := <span class="func">Type</span>(Value)</pre>
+
+<h2 id="Return_Value">返回值</h2>
+<p>类型: <a href="../Concepts.htm#strings">字符串</a></p>
+<p>函数返回 <em>Value</em> 的类名.</p>
+<p>确定一个值的类名的算法可以近似地显示如下:</p>
+<pre>
+TypeOf(Value)
+{
+    if (comClass := ComObjType(Value, "Class")) != ""
+        return comClass
+    try <em>; `Value is Object` 没有被检查, 因为对于原型可能为假.</em>
+        if ObjHasOwnProp(Value, "__Class")
+            return "Prototype"
+    while Value := ObjGetBase(Value)
+        if ObjHasOwnProp(Value, "__Class")
+            return Value.__Class
+    return "Object"
+}
+</pre>
+<p>对于 COM 包装器对象, 类名也可以根据<a href="ComObjType.htm#vt">变体类型</a>来确定, 如下所示:</p>
+<pre>
+ComObject_Type(obj)
+{
+    if ComObjType(obj) &amp; 0x2000 <em>; VT_ARRAY</em>
+        return "ComObjArray" <em>; ComObjArray.Prototype.__Class</em>
+    if ComObjType(obj) &amp; 0x4000 <em>; VT_BYREF</em>
+        return "ComValueRef" <em>; ComValueRef.Prototype.__Class</em>
+    if (ComObjType(obj) = 9 || ComObjType(obj) = 13) <em>; VT_DISPATCH || VT_UNKNOWN</em>
+        &amp;&amp; ComObjValue(obj) != 0
+    {
+        if (comClass := ComObjType(obj, "Class")) != ""
+            return comClass
+        if ComObjType(obj) = 9 <em>; VT_DISPATCH</em>
+            return "ComObject" <em>; ComObject.Prototype.__Class</em>
+    }
+    return "ComValue" <em>; ComValue.Prototype.__Class</em>
+}
+</pre>
+
+<h2 id="Remarks">备注</h2>
+<p>通常不应该使用此函数来确定一个值是否是数值, 因为数值 <em>字符串</em> 在数学表达式和大多数内置函数中都是有效的. 但是, 在某些情况下, 值的确切类型更为重要. 在这种情况下, 可以考虑用 <code>Value is Number</code> 或类似的方式代替 Type.</p>
+<p>要检查一个值是否可以用作数字, 请使用 <a href="Is.htm#number">IsNumber</a>, <a href="Is.htm#integer">IsInteger</a> 或 <a href="Is.htm#float">IsFloat</a> 函数.</p>
+<p>要检查任何类型的对象(即, 任何不是原始值的东西), 请使用 <a href="IsObject.htm">IsObject</a> 函数.</p>
+<p>为了检查一个值是否是一个特定类的实例, 请使用 <a href="../Variables.htm#is"><code>is</code></a> 运算符. 这甚至可以用于原始值或识别 <a href="ComValue.htm">COM 封装对象</a>.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="../Concepts.htm#values">值</a>, <a href="../Language.htm#expressions">表达式</a>, <a href="Is.htm">Is 函数</a>, <a href="Integer.htm">Integer</a>, <a href="Float.htm">Float</a>, <a href="String.htm">String</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExBasic">
+<p><a class="ex_number" href="#ExBasic"></a> 检索并报告存储在 <var>a</var>, <var>b</var> 和 <var>c</var> 中的值的确切类型.</p>
+<pre>
+a := 1, b := 2.0, c := "3"
+MsgBox Type(a)  <em>; 整数</em>
+MsgBox Type(b)  <em>; 浮点数</em>
+MsgBox Type(c)  <em>; 字符串</em>
+</pre>
+</div>
+
+</body>
+</html>

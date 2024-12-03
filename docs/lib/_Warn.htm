@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>#Warn | AutoHotkey v1</title>
+<meta name="description" content="The #Warn directive enables or disables warnings for specific conditions which may indicate an error, such as a typo or missing "global" declaration." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>#Warn <span class="ver">[v1.0.95.00+]</span></h1>
+
+<p>启用或禁用可能产生错误的特定状况时的警告, 例如书写错误或缺少全局声明.</p>
+
+<pre class="Syntax"><span class="func">#Warn</span> <span class="optional">WarningType, WarningMode</span></pre>
+
+<h2 id="Parameters">参数</h2>
+<dl>
+
+  <dt>WarningType</dt>
+  <dd>
+      <p>如果省略, 默认为 <em>All</em>. 否则, 请指定要启用或禁用的警告类型.</p>
+      <p id="UseUnset"><strong>UseUnsetLocal</strong> 或 <strong>UseUnsetGlobal</strong>: 在读取之前没有赋值或使用 <a href="VarSetCapacity.htm">VarSetCapacity()</a> 初始化的变量时产生警告. 如果这种变量计划为空的, 则可以为它赋值空字符串来屏蔽这样的警告. <a href="IsSet.htm">IsSet()</a> 可用于确定读取变量是否会引发此警告.</p>
+      <p>对于用于局部和全局变量的这种警告被分成两种单独的类型, 这是由于全局变量的持久, 脚本范围作用域的性质, 使用全局变量而不预先初始化更常见. 因此, 一些脚本作者会希望对局部变量启用这种类型的警告, 但禁用全局的.</p>
+      <pre>#Warn
+<em>;y := ""  ; 这样将屏蔽警告.</em>
+x := y    <em>; y 还不含有值.</em></pre>
+      <p id="UseEnv"><strong>UseEnv:</strong> 在自动使用<a href="../Concepts.htm#environment-variables">环境变量</a>代替空的脚本变量时产生警告. 当环境变量名意外地与脚本中使用的某个变量名相同时会发生这种情况. 这种警告会在访问变量时会产生, 但如果脚本使用了 <a href="_NoEnv.htm">#NoEnv</a>(由于多种原因而推荐使用) 则可以避免.</p>
+      <pre>#Warn
+<em>;#NoEnv             ; 如果 "temp" 不是计划为环境变量则添加这行.</em>
+<em>;EnvGet temp, TEMP  ; 这里将复制环境变量的值到脚本变量中.</em>
+temp := ""          <em>; 不考虑这行, temp 仍然含有值.</em>
+MsgBox % temp       <em>; 这里访问名称为 "TEMP" 的环境变量.</em></pre>
+      <p id="LocalSameAsGlobal"><strong>LocalSameAsGlobal:</strong> 在脚本开始运行前, 为与全局变量名称相同的每个 <em>未声明</em> 局部变量显示警告. 这是用来避免在函数中由于忘记在访问全局变量前进行声明引起的错误. 如果变量确实为局部变量, 则可以用类似 <code>local x</code> 或 <code>static y</code> 这样的声明来屏蔽这种警告. 对于<a href="../Functions.htm#ForceLocal">强制局部</a>函数中变量, 不会显示此警告.</p>
+      <pre>#Warn
+g := 1
+ShowG() {       <em>; 即使从未调用这个函数也会显示警告.</em>
+    <em>;global g   ; &lt;-- 访问全局变量时需要这行.</em>
+    MsgBox % g  <em>; 没有声明, 所以 "g" 是个空的局部变量.</em>
+}</pre>
+      <p id="ClassOverwrite"><strong>ClassOverwrite</strong> <span class="ver">[v1.1.27+]</span>: 在脚本开始运行之前, 针对每个指定类变量的赋值显示警告. 例如, 如果 <em>Box</em> 是一个类, <code>box := new Box</code> 将会显示一个警告, 因为这会覆盖类(在超级全局变量中, <em>Box</em> ). 对于命令的输出变量也显示警告, 但 ByRef 参数不显示. 对于嵌套类或动态变量引用不会显示警告.</p>
+      <p id="Unreachable"><strong>Unreachable</strong> <span class="ver">[v1.1.33+]</span>: 在脚本开始运行之前, 为紧跟在同一嵌套级别的 <code>Return</code>, <code>Break</code>, <code>Continue</code>, <code>Throw</code>, <code>Goto</code> 或 <code>Exit</code> 的行显示一个警告, 除非该行是一个标签的目标. 虽然这并不能检测到所有的不可到达的代码, 但它能检测到常见的错误, 例如:</p>
+      <ul>
+        <li>将初始化代码(如赋值或 <a href="GroupAdd.htm">GroupAdd</a>) 放在热键子程序之间, 而它应该在<a href="../Language.htm#auto-execute-section">自动执行段</a>.</li>
+        <li>将 "多行" 热键子程序的第一行与热键标签放在同一行. 这样做会使它成为一个<a href="../Hotkeys.htm#Intro">单行热键</a>, 并有一个隐式的 <code>return</code> 防止任何后续行的执行. 同样, 在单行热键后放置 <code>return</code> 是多余的, 会引起警告.</li>
+        <li>将一个<a href="../Language.htm#subroutines">子程序</a>放在另一个子程序里面, 破坏了代码流.</li>
+      </ul>
+      <p>如果代码的目的是不可到达的 - 比如使用 <code>return</code> 来暂时禁用某块代码, 或者用注释的方式暂时禁用了某个热键或热串 - 可以考虑把不可到达的代码也注释掉. 另外, 也可以通过在第一行不可到达的代码上方定义一个<a href="../misc/Labels.htm">标签</a>来抑制警告.</p>
+      <p><strong>All:</strong> 应用指定的 <em>WarningMode</em> 支持的所有警告类型.</p>
+    </dd>
+
+  <dt>WarningMode</dt>
+  <dd>
+      <p>如果省略, 默认为 <em>MsgBox</em>. 否则, 请指定表示警告方式的值.</p>
+      <p><strong>MsgBox:</strong> 显示描述警告的消息框. 注意当这种消息框解除后, 脚本将照常继续.</p>
+      <p><strong>StdOut</strong> <span class="ver">[v1.1.04+]</span>: 把警告的描述以及相应的文件名和行号发送到 <em>stdout</em>(程序的标准输出流). 这样可以让类似 SciTE 的高级编辑器在不干扰脚本的同时捕获警告, 之后用户可以通过编辑器的控制面板跳转到各个出错行.</p>
+      <p><strong>OutputDebug:</strong> 把警告的描述发送到调试器显示出来. 如果没有活动的调试器, 则这个值没有效果. 想了解更多细节, 请参阅 <a href="OutputDebug.htm">OutputDebug</a>.</p>
+      <p><strong>Off:</strong> 禁用指定 <em>WarningType</em> 的警告.</p>
+    </dd>
+
+</dl>
+<h2 id="Remarks">备注</h2>
+	<p>如果在脚本中未指定此指令, 所有的警告都是关闭的.</p>
+	<p>无法在运行时启用或禁用警告, 这个设置是在脚本加载时确定的. 因此, 它在脚本中的位置是不重要的(并且与其他的指令一样, #Warn 不能根据条件执行).</p>
+	<p>然而, 多个 #Warn 指令的顺序是有意义的: 最近一次设置指定警告的指令决定了这种警告的模式. 所以, 例如下面的两个语句会启用除 UseEnv 之外的所有警告的组合效果:</p>
+<pre>#Warn All
+#Warn UseEnv, Off
+
+EnvSet EnvVar, 1
+x := EnvVar       <em>; 由于没有使用 #NoEnv, 所以这句是正确的.</em>
+x := NotAnEnvVar  <em>; 产生警告.</em>
+</pre>
+<h2 id="Related">相关</h2>
+<p><a href="../Functions.htm#Local">局部变量和全局变量</a></p>
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExAllOff">
+<p><a class="ex_number" href="#ExAllOff"></a> 禁用所有警告.  这是默认设置.</p>
+<pre>#Warn All, Off</pre>
+</div>
+
+<div class="ex" id="ExOmitted">
+<p><a class="ex_number" href="#ExOmitted"></a> 启用每种警告并将它们显示到消息框中.</p>
+<pre>#Warn</pre>
+</div>
+
+<div class="ex" id="ExUseUnsetLocalOutputDebug">
+<p><a class="ex_number" href="#ExUseUnsetLocalOutputDebug"></a> 在赋值前使用局部变量时发送警告到 OutputDebug.</p>
+<pre>#Warn UseUnsetLocal, OutputDebug</pre>
+</div>
+
+</body>
+</html>

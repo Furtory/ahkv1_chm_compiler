@@ -1,0 +1,157 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>If - 语法 &amp; 使用 | AutoHotkey v2</title>
+<meta name="description" content="The If statement specifies one or more statements to execute if an expression evaluates to true." />
+<meta name="ahk:equiv-v1" content="lib/IfExpression.htm" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>If</h1>
+
+<p>指定在<a href="../Variables.htm#Expressions">表达式</a>计算结果为 True(真) 时要执行的<a href="../Concepts.htm#statement">语句</a>.</p>
+<pre class="Syntax"><span class="func">If</span> <i>表达式</i>
+{
+    <i>语句</i>
+}</pre>
+
+<h2 id="Remarks">备注</h2>
+<p>如果 <em>If</em> 语句的表达式的计算结果为 true(即除空字符串或数字 0 以外的任何结果), 则执行其下面的行或<a href="Block.htm">区块</a>. 否则, 如果存在相应的 <a href="Else.htm">Else</a> 语句, 则执行将跳转到其下面的行或区块.</p>
+<p>如果 <em>If</em> 拥有多行, 那么这些行必须用大括号括起来(创建一个<a href="Block.htm">区块</a>). 但是, 如果只有一行属于 <em>If</em>, 则大括号是可选的. 请参阅此页面底部的示例.</p>
+<p>如果表达式以小括号开头, 则 <code>if</code> 后面的空格是可选的, 例如 <code>if(expression)</code>.</p>
+<p id="otb">可以选择使用 <a href="Block.htm#otb">One True Brace(OTB) 样式</a>. 例如:</p>
+<pre>if (x &lt; y) {
+    <em>; ...</em>
+}
+if WinExist("Untitled - Notepad") {
+    WinActivate
+}
+if IsDone {
+    <em>; ...</em>
+} else {
+    <em>; ...</em>
+}</pre>
+<p>与 <em>If</em> 语句不同, <a href="Else.htm">Else</a> 语句支持任何类型的语句紧跟在其右边.</p>
+
+<h2 id="Related">相关</h2>
+<p><a href="../Variables.htm#Expressions">表达式</a>, <a href="../Variables.htm#ternary">三元运算符(a?b:c)</a>, <a href="Block.htm">区块</a>, <a href="Else.htm">Else</a>, <a href="While.htm">While-loop</a></p>
+
+<h2 id="Examples">示例</h2>
+<div class="ex" id="ExOne">
+<p><a class="ex_number" href="#ExOne"></a> 如果 <var>A_Index</var> 大于 100, 则返回.</p>
+<pre>if (A_Index &gt; 100)
+    return</pre>
+</div>
+
+<div class="ex" id="ExMultiple">
+<p><a class="ex_number" href="#ExMultiple"></a> 如果 <code>A_TickCount - StartTime</code> 的结果大于 <code>2*MaxTime + 100</code>, 显示 "Too much time has passed." 并终止脚本.</p>
+<pre>if (A_TickCount - StartTime &gt; 2*MaxTime + 100)
+{
+    MsgBox "Too much time has passed."
+    ExitApp
+}</pre>
+</div>
+
+<div class="ex" id="ExComplex">
+<p><a class="ex_number" href="#ExComplex"></a> 本例执行如下:</p>
+<ol>
+  <li>如果 <var>Color</var> 是单词 "Blue" 或 "White":
+    <ol>
+      <li>则显示 "The color is one of the allowed values.".</li>
+      <li>终止脚本.</li>
+    </ol>
+  </li>
+  <li>否则如果 <var>Color</var> 是单词 "Silver":
+    <ol>
+      <li>显示 "Silver is not an allowed color.".</li>
+      <li>停止进一步的检查.</li>
+    </ol>
+  </li>
+  <li>否则:
+    <ol>
+      <li>显示 "This color is not recognized.".</li>
+      <li>终止脚本.</li>
+    </ol>
+  </li>
+</ol>
+<pre>if (Color = "Blue" or Color = "White")
+{
+    MsgBox "The color is one of the allowed values."
+    ExitApp
+}
+else if (Color = "Silver")
+{
+    MsgBox "Silver is not an allowed color."
+    return
+}
+else
+{
+    MsgBox "This color is not recognized."
+    ExitApp
+}</pre>
+</div>
+<div class="ex" id="ExMultiStatement">
+<p><a class="ex_number" href="#ExMultiStatement"></a> 单个<a href="../Variables.htm#comma">多语句</a>行不需要用大括号括起来.</p>
+<pre>MyVar := 3
+if (MyVar &gt; 2)
+    MyVar++, MyVar := MyVar - 4, MyVar .= " test"
+MsgBox % MyVar  <em>; 报告 "0 test".</em>
+</pre>
+</div>
+
+<div class="ex" id="ExIfBetween">
+<p><a class="ex_number" href="#ExIfBetween"></a> 类似于 AutoHotkey v1 的 <a href="https://www.autohotkey.com/docs/v1/lib/IfBetween.htm">If Var [not] between Lower and Upper</a>, 下面的例子检查<a href="../Variables.htm">变量的</a>内容是否在两个值(包括) 之间, 以数字或字母表示.</p>
+<p>检查 <var>var</var> 是否在 1 到 5 的范围内:</p>
+<pre>if (var &gt;= 1 and var &lt;= 5)
+    MsgBox var " is in the range 1 to 5, inclusive."</pre>
+<p>检查 <var>var</var> 是否在 0.0 到 1.0 的范围内:</p>
+<pre>if not (var &gt;= 0.0 and var &lt;= 1.0)
+    MsgBox var " is not in the range 0.0 to 1.0, inclusive."</pre>
+<p>检查 <var>var</var> 是否在 <var>VarLow</var> 和 <var>VarHigh</var>(包括) 之间:</p>
+<pre>if (var &gt;= VarLow and var &lt;= VarHigh)
+    MsgBox var " is between " VarLow " and " VarHigh "."</pre>
+<p>检查 <var>var</var> 是否按字母顺序排列在蓝色和红色(包括) 之间:</p>
+<pre>if (StrCompare(var, "blue") &gt;= 0) and (StrCompare(var, "red") &lt;= 0)
+    MsgBox var " is alphabetically between the words blue and red."</pre>
+<p>允许用户输入一个数字, 并检查它是否在 1 到 10 的范围内:</p>
+<pre>LowerLimit := 1
+UpperLimit := 10
+IB := InputBox("Enter a number between " LowerLimit " and " UpperLimit)
+if not (IB.Value &gt;= LowerLimit and IB.Value &lt;= UpperLimit)
+    MsgBox "Your input is not within the valid range."</pre>
+</div>
+
+<div class="ex" id="ExIfInContains">
+<p><a class="ex_number" href="#ExIfInContains"></a> 类似于 v1 的 <a href="https://www.autohotkey.com/docs/v1/lib/IfIn.htm">If Var [not] in/contains MatchList</a>, 下面的例子检查<a href="../Variables.htm">变量的</a>内容是否匹配列表中的项目.</p>
+<p>检查 <var>var</var> 是否是文件扩展名 exe, bat 或 com:</p>
+<pre>if (var ~= "i)\A(exe|bat|com)\z")
+    MsgBox "The file extension is an executable type."</pre>
+<p>检查 <var>var</var> 是否是质数 1, 2, 3, 5, 7 或 11:</p>
+<pre>if (var ~= "\A(1|2|3|5|7|11)\z")
+    MsgBox var " is a small prime number."</pre>
+<p>检查 <var>var</var> 是否包含数字 1 或 3:</p>
+<pre>if (var ~= "1|3")
+    MsgBox "Var contains the digit 1 or 3 (Var could be 1, 3, 10, 21, 23, etc.)"</pre>
+<p>检查 <var>var</var> 是否是 <var>MyItemList</var> 中的一个项目:</p>
+<pre><em>; 如果 MyItemList 包含除 | 之外的 RegEx 字符, 则取消下一行的注释
+; MyItemList := RegExReplace(MyItemList, "[\Q\.*?+[{()^$\E]", "\$0")</em>
+if (var ~= "i)\A(" MyItemList ")\z")
+    MsgBox var " is in the list."</pre>
+<p>允许用户输入一个字符串并检查它是否是单词 yes 或 no:</p>
+<pre>IB := InputBox("Enter YES or NO")
+if not (IB.Value ~= "i)\A(yes|no)\z")
+    MsgBox "Your input is not valid."</pre>
+<p>检查 <var>active_title</var> 是否包含 "Address List.txt" 或 "Customer List.txt", 并检查它是否包含 "metapad" 或 "Notepad":</p>
+<pre>active_title := WinGetTitle("A")
+if (active_title ~= "i)Address List\.txt|Customer List\.txt")
+    MsgBox "One of the desired windows is active."
+if not (active_title ~= "i)metapad|Notepad")
+    MsgBox "But the file is not open in either Metapad or Notepad."</pre>
+</div>
+
+</body>
+</html>

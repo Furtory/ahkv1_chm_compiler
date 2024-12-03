@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+<title>二进制兼容性 | AutoHotkey v2</title>
+<meta name="description" content="This document contains some topics which are sometimes important when dealing with external libraries or sending messages to a control or window." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="static/theme.css" rel="stylesheet" type="text/css" />
+<script src="static/content.js" type="text/javascript"></script>
+</head>
+<body>
+
+<h1>二进制兼容性</h1>
+
+<p>本文档包含一些主题, 这些主题在处理外部库或向控件或窗口发送消息时有时很重要.</p>
+
+<ul>
+  <li><a href="#Format">Unicode vs ANSI</a>
+    <ul>
+      <li><a href="#Buffer">Buffer</a></li>
+      <li><a href="#DllCall">DllCall</a></li>
+      <li><a href="#NumPutGet">NumPut / NumGet</a></li>
+    </ul>
+  </li>
+  <li><a href="#ptr">指针大小</a></li>
+</ul>
+
+<h2 id="Format">Unicode 与 ANSI</h2>
+<p class="note"><strong>注意:</strong> 本节建立在文档其他部分中涉及的主题之上: <a href="Concepts.htm#strings">字符串</a>, <a href="Concepts.htm#string-encoding">字符编码</a>.</p>
+<p>在一个字符串(文本值) 中, 每个字符的数字编码和大小(字节) 取决于字符串的<a href="Concepts.htm#string-encoding">编码</a>. 这些细节通常对做以下事情的脚本很重要:</p>
+<ul>
+  <li>通过 <a href="#DllCall">DllCall</a> 传递字符串到外部函数.</li>
+  <li>通过 <a href="lib/PostMessage.htm">PostMessage</a> 或 <a href="lib/SendMessage.htm">SendMessage</a> 传递字符串.</li>
+  <li>通过 <a href="#NumPutGet">NumPut/NumGet</a> 直接操作字符串.</li>
+  <li>分配 <a href="#Buffer">Buffer</a> 来容纳特定数量的字符.</li>
+</ul>
+<p>AutoHotkey v2 原生使用 Unicode(UTF-16), 但一些外部库或窗口信息可能需要 ANSI 字符串.</p>
+<p><strong>ANSI:</strong> 每个字符占用<strong>一个字节</strong>(8 位). 大于 127 的字符编码取决于系统的语言设置(或在对文本进行编码时选择的编码页, 例如, 当它被写入文件时).</p>
+<p><strong>Unicode:</strong> 每个字符占用<strong>两个字节</strong>(16 位). 字符编码是由 <a href="https://en.wikipedia.org/wiki/UTF-16">UTF-16</a> 格式定义的.</p>
+<p class="Indent"><em>语义注:</em> 技术上, 一些 Unicode 字符表示为 <i>两个</i> 16 位代码单元, 一起被称为 "代理项对". 同样地, 一些 <a href="https://learn.microsoft.com/windows/win32/intl/code-pages">ANSI 代码页</a>(通常称为<a href="https://learn.microsoft.com/windows/win32/intl/double-byte-character-sets">双字节字符集</a>, 例如 cp936 中的汉字) 含有一些双字节字符. 然而, 由于特殊的原因它们几乎都被视为两个单独的单元(为了简化而称为 "字符").</p>
+
+<h3 id="Buffer">Buffer</h3>
+<p>在分配 <a href="lib/Buffer.htm">Buffer</a> 时, 要注意为所需的任何编码计算正确的 <em>字节</em> 数. 例如:</p>
+<pre>ansi_buf  := Buffer(capacity_in_chars)
+utf16_buf := Buffer(capacity_in_chars * 2)</pre>
+<p>如果使用 <a href="lib/StrPut.htm">StrPut</a> 将 ANSI 或 UTF-8 字符串写入缓冲, 不要使用 <a href="lib/StrLen.htm">StrLen</a> 来确定缓冲的大小, 因为 ANSI 或 UTF-8 的长度可能与原生(UTF-16) 长度不同. 相反, 使用 <a href="lib/StrPut.htm#ExEncoding">StrPut</a> 来计算所需的缓冲大小. 例如:</p>
+<pre>required_bytes := StrPut(source_string, "cp0")
+ansi_buf := Buffer(required_bytes)
+StrPut(source_string, ansi_buf)</pre>
+
+<h3 id="DllCall">DllCall</h3>
+<p>使用 "Str" 类型时, 表示字符串使用当前版本原生的编码格式. 由于一些函数可能需要或返回特殊格式的字符串, 所以有时还需要使用下列的字符串格式:</p>
+<table class="info">
+  <tr><th>&nbsp;</th><th class="center">字符大小</th><th>C / Win32 类型</th><th>编码</th></tr>
+  <tr><td class="Syntax center" class="center">WStr</td><td class="center">16-位</td><td>wchar_t*, WCHAR*, LPWSTR, LPCWSTR</td><td>UTF-16</td></tr>
+  <tr><td class="Syntax center" class="center">AStr</td><td class="center">8-位</td><td>char*, CHAR*, LPSTR, LPCSTR</td><td>ANSI(系统默认 ANSI 代码页)</td></tr>
+  <tr><td class="Syntax center">Str</td><td class="center">--</td><td>TCHAR*, LPTSTR, LPCTSTR</td><td>等同于 AutoHotkey v2 中的 <b>WStr</b>.</td></tr>
+</table>
+<p>如果 "Str" 或 "WStr" 被用于一个参数, 字符串的地址被传递给函数. 对于 "AStr", 会创建一个字符串的临时 ANSI 拷贝, 并传递其地址. 一般来说, "AStr" 不应该用于输出参数, 因为缓冲区的大小只够容纳输入的字符串.</p>
+<p class="note"><b>注意:</b> "AStr" 和 "WStr" 对于参数和函数的返回值同样是有效的.</p>
+<p>一般来说, 如果脚本通过 DllCall 调用一个接受字符串参数的函数, 必须采取以下一种或多种方法:</p>
+<ol>
+  <li>如果函数的 Unicode(W) 和 ANSI(A) 版本都可用, 省略 W 或 A 的后缀, 对输入参数或返回值使用 "Str" 类型. 例如, DeleteFile 函数从 kernel32.dll 导出为 <code>DeleteFileA</code> 和 <code>DeleteFileW</code>. 由于 <code>DeleteFile</code> 本身并不真正存在, DllCall 自动尝试 <code>DeleteFileW</code>:
+  <pre>DllCall("DeleteFile", "Ptr", StrPtr(filename))
+DllCall("DeleteFile", "Str", filename)</pre>
+  <p>在这两种情况下, 原始的未修改的字符串的地址被传递给函数.</p>
+  <p>在某些情况下, 这种方法可能会适得其反, 因为 DllCall 只有在找不到原名称的函数时才会添加 W 后缀. 例如, shell32.dll 导出的 ExtractIconExW, ExtractIconExA 和 ExtractIconEx 都没有后缀, 最后两个是等价的. 在这种情况下, 省略 W 的后缀会导致 ANSI 版本被调用.</p></li>
+  <li>如果函数仅接受特定类型的字符串作为输入, 那么脚本可能需要使用相应的字符串类型:
+  <pre>DllCall("DeleteFileA", "AStr", filename)
+DllCall("DeleteFileW", "WStr", filename)</pre></li>
+  <li>如果函数有一个用于输出的字符串参数, 脚本必须如<a href="#Buffer">上</a> 所述分配一个缓冲并将其传递给函数. 如果该参数接受输入, 脚本还必须将输入的字符串转换为适当的格式; 为此可以使用 <a href="lib/StrPut.htm">StrPut</a>.</li>
+</ol>
+
+<h3 id="NumPutGet">NumPut / NumGet</h3>
+<p>当使用 NumPut 或 NumGet 操作字符串时, 对于给定类型的字符串其偏移和类型都必须正确. 可以参考下面的代码:</p>
+<pre><em>;  8 位/ANSI   字符串:  size_of_char=1  type_of_char="UChar"
+; 16 位/UTF-16 字符串:  size_of_char=2  type_of_char="UShort"</em>
+<i>n</i>th_char := NumGet(buffer_or_address, (<i>n</i>-1)*size_of_char, type_of_char)
+NumPut(type_of_char, <i>n</i>th_char, buffer_or_address, (<i>n</i>-1)*size_of_char)</pre>
+<p>对于第一个字符, <em>n</em> 的值应为 1.</p>
+
+<h2 id="ptr">指针大小</h2>
+<p>指针在 32 位版本中是 4 个字节大小, 而在 64 位版本中是 8 个字节. 使用结构或 DllCall 的脚本可能需要为在两种平台上正常运行进行考虑. 受影响的特殊地方包括:</p>
+<ul>
+  <li>含有一个或多个指针的结构字段的偏移计算.</li>
+  <li>含有一个或多个指针的结构大小计算.</li>
+  <li>在 <a href="lib/DllCall.htm">DllCall</a>, <a href="lib/NumPut.htm">NumPut</a> 或 <a href="lib/NumGet.htm">NumGet</a> 中使用的类型名称.</li>
+</ul>
+<p>对于大小和偏移计算, 使用 <a href="Variables.htm#PtrSize">A_PtrSize</a>. 对于 DllCall, NumPut 和 NumGet, 使用适当的 <a href="lib/DllCall.htm">Ptr</a> 类型.</p>
+<p>记住一个字段的偏移常常是在它之前所有字段的总大小. 同时注意句柄(包括类似 HWND 和 HBITMAP 的类型) 实际上是指针类型.</p>
+<pre><em>/*
+  typedef struct _PROCESS_INFORMATION {
+    HANDLE hProcess;    // Ptr
+    HANDLE hThread;
+    DWORD  dwProcessId; // UInt(4 字节)
+    DWORD  dwThreadId;
+  } <a href="https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a>, *LPPROCESS_INFORMATION;
+*/</em>
+pi := Buffer(A_PtrSize*2 + 8) <em>; Ptr + Ptr + UInt + UInt</em>
+DllCall("<a href="https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>", <span class="dull">&lt;为简短而省略&gt;</span>, "Ptr", &amp;pi, <span class="dull">&lt;省略&gt;</span>)
+hProcess    := NumGet(pi, 0)         <em>; 默认为 "Ptr".</em>
+hThread     := NumGet(pi, A_PtrSize) <em>;</em>
+dwProcessId := NumGet(pi, A_PtrSize*2,     "UInt")
+dwProcessId := NumGet(pi, A_PtrSize*2 + 4, "UInt")
+</pre>
+
+<br>
+</body>
+</html>

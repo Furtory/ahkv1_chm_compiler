@@ -1,0 +1,1391 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>按字母排序的命令和函数索引 | AutoHotkey v1</title>
+<meta name="description" content="A tabular list of all language elements (commands, functions, control flow statements, etc.) available in AutoHotkey, including their description." />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../static/theme.css" rel="stylesheet" type="text/css" />
+<script src="../static/content.js" type="text/javascript"></script>
+<style type="text/css">
+.larger {font-size:130%;font-weight:normal}
+</style>
+</head>
+<body>
+
+<h1>按字母排序的命令和函数索引</h1>
+<p>点击命令或函数名称了解详情. <span class="larger">大字体显示</span> 的条目是最常用的.</p>
+<p>跳转到: <a href="#E">E</a>,  &nbsp; <a href="#I">I</a>,  &nbsp; <a href="#M">M</a>,  &nbsp; <a href="#S">S</a>,  &nbsp; <a href="#W">W</a>, &nbsp; <a href="#hash">#</a>.</p>
+
+<table class="info">
+  <tr>
+    <th style="width:12em">名称</th>
+    <th abbr="Descr">描述</th>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Block.htm">{ ... } (区块)</a></td>
+    <td>区块是用大括号括起来的一个或多个<a href="../Concepts.htm#statement">语句</a>. 通常与<a href="../Functions.htm#define">函数定义</a>和<a href="../Language.htm#control-flow">控制流语句</a>一起使用.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="../Objects.htm#Usage_Associative_Arrays">{ ... } / Object()</a></td>
+    <td>创建脚本化关联数组.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="../Objects.htm#Usage_Simple_Arrays">[ ... ] / Array()</a></td>
+    <td>创建含整数键的脚本化关联数组.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Abs">Abs()</a></td>
+    <td>返回指定数字的绝对值.</td>
+  </tr>
+  <tr>
+    <td><a href="AutoTrim.htm">AutoTrim</a></td>
+    <td>设置在<a href="SetEnv.htm">遗留赋值</a>如 <code>Var1 = %Var2%</code> 这样的语句中进行赋值时是否忽略 Var2 的前导和尾随空格和 tab.</td>
+  </tr>
+  <tr>
+    <td><a href="Asc.htm">Asc()</a></td>
+    <td>返回指定字符的第一字节的数值或 UTF-16 编码单元.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#ASin">ASin()</a></td>
+    <td>返回弧度表示的反正弦值(其正弦值为指定数字).</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#ACos">ACos()</a></td>
+    <td>返回弧度表示的反余弦值(其余弦值为指定数字).</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#ATan">ATan()</a></td>
+    <td>返回弧度表示的反正切值(其正切值为指定数字).</td>
+  </tr>
+  <tr>
+    <td><a href="BlockInput.htm">BlockInput</a></td>
+    <td>禁用或启用用户通过键盘和鼠标与计算机交互的能力.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Break.htm">Break</a></td>
+    <td>退出(终止) 任意类型的<a href="../Language.htm#loop-statement">循环语句</a>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Catch.htm">Catch</a></td>
+    <td>指定在执行 <a href="Try.htm">Try</a> 语句发生异常时执行的一或多条<a href="../Concepts.htm#statement">语句</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Ceil">Ceil()</a></td>
+    <td>返回由指定数字向上取整到最近的整数(不带任何 .00 后缀).</td>
+  </tr>
+  <tr>
+    <td><a href="Chr.htm">Chr()</a></td>
+    <td>返回字符码 number 所对应的字符串(通常只有一个字符).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Click.htm">Click</a></td>
+    <td>在指定坐标处点击鼠标按钮. 它还可以按下鼠标按钮, 转动鼠标滚轮或移动鼠标.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="ClipWait.htm">ClipWait</a></td>
+    <td>等待, 一直到<a href="../misc/Clipboard.htm">剪贴板</a>包含数据.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjActive.htm">ComObjActive()</a></td>
+    <td>获取注册的 COM 对象.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjArray.htm">ComObjArray()</a></td>
+    <td>创建用于 COM 的 SafeArray.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjConnect.htm">ComObjConnect()</a></td>
+    <td>连接 COM 对象的事件源到带有给定前缀的函数.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="ComObjCreate.htm">ComObjCreate()</a></td>
+    <td>创建 COM 对象.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjActive.htm#ComObject">ComObject()</a></td>
+    <td>创建一个表示要作为参数或返回值传递的类型化值的对象.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjActive.htm#ComObjEnwrapUnwrap">ComObjEnwrap() / ComObjUnwrap()</a></td>
+    <td>包装/解开 COM 对象.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjError.htm">ComObjError()</a></td>
+    <td>启用或禁用 COM 错误通告.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjFlags.htm">ComObjFlags()</a></td>
+    <td>获取或改变控制 COM 包装器对象行为的标志.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjGet.htm">ComObjGet()</a></td>
+    <td>返回由 COM 组件提供的对象引用.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjActive.htm#ComObjMissing">ComObjMissing()</a></td>
+    <td>创建一个传递给 COM 方法的 "缺少参数" 对象.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjActive.htm#ComObjParameter">ComObjParameter()</a></td>
+    <td>把值和类型包装成参数传递给 COM 方法.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjQuery.htm">ComObjQuery()</a></td>
+    <td>查询 COM 对象的接口或服务.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjType.htm">ComObjType()</a></td>
+    <td>从 COM 对象获取类型信息.</td>
+  </tr>
+  <tr>
+    <td><a href="ComObjValue.htm">ComObjValue()</a></td>
+    <td>获取存储在 COM 包装器对象中的值或指针.</td>
+  </tr>
+  <tr>
+    <td><a href="Continue.htm">Continue</a></td>
+    <td>跳过当前<a href="../Language.htm#loop-statement">循环语句</a>的剩余部分并继续下一次循环.</td>
+  </tr>
+  <tr>
+    <td><a href="Control.htm">Control</a></td>
+    <td>对控件进行各种改变.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlClick.htm">ControlClick</a></td>
+    <td>发送鼠标按钮或鼠标滚轮事件到控件.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlFocus.htm">ControlFocus</a></td>
+    <td>设置输入焦点到窗口的指定控件上.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlGet.htm">ControlGet</a></td>
+    <td>获取控件的各种类型的信息.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlGetFocus.htm">ControlGetFocus</a></td>
+    <td>如果有, 则获取目标窗口中含输入焦点的控件.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlGetPos.htm">ControlGetPos</a></td>
+    <td>获取控件的位置和大小.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlGetText.htm">ControlGetText</a></td>
+    <td>获取控件的文本.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlMove.htm">ControlMove</a></td>
+    <td>移动控件或调整其大小.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlSend.htm">ControlSend / ControlSendRaw</a></td>
+    <td>发送模拟键击到窗口或控件.</td>
+  </tr>
+  <tr>
+    <td><a href="ControlSetText.htm">ControlSetText</a></td>
+    <td>改变控件的文本.</td>
+  </tr>
+  <tr>
+    <td><a href="CoordMode.htm">CoordMode</a></td>
+    <td>为多个命令设置坐标模式, 相对于活动窗口还是屏幕.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Cos">Cos()</a></td>
+    <td>返回指定数字的余弦三角函数值.</td>
+  </tr>
+  <tr>
+    <td><a href="Critical.htm">Critical</a></td>
+    <td>防止<a href="../misc/Threads.htm">当前线程</a>被其他线程中断, 或开启允许被中断.</td>
+  </tr>
+  <tr>
+    <td><a href="DetectHiddenText.htm">DetectHiddenText</a></td>
+    <td>设置在探测窗口时窗口中隐藏的文本是否 "可见". 此设置影响例如 WinExist() 和 WinActivate 的这些命令, 内置函数和控制流语句.</td>
+  </tr>
+  <tr>
+    <td><a href="DetectHiddenWindows.htm">DetectHiddenWindows</a></td>
+    <td>设置脚本是否可以 "看见" 隐藏的窗口.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="DllCall.htm">DllCall()</a></td>
+    <td>调用 DLL 文件中的函数, 例如标准的 Windows API 函数.</td>
+  </tr>
+  <tr>
+    <td><a href="Drive.htm">Drive</a></td>
+    <td>弹出/收进 CD 或 DVD 驱动器托盘, 或设置驱动器的卷标.</td>
+  </tr>
+  <tr>
+    <td><a href="DriveGet.htm">DriveGet</a></td>
+    <td>获取计算机驱动器的各种类型的信息.</td>
+  </tr>
+  <tr>
+    <td><a href="DriveSpaceFree.htm">DriveSpaceFree</a></td>
+    <td>获取包含指定路径的驱动器的可用磁盘空间, 单位为 MB.</td>
+  </tr>
+  <tr id="E">
+    <td><a href="Edit.htm">Edit</a></td>
+    <td>在默认编辑器中打开当前脚本进行编辑.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Else.htm">Else</a></td>
+    <td>指定 <a href="../Language.htm#if-statement">If 语句</a>的计算结果为 false, 要执行的一个或多个<a href="../Concepts.htm#statement">语句</a>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="EnvAdd.htm">EnvAdd</a></td>
+    <td>设置<a href="../Variables.htm">变量</a>的值为它自身加上给定的值的和(还可以从<a href="FileSetTime.htm#YYYYMMDD">日期-时间</a>值中增加或减去时间). 同义于: <code>Var += Value</code>.</td>
+  </tr>
+  <tr>
+    <td><a href="EnvDiv.htm">EnvDiv</a></td>
+    <td>设置<a href="../Variables.htm">变量</a>的值为它自身除以给定的值. 同义于: <code>Var /= Value</code>.</td>
+  </tr>
+  <tr>
+    <td><a href="EnvGet.htm">EnvGet</a></td>
+    <td>检索指定的<a href="../Concepts.htm#environment-variables">环境变量</a>的值.</td>
+  </tr>
+  <tr>
+    <td><a href="EnvMult.htm">EnvMult</a></td>
+    <td>设置<a href="../Variables.htm">变量</a>的值为它自身乘以给定的值. 同义于: <code>Var *= Value</code>.</td>
+  </tr>
+  <tr>
+    <td><a href="EnvSet.htm">EnvSet</a></td>
+    <td>写入值到指定的<a href="../Concepts.htm#environment-variables">环境变量</a>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="EnvSub.htm">EnvSub</a></td>
+    <td>设置<a href="../Variables.htm">变量</a>的值为它自身减去给定的值(还可以比较<a href="FileSetTime.htm#YYYYMMDD">日期-时间</a>值). 同义于: <code>Var -= Value</code>.</td>
+  </tr>
+  <tr>
+    <td><a href="EnvUpdate.htm">EnvUpdate</a></td>
+    <td>通知操作系统和所有正在运行的程序<a href="../Concepts.htm#environment-variables">环境变量</a>已经改变.</td>
+  </tr>
+  <tr>
+     <td><a href="Throw.htm#Exception">Exception()</a></td>
+     <td>创建一个具有属性的对象, 这也是与<a href="Catch.htm#RuntimeErrors">运行时错误</a>创建的异常所通用的.</td>
+   </tr>
+  <tr>
+    <td><a href="Exit.htm">Exit</a></td>
+    <td>退出<a href="../misc/Threads.htm">当前线程</a>或整个脚本(如果脚本不是<a href="_Persistent.htm">持续运行的</a>).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="ExitApp.htm">ExitApp</a></td>
+    <td>终止脚本.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Exp">Exp()</a></td>
+    <td>返回 <em>e</em>(其近似值为 2.71828182845905) 的 <em>N</em> 次幂.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="FileAppend.htm">FileAppend</a></td>
+    <td>在文件末尾处追加文本(如果有必要, 首先创建文本).</td>
+  </tr>
+  <tr>
+    <td><a href="FileCopy.htm">FileCopy</a></td>
+    <td>复制一个或多个文件.</td>
+  </tr>
+  <tr>
+    <td><a href="FileCopyDir.htm">FileCopyDir</a></td>
+    <td>复制文件夹及其所有子文件夹和文件(类似于 xcopy), 或者复制归档文件(如 ZIP)的全部内容.</td>
+  </tr>
+  <tr>
+    <td><a href="FileCreateDir.htm">FileCreateDir</a></td>
+    <td>创建文件夹.</td>
+  </tr>
+  <tr>
+    <td><a href="FileCreateShortcut.htm">FileCreateShortcut</a></td>
+    <td>创建快捷方式(.lnk) 文件.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="FileDelete.htm">FileDelete</a></td>
+    <td>永久删除一个或多个文件.</td>
+  </tr>
+  <tr>
+    <td><a href="FileEncoding.htm">FileEncoding</a></td>
+    <td>为 <a href="FileRead.htm">FileRead</a>, <a href="FileReadLine.htm">FileReadLine</a>, <a href="LoopReadFile.htm">Loop Read</a>, <a href="FileAppend.htm">FileAppend</a> 和 <a href="FileOpen.htm">FileOpen()</a> 设置默认编码.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="FileExist.htm">FileExist()</a></td>
+    <td>检查文件或目录是否存在并返回它的属性.</td>
+  </tr>
+  <tr>
+    <td><a href="FileInstall.htm">FileInstall</a></td>
+    <td>封装指定的文件到脚本的<a href="../Scripts.htm#ahk2exe">已编译版本</a>中.</td>
+  </tr>
+  <tr>
+    <td><a href="FileGetAttrib.htm">FileGetAttrib</a></td>
+    <td>报告文件或文件夹是否为只读, 隐藏等.</td>
+  </tr>
+  <tr>
+    <td><a href="FileGetShortcut.htm">FileGetShortcut</a></td>
+    <td>获取快捷方式(.lnk) 文件的信息, 例如其目标文件.</td>
+  </tr>
+  <tr>
+    <td><a href="FileGetSize.htm">FileGetSize</a></td>
+    <td>获取文件的大小.</td>
+  </tr>
+  <tr>
+    <td><a href="FileGetTime.htm">FileGetTime</a></td>
+    <td>获取文件或文件夹的时间戳.</td>
+  </tr>
+  <tr>
+    <td><a href="FileGetVersion.htm">FileGetVersion</a></td>
+    <td>获取文件的版本.</td>
+  </tr>
+  <tr>
+    <td><a href="FileMove.htm">FileMove</a></td>
+    <td>移动或重命名一个或多个文件.</td>
+  </tr>
+  <tr>
+    <td><a href="FileMoveDir.htm">FileMoveDir</a></td>
+    <td>移动文件夹及其所有子文件夹和文件. 它还可以重命名文件夹.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="FileOpen.htm">FileOpen()</a></td>
+    <td>打开文件, 从其中读取特定内容和/或将新内容写入其中.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="FileRead.htm">FileRead</a></td>
+    <td>读取文件的内容到<a href="../Variables.htm">变量</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="FileReadLine.htm">FileReadLine</a></td>
+    <td>读取文件指定行的文本并保存到<a href="../Variables.htm">变量</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="FileRecycle.htm">FileRecycle</a></td>
+    <td>如果可能, 发送文件或目录到回收站, 否则永久删除.</td>
+  </tr>
+  <tr>
+    <td><a href="FileRecycleEmpty.htm">FileRecycleEmpty</a></td>
+    <td>清空回收站.</td>
+  </tr>
+  <tr>
+    <td><a href="FileRemoveDir.htm">FileRemoveDir</a></td>
+    <td>删除文件夹.</td>
+  </tr>
+  <tr>
+    <td height="14" class="larger"><a href="FileSelectFile.htm">FileSelectFile</a></td>
+    <td height="14">显示可以让用户打开或保存文件的标准对话框.</td>
+  </tr>
+  <tr>
+    <td><a href="FileSelectFolder.htm">FileSelectFolder</a></td>
+    <td><p>显示可以让用户选择文件夹的标准对话框.</p></td>
+  </tr>
+  <tr>
+    <td><a href="FileSetAttrib.htm">FileSetAttrib</a></td>
+    <td>改变一个或多个文件或文件夹的属性. 支持通配符.</td>
+  </tr>
+  <tr>
+    <td><a href="FileSetTime.htm">FileSetTime</a></td>
+    <td>改变一个或多个文件或文件夹的时间戳. 支持通配符.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Finally.htm">Finally</a></td>
+    <td>确保在 <a href="Try.htm">Try</a> 语句结束后总是会执行的一行或多行<a href="../Concepts.htm#statement">语句</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Floor">Floor()</a></td>
+    <td>返回由指定数字向下取整到最近的整数(不带任何 .00 后缀).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="For.htm">For</a></td>
+    <td>对对象中的每对键值对重复执行一条或多条<a href="../Concepts.htm#statement">语句</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Format.htm">Format()</a></td>
+    <td>将输入的变量数值转换为格式化文本.</td>
+  </tr>
+  <tr>
+    <td><a href="FormatTime.htm">FormatTime</a></td>
+    <td>转换 <a href="FileSetTime.htm#YYYYMMDD">YYYYMMDDHH24MISS</a> 时间戳到指定的日期/时间格式.</td>
+  </tr>
+  <tr>
+    <td><a href="Func.htm#Func">Func()</a></td>
+    <td>获取函数的<a href="../Objects.htm#Function_References">引用</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="GetKey.htm">GetKeyName()</a></td>
+    <td>获取按键的名称/文本.</td>
+  </tr>
+  <tr>
+    <td><a href="GetKey.htm">GetKeyVK()</a></td>
+    <td>获取按键的虚拟键代码.</td>
+  </tr>
+  <tr>
+    <td><a href="GetKey.htm">GetKeySC()</a></td>
+    <td>获取按键的扫描码.</td>
+  </tr>
+  <tr>
+    <td><a href="GetKeyState.htm#command">GetKeyState</a></td>
+    <td>根据指定的键盘键或鼠标/控制器按钮是按下还是放开, 将字母 D 或 U 存储在变量中. 也可以获取控制器的状态.</td>
+ </tr>
+  <tr>
+    <td><a href="GetKeyState.htm#function">GetKeyState()</a></td>
+    <td>根据指定的键盘键或鼠标/控制器按钮是按下还是放开, 返回 1(true) 或 0(false). 也可以获取控制器的状态.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Gosub.htm">Gosub</a></td>
+    <td>跳转到指定的标签继续执行, 直到遇到 <a href="Return.htm">Return</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Goto.htm">Goto</a></td>
+    <td>跳转到指定的标签并继续执行.</td>
+  </tr>
+  <tr>
+    <td><a href="GroupActivate.htm">GroupActivate</a></td>
+    <td>激活由 <a href="GroupAdd.htm">GroupAdd</a> 定义的窗口组中的下一个窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="GroupAdd.htm">GroupAdd</a></td>
+    <td>增加窗口规格到窗口组, 必要时创建组.</td>
+  </tr>
+  <tr>
+    <td><a href="GroupClose.htm">GroupClose</a></td>
+    <td>关闭刚刚由 <a href="GroupActivate.htm">GroupActivate</a> 或 <a href="GroupDeactivate.htm">GroupDeactivate</a> 激活的活动窗口. 接着激活系列中的下一个窗口. 它还可以关闭组中所有窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="GroupDeactivate.htm">GroupDeactivate</a></td>
+    <td>类似于 <a href="GroupActivate.htm">GroupActivate</a>, 不同的是它激活<u>不</u>在组中的下一个窗口.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Gui.htm">Gui</a></td>
+    <td>创建和管理窗口和控件. 这种窗口可以用作数据输入窗体或自定义用户界面.</td>
+  </tr>
+  <tr>
+    <td><a href="GuiControl.htm">GuiControl</a></td>
+    <td>对 GUI 窗口中的控件进行各种设置.</td>
+  </tr>
+  <tr>
+    <td><a href="GuiControlGet.htm">GuiControlGet</a></td>
+    <td>获取 GUI 窗口中控件的各种类型的信息.</td>
+  </tr>
+  <tr>
+    <td><a href="Hotkey.htm">Hotkey</a></td>
+    <td>在脚本运行时创建, 修改, 启用或禁用热键.</td>
+  </tr>
+  <tr>
+    <td><a href="Hotstring.htm">Hotstring()</a></td>
+    <td>在脚本运行时创建, 修改, 启用或禁用热字串.</td>
+  </tr>
+  <tr id="I">
+    <td class="larger"><a href="IfExpression.htm">If (表达式)</a></td>
+    <td>指定在<a href="../Variables.htm#Expressions">表达式</a>计算结果为 true 时执行的一行或多行<a href="../Concepts.htm#statement">语句</a>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="IfEqual.htm">If (传统型)</a></td>
+    <td>指定在<a href="../Variables.htm">变量</a>与值比较结果为 true 时执行的一行或多行<a href="../Concepts.htm#statement">语句</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="IfBetween.htm">If Var [not] between Low and High</a></td>
+    <td>根据数值或字母顺序检查<a href="../Variables.htm">变量的</a>内容是否在两个值之间(包含边界).</td>
+  </tr>
+  <tr>
+    <td><a href="IfIn.htm">If Var [not] in/contains MatchList</a></td>
+    <td>检查<a href="../Variables.htm">变量的</a>内容是否匹配列表中的某项.</td>
+  </tr>
+  <tr>
+    <td><a href="IfIs.htm">If Var is [not] Type</a></td>
+    <td>检查<a href="../Variables.htm">变量的</a>内容是否为数值, 大写字母或其他.</td>
+  </tr>
+  <tr>
+    <td><a href="IfEqual.htm">IfEqual / IfNotEqual</a></td>
+    <td>比较<a href="../Variables.htm">变量</a>和值判断它们是否相等. 同义于: <code>if Var = Value</code> | <code>if Var != Value</code>.</td>
+  </tr>
+  <tr>
+    <td><a href="IfExist.htm">IfExist / IfNotExist</a></td>
+    <td>检查文件或文件夹是否存在.</td>
+  </tr>
+  <tr>
+    <td><a href="IfEqual.htm">IfGreater / IfGreaterOrEqual</a></td>
+    <td>比较<a href="../Variables.htm">变量</a>和某个值. 同义于: <code>if Var &gt; Value</code> | <code>if Var &gt;= Value</code>.</td>
+  </tr>
+  <tr>
+    <td><a href="IfInString.htm">IfInString / IfNotInString</a></td>
+    <td>检查<a href="../Variables.htm">变量</a>是否包含指定的字符串.</td>
+  </tr>
+  <tr>
+    <td><a href="IfEqual.htm">IfLess / IfLessOrEqual</a></td>
+    <td>比较<a href="../Variables.htm">变量</a>和某个值. 同义于: <code>if Var &lt; Value</code> | <code>if Var &lt;= Value</code>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="IfMsgBox.htm">IfMsgBox</a></td>
+    <td>检查用户在最近的 <a href="MsgBox.htm">MsgBox</a> 命令中点击了哪个按钮.</td>
+  </tr>
+  <tr>
+    <td><a href="IfWinActive.htm">IfWinActive / IfWinNotActive</a></td>
+    <td>检查指定的窗口是否存在且当前是否活动(在最前面).</td>
+  </tr>
+  <tr>
+    <td><a href="IfWinExist.htm">IfWinExist / IfWinNotExist</a></td>
+    <td>检查指定的窗口是否存在.</td>
+  </tr>
+  <tr>
+    <td><a href="ListView.htm#IL_Create">IL_Create()</a><br />
+        <a href="ListView.htm#IL_Add">IL_Add()</a><br />
+        <a href="ListView.htm#IL_Destroy">IL_Destroy()</a></td>
+    <td>将图标添加到 <a href="ListView.htm">ListView</a> 或 <a href="TreeView.htm">TreeView</a> 控件的方法.</td>
+  </tr>
+  <tr>
+    <td><a href="ImageSearch.htm">ImageSearch</a></td>
+    <td>在屏幕的某个区域中搜索图像.</td>
+  </tr>
+  <tr>
+    <td><a href="IniDelete.htm">IniDelete</a></td>
+    <td>删除标准格式的 .ini 文件中的值.</td>
+  </tr>
+  <tr>
+    <td><a href="IniRead.htm">IniRead</a></td>
+    <td>读取标准格式的 .ini 文件中的值, 段或段名列表.</td>
+  </tr>
+  <tr>
+    <td><a href="IniWrite.htm">IniWrite</a></td>
+    <td>写入值或段到标准格式的 .ini 文件.</td>
+  </tr>
+  <tr>
+    <td><a href="Input.htm">Input</a></td>
+    <td>等待用户输入字符串.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="InputBox.htm">InputBox</a></td>
+    <td>显示输入框让用户输入字符串.</td>
+  </tr>
+  <tr>
+    <td><a href="InputHook.htm">InputHook()</a></td>
+    <td>创建一个用于收集或拦截键盘输入的对象.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="InStr.htm">InStr()</a></td>
+    <td>搜索字符串的 <em>出现位置</em>, 从左边或右边开始.</td>
+  </tr>
+  <tr>
+    <td><a href="IsByRef.htm">IsByRef()</a></td>
+    <td>判断变量是否为 <a href="../Functions.htm#ByRef">ByRef 参数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="IsFunc.htm">IsFunc()</a></td>
+    <td>检查是否存在指定的函数.</td>
+  </tr>
+  <tr>
+    <td><a href="IsLabel.htm">IsLabel()</a></td>
+    <td>检查是否存在指定的标签.</td>
+  </tr>
+  <tr>
+    <td><a href="IsObject.htm">IsObject()</a></td>
+    <td>判断某个值是否为对象.</td>
+  </tr>
+  <tr>
+    <td><a href="IsSet.htm">IsSet()</a></td>
+    <td>如果指定变量已经被赋值, 则返回一个非零数字.</td>
+  </tr>
+  <tr>
+    <td><a href="KeyHistory.htm">KeyHistory</a></td>
+    <td>显示脚本信息和最近键击和鼠标点击的历史.</td>
+  </tr>
+  <tr>
+    <td><a href="KeyWait.htm">KeyWait</a></td>
+    <td>等待按键或鼠标/控制器按钮被松开或按下.</td>
+  </tr>
+  <tr>
+    <td><a href="ListHotkeys.htm">ListHotkeys</a></td>
+    <td>显示当前脚本包含的热键, 不论它们的子程序当前是否运行, 也不论它们是否使用<a href="_InstallKeybdHook.htm">键盘</a>或<a href="_InstallMouseHook.htm">鼠标</a>钩子.</td>
+  </tr>
+  <tr>
+    <td><a href="ListLines.htm">ListLines</a></td>
+    <td>显示最近执行的脚本行.</td>
+  </tr>
+  <tr>
+    <td><a href="ListVars.htm">ListVars</a></td>
+    <td>显示脚本的<a href="../Variables.htm">变量</a>: 它们的名称和当前的内容.</td>
+  </tr>
+  <tr>
+    <td><a href="LoadPicture.htm">LoadPicture()</a></td>
+    <td>载入一个图像文件并返回一个位图或图标句柄.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Log">Log()</a></td>
+    <td>返回指定数字的对数(底数为 10).</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Ln">Ln()</a></td>
+    <td>返回指定数字的自然对数(底数为 e).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Loop.htm">Loop(普通)</a></td>
+    <td>重复执行一条或多条<a href="../Concepts.htm#statement">语句</a>: 可以指定表示重复次数或直到遇到 <a href="Break.htm">Break</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="LoopFile.htm">Loop(文件和文件夹)</a></td>
+    <td>获取指定的文件或文件夹, 每次一个.</td>
+  </tr>
+  <tr>
+    <td><a href="LoopParse.htm">Loop(解析字符串)</a></td>
+    <td>从一个字符串中获取子字符串(片段), 每次一个.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="LoopReadFile.htm">Loop(读取文件内容)</a></td>
+    <td>逐行读取文本文件的内容, 每次一行(比 <a href="FileReadLine.htm">FileReadLine</a> 执行的更好).</td>
+  </tr>
+  <tr>
+    <td><a href="LoopReg.htm">Loop (registry)</a></td>
+    <td>获取指定的注册表子键的内容, 每次一个项目.</td>
+  </tr>
+  <tr>
+    <td><a href="ListView.htm#LV_Add">LV_Add()</a><br />
+    <a href="ListView.htm#LV_Delete">LV_Delete()</a><br />
+    <a href="ListView.htm#LV_DeleteCol">LV_DeleteCol()</a><br />
+    <a href="ListView.htm#LV_GetCount">LV_GetCount()</a><br />
+    <a href="ListView.htm#LV_GetNext">LV_GetNext()</a><br />
+    <a href="ListView.htm#LV_GetText">LV_GetText()</a><br />
+    <a href="ListView.htm#LV_Insert">LV_Insert()</a><br />
+    <a href="ListView.htm#LV_InsertCol">LV_InsertCol()</a><br />
+    <a href="ListView.htm#LV_Modify">LV_Modify()</a><br />
+    <a href="ListView.htm#LV_ModifyCol">LV_ModifyCol()</a><br />
+    <a href="ListView.htm#LV_SetImageList">LV_SetImageList()</a></td>
+    <td>添加, 修改或检索 <a href="ListView.htm">ListView</a> 控件的行和列的方法.</td>
+  </tr>
+  <tr id="M">
+    <td><a href="Math.htm#Max">Max()</a></td>
+    <td>返回一组数字中的最大值.</td>
+  </tr>
+  <tr>
+    <td><a href="Menu.htm">Menu</a></td>
+    <td>创建, 删除, 修改和显示菜单和菜单项. 改变托盘图标和它的提示. 控制是否可以打开<a href="../Scripts.htm#ahk2exe">已编译脚本</a>的<a href="../Program.htm#main-window">主窗口</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="MenuGetHandle.htm">MenuGetHandle()</a></td>
+    <td>获取菜单的 <a href="Menu.htm#Win32_Menus">Win32 menu</a> 句柄.</td>
+  </tr>
+  <tr>
+  <tr>
+    <td><a href="Math.htm#Min">Min()</a></td>
+    <td>返回一组数字中的最小值.</td>
+  </tr>
+    <td><a href="MenuGetName.htm">MenuGetName()</a></td>
+    <td> 通过指定的底层 <a href="Menu.htm#Win32_Menus">Win32 menu</a> 句柄, 获取菜单的名称.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Mod">Mod()</a></td>
+    <td>求模. 返回一个数字(被除数) 除以另一个数字(除数) 的余数.</td>
+  </tr>
+  <tr>
+    <td><a href="MouseClick.htm">MouseClick</a></td>
+    <td>点击或按住鼠标按钮, 或滚动鼠标滚轮. 注意: <a href="Click.htm">Click</a> 命令通常更灵活和易于使用.</td>
+  </tr>
+  <tr>
+    <td><a href="MouseClickDrag.htm">MouseClickDrag</a></td>
+    <td>点击并按住指定的鼠标按钮, 接着移动鼠标到目标坐标, 然后松开按钮.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="MouseGetPos.htm">MouseGetPos</a></td>
+    <td>获取鼠标光标的当前位置以及鼠标当前悬停的窗口和控件(可选的).</td>
+  </tr>
+  <tr>
+    <td><a href="MouseMove.htm">MouseMove</a></td>
+    <td>移动鼠标光标.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="MsgBox.htm">MsgBox</a></td>
+    <td>在含有一个或多个按钮(例如 "是" 和 "否") 的小窗口中显示指定的文本 .</td>
+  </tr>
+  <tr>
+    <td><a href="NumGet.htm">NumGet()</a></td>
+    <td>返回在指定地址+偏移的位置存储的二进制数.</td>
+  </tr>
+  <tr>
+    <td><a href="NumPut.htm">NumPut()</a></td>
+    <td>以二进制格式把数字存储到指定地址+偏移的位置.</td>
+  </tr>
+  <tr>
+<td><a href="ObjAddRef.htm">ObjAddRef() / ObjRelease()</a></td>
+    <td>增加或减少对象的<a href="../Objects.htm#Reference_Counting">引用数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="ObjBindMethod.htm">ObjBindMethod()</a></td>
+    <td>创建一个<a href="../misc/Functor.htm#BoundFunc">绑定函数对象</a>, 它能够绑定参数值或方法名至目标对象.</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="Object.htm#Clone">ObjClone()</a><br>
+      <a href="Object.htm#Count">ObjCount()</a><br>
+      <a href="Object.htm#Delete">ObjDelete()</a><br>
+      <a href="Object.htm#GetAddress">ObjGetAddress()</a><br>
+      <a href="Object.htm#GetCapacity">ObjGetCapacity()</a><br>
+      <a href="Object.htm#HasKey">ObjHasKey()</a><br>
+      <a href="Object.htm#Insert">ObjInsert()</a><br>
+      <a href="Object.htm#InsertAt">ObjInsertAt()</a><br>
+      <a href="Object.htm#Length">ObjLength()</a><br>
+      <a href="Object.htm#MinMaxIndex">ObjMaxIndex()</a><br>
+      <a href="Object.htm#MinMaxIndex">ObjMinIndex()</a><br>
+      <a href="Object.htm#NewEnum">ObjNewEnum()</a><br>
+      <a href="Object.htm#Pop">ObjPop()</a><br>
+      <a href="Object.htm#Push">ObjPush()</a><br>
+      <a href="Object.htm#Remove">ObjRemove()</a><br>
+      <a href="Object.htm#RemoveAt">ObjRemoveAt()</a><br>
+      <a href="Object.htm#SetCapacity">ObjSetCapacity()</a><br>
+    </td>
+    <td>Obj前缀函数, 这些函数等同于<a href="Object.htm">对象</a>的内置方法. 通常建议使用相应的方法代替.</td>
+  </tr>
+  <tr>
+    <td><a href="Object.htm#GetBase">ObjGetBase()</a></td>
+    <td>检索对象的<a href="../Objects.htm#Custom_Objects">基对象</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Object.htm#RawGet">ObjRawGet()</a></td>
+    <td>检索对象中的 键-值 对, 绕过对象的<a href="../Objects.htm#Meta_Functions">元函数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Object.htm#RawSet">ObjRawSet()</a></td>
+    <td>存储或覆盖对象中的一组键值对, 绕过对象的<a href="../Objects.htm#Meta_Functions">元函数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Object.htm#SetBase">ObjSetBase()</a></td>
+    <td>设置对象的<a href="../Objects.htm#Custom_Objects">基对象</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="OnClipboardChange.htm#function">OnClipboardChange()</a></td>
+    <td>注册一个每当剪贴板内容发生改变时都会自动调用的<a href="../Functions.htm">函数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="OnError.htm">OnError()</a></td>
+    <td>注册一个当发生未处理的错误时自动调用的<a href="../Functions.htm">函数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="OnExit.htm#command">OnExit</a></td>
+    <td>注册一个在脚本退出时自动调用的<a href="../Language.htm#subroutines">子程序</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="OnExit.htm#function">OnExit()</a></td>
+    <td>注册一个在脚本退出时自动调用的<a href="../Functions.htm">函数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="OnMessage.htm">OnMessage()</a></td>
+    <td>指定当脚本接收到特定消息时自动调用的<a href="../Functions.htm">函数</a>或<a href="../misc/Functor.htm">函数对象</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Ord.htm">Ord()</a></td>
+    <td>返回 String 中第一个字符的有序字符编码数值.</td>
+  </tr>
+  <tr>
+    <td><a href="OutputDebug.htm">OutputDebug</a></td>
+    <td>发送字符串到调试器(如果有) 显示出来.</td>
+  </tr>
+  <tr>
+    <td><a href="Pause.htm">Pause</a></td>
+    <td>暂停脚本的<a href="../misc/Threads.htm">当前线程</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="PixelGetColor.htm">PixelGetColor</a></td>
+    <td>获取指定的 x, y 坐标处像素的颜色.</td>
+  </tr>
+  <tr>
+    <td><a href="PixelSearch.htm">PixelSearch</a></td>
+    <td>在屏幕某个区域中搜索指定颜色所在的像素.</td>
+  </tr>
+  <tr>
+    <td><a href="PostMessage.htm">PostMessage</a></td>
+    <td>放置消息到窗口或控件的消息队列.</td>
+  </tr>
+  <tr>
+    <td><a href="Process.htm">Process</a></td>
+    <td>对进程执行下列的其中一个操作: 检查进程是否存在; 改变进程的优先级; 关闭进程; 等待进程关闭.</td>
+  </tr>
+  <tr>
+    <td><a href="Progress.htm">Progress</a></td>
+    <td>创建或更新包含进度条的窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="Random.htm">Random</a></td>
+    <td>生成伪随机数.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="RegExMatch.htm">RegExMatch()</a></td>
+    <td>判断字符串是否包含某个匹配模式(正则表达式).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="RegExReplace.htm">RegExReplace()</a></td>
+    <td>替换字符串中匹配模式(正则表达式) 出现的地方.</td>
+  </tr>
+  <tr>
+    <td><a href="RegDelete.htm">RegDelete</a></td>
+    <td>从注册表中删除子键或值.</td>
+  </tr>
+  <tr>
+    <td><a href="RegRead.htm">RegRead</a></td>
+    <td>从注册表读取值.</td>
+  </tr>
+  <tr>
+    <td><a href="RegWrite.htm">RegWrite</a></td>
+    <td>写入值到注册表.</td>
+  </tr>
+  <tr>
+    <td><a href="RegisterCallback.htm">RegisterCallback()</a></td>
+    <td>创建机器码地址, 当它被调用时会重定向到脚本中的<a href="../Functions.htm">函数</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Reload.htm">Reload</a></td>
+    <td>使用新的脚本实例替换当前正在运行的实例.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Return.htm">Return</a></td>
+    <td>从函数或子程序返回到之前通过<a href="../Functions.htm">函数调用</a>, <a href="Gosub.htm">Gosub</a>, 激活 <a href="../Hotkeys.htm">Hotkey</a>, <a href="GroupActivate.htm">GroupActivate</a> 或其他方式执行跳转的地方.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Round">Round()</a></td>
+    <td>返回指定数字四舍五入到 <em>N</em> 个小数位的数字.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Run.htm">Run</a></td>
+    <td>运行外部程序.</td>
+  </tr>
+  <tr>
+    <td><a href="RunAs.htm">RunAs</a></td>
+    <td>指定一组用户凭据, 用于后续所有的 <a href="Run.htm">Run</a> 和 <a href="Run.htm">RunWait</a> 命令.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Run.htm">RunWait</a></td>
+    <td>运行外部程序, 并等待其结束.</td>
+  </tr>
+  <tr id="S">
+    <td><a href="GuiControls.htm#SB_SetIcon">SB_SetIcon()</a><br />
+    <a href="GuiControls.htm#SB_SetParts">SB_SetParts()</a><br />
+    <a href="GuiControls.htm#SB_SetText">SB_SetText()</a><br /></td>
+    <td>修改 <a href="GuiControls.htm#StatusBar">StatusBar</a> 控件的方法.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Send.htm">Send</a> / <a href="Send.htm#SendRaw">SendRaw</a> / <a href="Send.htm#SendInput">SendInput</a> / <a href="Send.htm#SendPlay">SendPlay</a> / <a href="Send.htm#SendEvent">SendEvent</a></td>
+    <td>发送模拟键击和鼠标点击到<a href="WinActivate.htm">活动</a>窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="SendLevel.htm">SendLevel</a></td>
+    <td>控制热键和热字串是否忽略模拟的键盘和鼠标事件.</td>
+  </tr>
+  <tr>
+    <td><a href="PostMessage.htm">SendMessage</a></td>
+    <td>发送消息到窗口或控件并等待确认.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SendMode.htm">SendMode</a></td>
+    <td>让 <a href="Send.htm">Send</a> 和 SendInput 或 SendPlay 具有相同的功能而不是默认的(SendEvent). 也使 Click 和 MouseMove/Click/Drag 使用指定的方法.</td>
+  </tr>
+  <tr>
+    <td><a href="SetBatchLines.htm">SetBatchLines</a></td>
+    <td>设置脚本的执行速度(影响 CPU 使用率).</td>
+  </tr>
+  <tr>
+    <td><a href="SetNumScrollCapsLockState.htm">SetCapsLockState</a></td>
+    <td>设置 <kbd>CapsLock</kbd> 的状态. 还可以强制此键保持打开或关闭状态.</td>
+  </tr>
+  <tr>
+    <td><a href="SetControlDelay.htm">SetControlDelay</a></td>
+    <td>设置在每次控件修改命令执行后自动的延时.</td>
+  </tr>
+  <tr>
+    <td><a href="SetDefaultMouseSpeed.htm">SetDefaultMouseSpeed</a></td>
+    <td>设置在 <a href="Click.htm">Click</a> 和 <a href="MouseMove.htm">MouseMove</a>, <a href="MouseClick.htm">MouseClick</a> 和 <a href="MouseClickDrag.htm">MouseClickDrag</a> 中没有指定鼠标速度时使用的速度.</td>
+  </tr>
+  <tr>
+    <td><a href="SetEnv.htm">SetEnv (Var = Value)</a></td>
+    <td>把指定的值赋给<a href="../Variables.htm">变量</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="SetFormat.htm">SetFormat</a></td>
+    <td>设置数学运算得到的整数和浮点数的格式.</td>
+  </tr>
+  <tr>
+    <td><a href="SetKeyDelay.htm">SetKeyDelay</a></td>
+    <td>设置每次 <a href="Send.htm">Send</a> 或 <a href="ControlSend.htm">ControlSend</a> 发送键击后自动的延时.</td>
+  </tr>
+  <tr>
+    <td><a href="SetMouseDelay.htm">SetMouseDelay</a></td>
+    <td>设置每次鼠标移动或点击后自动的延时.</td>
+  </tr>
+  <tr>
+    <td><a href="SetNumScrollCapsLockState.htm">SetNumLockState</a></td>
+    <td>设置 <kbd>NumLock</kbd> 的状态. 还可以强制此键保持打开或关闭状态.</td>
+  </tr>
+  <tr>
+    <td><a href="SetNumScrollCapsLockState.htm">SetScrollLockState</a></td>
+    <td>设置 <kbd>ScrollLock</kbd> 的状态. 还可以强制此键保持打开或关闭状态.</td>
+  </tr>
+  <tr>
+    <td><a href="SetRegView.htm">SetRegView</a></td>
+    <td>设置 <a href="RegRead.htm">RegRead</a>, <a href="RegWrite.htm">RegWrite</a>, <a href="RegDelete.htm">RegDelete</a> 和 <a href="LoopReg.htm">registry loops</a> 使用的注册表视图, 允许它们在 32 位脚本中访问 64 位注册表视图, 反之亦然.</td>
+  </tr>
+  <tr>
+    <td><a href="SetStoreCapsLockMode.htm">SetStoreCapsLockMode</a></td>
+    <td>设置在 <a href="Send.htm">Send</a> 后是否恢复 <kbd>CapsLock</kbd> 的状态.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SetTimer.htm">SetTimer</a></td>
+    <td>以指定的时间间隔自动并重复运行子程序.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SetTitleMatchMode.htm">SetTitleMatchMode</a></td>
+    <td>设置在类似 <a href="WinWait.htm">WinWait</a> 命令中 <a href="../misc/WinTitle.htm"><em>WinTitle</em> 参数</a> 的匹配模式.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SetWinDelay.htm">SetWinDelay</a></td>
+    <td>设置在每次执行窗口命令(例如 <a href="WinActivate.htm">WinActivate</a>) 后自动的延时.</td>
+  </tr>
+  <tr>
+    <td><a href="SetWorkingDir.htm">SetWorkingDir</a></td>
+    <td>改变脚本的当前工作目录.</td>
+  </tr>
+  <tr>
+    <td><a href="Shutdown.htm">Shutdown</a></td>
+    <td>关闭, 重启或注销系统.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Sin">Sin()</a></td>
+    <td>返回指定数字的正弦三角函数值.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Sleep.htm">Sleep</a></td>
+    <td>在继续前等待指定的时间量.</td>
+  </tr>
+  <tr>
+    <td><a href="Sort.htm">Sort</a></td>
+    <td>以字母, 数字或随机顺序排列变量的内容(可以选择是否移除重复项).</td>
+  </tr>
+  <tr>
+    <td><a href="SoundBeep.htm">SoundBeep</a></td>
+    <td>让 PC 扬声器发出蜂鸣音.</td>
+  </tr>
+  <tr>
+    <td><a href="SoundGet.htm">SoundGet</a></td>
+    <td>检索音频设备的各种设置(主静音, 主音量等).</td>
+  </tr>
+  <tr>
+    <td><a href="SoundGetWaveVolume.htm">SoundGetWaveVolume</a></td>
+    <td>检索音频设备的波形输出音量.</td>
+  </tr>
+  <tr>
+    <td><a href="SoundPlay.htm">SoundPlay</a></td>
+    <td>播放音频, 视频或其他支持的文件类型.</td>
+  </tr>
+  <tr>
+    <td><a href="SoundSet.htm">SoundSet</a></td>
+    <td>改变音频设备的各种设置(主静音, 主音量等).</td>
+  </tr>
+  <tr>
+    <td><a href="SoundSetWaveVolume.htm">SoundSetWaveVolume</a></td>
+    <td>改变音频设备的波形输出音量.</td>
+  </tr>
+  <tr>
+    <td><a href="Progress.htm">SplashImage</a></td>
+    <td>创建或更新含图像的窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="SplashTextOn.htm">SplashTextOn / SplashTextOff</a></td>
+    <td>创建或删除自定义文本的弹出窗口.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SplitPath.htm">SplitPath</a></td>
+    <td>把文件名或 URL 分解成它的名称, 目录, 扩展名和驱动器.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Sqrt">Sqrt()</a></td>
+    <td>返回指定数字的平方根.</td>
+  </tr>
+  <tr>
+    <td><a href="StatusBarGetText.htm">StatusBarGetText</a></td>
+    <td>获取标准状态栏控件的文本.</td>
+  </tr>
+  <tr>
+    <td><a href="StatusBarWait.htm">StatusBarWait</a></td>
+    <td>等待窗口的状态栏包含指定的字符串.</td>
+  </tr>
+  <tr>
+    <td><a href="StrGet.htm">StrGet()</a></td>
+    <td>从内存地址复制字符串, 并可选地从给定代码页进行转换.</td>
+  </tr>
+  <tr>
+    <td><a href="StringCaseSense.htm">StringCaseSense</a></td>
+    <td>设置在字符串比较中是否区分大小写(默认为 "不区分大小写").</td>
+  </tr>
+  <tr>
+    <td><a href="StringGetPos.htm">StringGetPos</a></td>
+    <td>获取指定的子字符串在某个字符串中的位置.</td>
+  </tr>
+  <tr>
+    <td><a href="StringLeft.htm">StringLeft</a></td>
+    <td>从字符串的左边提取一些字符.</td>
+  </tr>
+  <tr>
+    <td><a href="StringLen.htm">StringLen</a></td>
+    <td>获取字符串中包含的字符数量.</td>
+  </tr>
+  <tr>
+    <td><a href="StringLower.htm">StringLower</a></td>
+    <td>把字符串中的英文字母转换成小写或标题大写.</td>
+  </tr>
+  <tr>
+    <td><a href="StringMid.htm">StringMid</a></td>
+    <td>从字符串的指定位置提取一个或多个字符.</td>
+  </tr>
+  <tr>
+    <td><a href="StringReplace.htm">StringReplace</a></td>
+    <td>用新字符串替换指定的子字符串.</td>
+  </tr>
+  <tr>
+    <td><a href="StringLeft.htm">StringRight</a></td>
+    <td>从字符串的右边提取一些字符.</td>
+  </tr>
+  <tr>
+    <td><a href="StringSplit.htm">StringSplit </a></td>
+    <td>使用指定的分隔字符把一个字符串分解成多个子字符串并保存到数组中.</td>
+  </tr>
+  <tr>
+    <td><a href="StringTrimLeft.htm">StringTrimLeft</a></td>
+    <td>从字符串的左边移除一些字符.</td>
+  </tr>
+  <tr>
+    <td><a href="StringTrimLeft.htm">StringTrimRight</a></td>
+    <td>从字符串的右边移除一些字符.</td>
+	
+  </tr>
+  <tr>
+    <td><a href="StringLower.htm">StringUpper</a></td>
+    <td>把字符串中的英文字母转换成大写或标题大写.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="StrLen.htm">StrLen()</a></td>
+    <td>获取字符串中的字符数量.</td>
+  </tr>
+  <tr>
+    <td><a href="StrPut.htm">StrPut()</a></td>
+    <td>将字符串复制到内存地址, 可选的将其转换到给定代码页.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="StrReplace.htm">StrReplace()</a></td>
+    <td>用新字符串替换指定的子字符串.</td>
+  </tr>
+  <tr>
+    <td><a href="StrSplit.htm">StrSplit()</a></td>
+    <td>使用指定的分隔符把一个字符串分解成子字符串数组.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SubStr.htm">SubStr()</a></td>
+    <td>检索字符串中指定位置开始的一个或多个字符.</td>
+  </tr>
+  <tr>
+    <td><a href="Suspend.htm">Suspend</a></td>
+    <td>禁用或启用所有的或选择的<a href="../Hotkeys.htm">热键</a>和<a href="../Hotstrings.htm">热字串</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="Switch.htm">Switch</a></td>
+    <td>将一个值与多个实例进行比较, 并执行第一个匹配的语句.</td>
+  </tr>
+  <tr>
+    <td><a href="SysGet.htm">SysGet</a></td>
+    <td>获取屏幕分辨率, 多显示器信息, 系统对象的尺寸和其他系统属性.</td>
+  </tr>
+  <tr>
+    <td><a href="Math.htm#Tan">Tan()</a></td>
+    <td>返回指定数字的正切三角函数值.</td>
+  </tr>
+  <tr>
+    <td><a href="Thread.htm">Thread</a></td>
+    <td>设置<a href="../misc/Threads.htm">线程</a>的优先级或是否可以被中断. 它也可以临时禁用所有的<a href="SetTimer.htm">计时器</a>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Throw.htm">Throw</a></td>
+    <td>发出错误发生的信号. 此信号可以被 <a href="Try.htm">Try</a>-<a href="Catch.htm">Catch</a> 语句捕获.</td>
+  </tr>
+  <tr>
+    <td><a href="ToolTip.htm">ToolTip</a></td>
+    <td>在屏幕的任意位置显示一个总是置顶的窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="Transform.htm">Transform</a></td>
+    <td>执行各种数学计算, 按位运算以及类似 ASCII/Unicode 转换的任务.</td>
+  </tr>
+  <tr>
+    <td><a href="TrayTip.htm">TrayTip</a></td>
+    <td>在托盘图标附近显示一个气球提示窗口, 在 Windows 10 及后续版本, 可能会显示一个吐司通知窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="Trim.htm">Trim() / LTrim() / RTrim()</a></td>
+    <td>移除字符串的开始和/或末尾的字符.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Try.htm">Try</a></td>
+    <td>守护一条或多条<a href="../Concepts.htm#statement">语句</a>以防备由 <a href="Throw.htm">Throw</a> 语句抛出的运行时错误和异常.</td>
+  </tr>
+  <tr>
+    <td><a href="TreeView.htm#TV_Add">TV_Add()</a><br />
+    <a href="TreeView.htm#TV_Delete">TV_Delete()</a><br />
+    <a href="TreeView.htm#TV_Get">TV_Get()</a><br />
+    <a href="TreeView.htm#TV_GetChild">TV_GetChild()</a><br />
+    <a href="TreeView.htm#TV_GetCount">TV_GetCount()</a><br />
+    <a href="TreeView.htm#TV_GetNext">TV_GetNext()</a><br />
+    <a href="TreeView.htm#TV_GetParent">TV_GetParent()</a><br />
+    <a href="TreeView.htm#TV_GetPrev">TV_GetPrev()</a><br />
+    <a href="TreeView.htm#TV_GetSelection">TV_GetSelection()</a><br />
+    <a href="TreeView.htm#TV_GetText">TV_GetText()</a><br />
+    <a href="TreeView.htm#TV_Modify">TV_Modify()</a><br />
+    <a href="TreeView.htm#TV_SetImageList">TV_SetImageList()</a></td>
+    <td>添加, 修改或检索 <a href="TreeView.htm">TreeView</a> 控件中项目的方法.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="Until.htm">Until</a></td>
+    <td>根据条件判断是否继续执行 Loop 或 For 循环.</td>
+  </tr>
+  <tr>
+    <td><a href="URLDownloadToFile.htm">UrlDownloadToFile</a></td>
+    <td>从互联网下载文件.</td>
+  </tr>
+  <tr>
+    <td><a href="SetEnv.htm">Var = Value</a></td>
+    <td>把指定的值赋给<a href="../Variables.htm">变量</a>.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="SetExpression.htm">Var := expression</a></td>
+    <td>计算<a href="../Variables.htm#Expressions">表达式</a>并把结果保存到<a href="../Variables.htm">变量</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="VarSetCapacity.htm">VarSetCapacity()</a></td>
+    <td>增加或清空变量占用的内存. 通常只有在特殊情况下才需要, 例如 <a href="DllCall.htm">DllCall()</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="VerCompare.htm">VerCompare()</a></td>
+    <td>比较两个版本字符串.</td>
+  </tr>
+  <tr id="W">
+    <td class="larger"><a href="While.htm">While 循环</a></td>
+    <td>重复执行一条或多条<a href="../Concepts.htm#statement">语句</a>, 一直到指定的<a href="../Variables.htm#Expressions">表达式</a>计算结果为假.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinActivate.htm">WinActivate</a></td>
+    <td>激活指定的窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="WinActivateBottom.htm">WinActivateBottom</a></td>
+    <td>和 <a href="WinActivate.htm">WinActivate</a> 一样, 只是此命令激活最下面的匹配窗口而不是最上面的.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinActive.htm">WinActive()</a></td>
+    <td>检查指定的窗口是否处于活动状态, 并返回其唯一 ID(HWND).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinClose.htm">WinClose</a></td>
+    <td>关闭指定的窗口.</td>
+  </tr>
+  <tr>
+  <td class="larger"><a href="WinExist.htm">WinExist()</a></td>
+    <td>检查是否存在指定的窗口, 并返回第一个匹配窗口的唯一 ID(HWND).</td>
+  </tr>
+  <tr>
+    <td><a href="WinGetActiveStats.htm">WinGetActiveStats</a></td>
+    <td>组合了 <a href="WinGetActiveTitle.htm">WinGetActiveTitle</a> 和 <a href="WinGetPos.htm">WinGetPos</a> 两个命令的功能.</td>
+  </tr>
+  <tr>
+    <td><a href="WinGetActiveTitle.htm">WinGetActiveTitle</a></td>
+    <td>获取活动窗口的标题.</td>
+  </tr>
+  <tr>
+    <td><a href="WinGetClass.htm">WinGetClass</a></td>
+    <td>获取指定窗口的类名.</td>
+  </tr>
+  <tr>
+    <td><a href="WinGet.htm">WinGet</a></td>
+    <td>获取指定窗口的唯一 ID, 进程 ID, 进程名或控件列表. 它还可以获取匹配指定条件的所有窗口的列表.</td>
+  </tr>
+  <tr>
+    <td><a href="WinGetPos.htm">WinGetPos</a></td>
+    <td>获取指定窗口的位置和大小.</td>
+  </tr>
+  <tr>
+    <td><a href="WinGetText.htm">WinGetText</a></td>
+    <td>获取指定窗口的文本.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinGetTitle.htm">WinGetTitle</a></td>
+    <td>获取指定窗口的标题.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinHide.htm">WinHide</a></td>
+    <td>隐藏指定的窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="WinKill.htm">WinKill</a></td>
+    <td>强制关闭指定的窗口.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinMaximize.htm">WinMaximize</a></td>
+    <td>最大化指定的窗口.</td>
+  </tr>
+  <tr>
+    <td><a href="WinMenuSelectItem.htm">WinMenuSelectItem</a></td>
+    <td>调用指定窗口菜单栏中的菜单项.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinMinimize.htm">WinMinimize</a></td>
+    <td>缩小指定窗口为任务栏上的按钮.</td>
+  </tr>
+  <tr>
+    <td><a href="WinMinimizeAll.htm">WinMinimizeAll / WinMinimizeAllUndo</a></td>
+    <td>最小化或还原所有窗口.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinMove.htm">WinMove</a></td>
+    <td>改变指定窗口的位置和/或大小.</td>
+  </tr>
+  <tr>
+    <td><a href="WinRestore.htm">WinRestore</a></td>
+    <td>如果指定的窗口处于最小化或最大化状态, 则还原它.</td>
+  </tr>
+  <tr>
+    <td><a href="WinSet.htm">WinSet</a></td>
+    <td>对指定的窗口进行各种设置, 例如 "总在最前面" 和透明度.</td>
+  </tr>
+  <tr>
+    <td><a href="WinSetTitle.htm">WinSetTitle</a></td>
+    <td>改变指定窗口的标题.</td>
+  </tr>
+  <tr>
+    <td><a href="WinShow.htm">WinShow</a></td>
+    <td>显示指定的窗口.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinWait.htm">WinWait</a></td>
+    <td>等到指定的窗口出现.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinWaitActive.htm">WinWaitActive / WinWaitNotActive</a></td>
+    <td>等到指定的窗口处于活动状态或非活动状态.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="WinWaitClose.htm">WinWaitClose</a></td>
+    <td>等到指定的窗口消失.</td>
+  </tr>
+  <tr id="hash">
+    <td><a href="_ClipboardTimeout.htm">#ClipboardTimeout</a></td>
+    <td>改变当首次访问剪贴板失败后脚本会继续尝试访问剪贴板的持续时间.</td>
+  </tr>
+  <tr>
+    <td><a href="_CommentFlag.htm">#CommentFlag</a></td>
+    <td>把脚本的注释符号从分号改为其他字符串.</td>
+  </tr>
+  <tr>
+    <td><a href="_EscapeChar.htm#Delimiter">#Delimiter</a></td>
+    <td>将脚本的命令参数分隔符从逗号改为其他字符.</td>
+  </tr>
+  <tr>
+    <td><a href="_EscapeChar.htm#DerefChar">#DerefChar</a></td>
+    <td>将脚本的解引符号从百分号改为其他字符.</td>
+  </tr>
+  <tr>
+    <td><a href="_ErrorStdOut.htm">#ErrorStdOut</a></td>
+    <td>把阻止脚本运行的任何语法错误发送到标准错误输出(stderr) 而不显示在对话框中.</td>
+  </tr>
+  <tr>
+    <td><a href="_EscapeChar.htm">#EscapeChar</a></td>
+    <td>改变脚本的转义符(例如: 反斜杠与重音符).</td>
+  </tr>
+  <tr>
+    <td><a href="_HotkeyInterval.htm">#HotkeyInterval</a></td>
+    <td>与 <a href="_MaxHotkeysPerInterval.htm">#MaxHotkeysPerInterval</a> 一起指定<a href="../Hotkeys.htm">热键</a>激活的速率, 超过此速率会显示警告对话框.</td>
+  </tr>
+  <tr>
+    <td><a href="_HotkeyModifierTimeout.htm">#HotkeyModifierTimeout</a></td>
+    <td>影响<a href="../Hotkeys.htm">热键</a>修饰符的行为: <kbd>Ctrl</kbd>, <kbd>Alt</kbd>, <kbd>Win</kbd> 和 <kbd>Shift</kbd>.</td>
+  </tr>
+  <tr>
+    <td><a href="_Hotstring.htm">#Hotstring</a></td>
+    <td>改变<a href="../Hotstrings.htm">热字串</a>选项或终止符.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="_If.htm">#If</a></td>
+    <td>创建上下文相关的<a href="../Hotkeys.htm">热键</a>和<a href="../Hotstrings.htm">热字串</a>. 这些热键会根据表达式的结果执行不同的操作(或根本不执行).</td>
+  </tr>
+  <tr>
+    <td><a href="_IfTimeout.htm">#IfTimeout</a></td>
+    <td>设置计算单个 #If 表达式可以使用的最大时间.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="_IfWinActive.htm">#IfWinActive / #IfWinNotActive / #IfWinExist / #IfWinNotExist</a></td>
+    <td>创建上下文相关的<a href="../Hotkeys.htm">热键</a>和<a href="../Hotstrings.htm">热字串</a>. 这样的热键会根据窗口是否活动或存在的不同情况执行不同的动作(或什么都不做).</td>
+  </tr>
+  <tr>
+    <td><a href="_Include.htm">#Include / #IncludeAgain</a></td>
+    <td>让脚本认为指定文件的内容会出现在这个准确的位置.</td>
+  </tr>
+  <tr>
+    <td><a href="_InputLevel.htm">#InputLevel</a></td>
+    <td>控制热键和热字串是否忽略模拟的键盘和鼠标事件.</td>
+  </tr>
+  <tr>
+    <td><a href="_InstallKeybdHook.htm">#InstallKeybdHook</a></td>
+    <td>强制无条件安装键盘钩子.</td>
+  </tr>
+  <tr>
+    <td><a href="_InstallMouseHook.htm">#InstallMouseHook</a></td>
+    <td>强制无条件安装鼠标钩子.</td>
+  </tr>
+  <tr>
+    <td><a href="_KeyHistory.htm">#KeyHistory</a></td>
+    <td>设置在 <a href="KeyHistory.htm">KeyHistory</a> 窗口中显示的键盘和鼠标事件的最大数目. 您可以将其设置为 0 来禁用按键历史.</td>
+  </tr>
+  <tr>
+    <td><a href="../Scripts.htm#LTrim">#LTrim</a></td>
+    <td>启用或禁用延续片段中缩进的去除.</td>
+  </tr>
+  <tr>
+    <td><a href="_MaxHotkeysPerInterval.htm">#MaxHotkeysPerInterval</a></td>
+    <td>与 <a href="_HotkeyInterval.htm">#HotkeyInterval</a> 一起指定<a href="../Hotkeys.htm">热键</a>激活的速率, 超过此速率会显示警告对话框.</td>
+  </tr>
+  <tr>
+    <td><a href="_MaxMem.htm">#MaxMem</a></td>
+    <td>设置每个<a href="../Variables.htm">变量</a>可使用的最大内存兆数.</td>
+  </tr>
+  <tr>
+    <td><a href="_MaxThreads.htm">#MaxThreads</a></td>
+    <td>设置可同时存在的<a href="../misc/Threads.htm">线程</a>的最大数目.</td>
+  </tr>
+  <tr>
+    <td><a href="_MaxThreadsBuffer.htm">#MaxThreadsBuffer</a></td>
+    <td>当某些或所有的<a href="../Hotkeys.htm">热键</a>达到 <a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a> 限制时, 这个指令让它们缓冲而不是忽略键击.</td>
+  </tr>
+  <tr>
+    <td><a href="_MaxThreadsPerHotkey.htm">#MaxThreadsPerHotkey</a></td>
+    <td>设置每个<a href="../Hotkeys.htm">热键</a>或<a href="../Hotstrings.htm">热字串</a>可同时存在的最大<a href="../misc/Threads.htm">线程</a>数.</td>
+  </tr>
+  <tr>
+    <td><a href="_MenuMaskKey.htm">#MenuMaskKey</a></td>
+    <td>改变用来屏蔽 Win 或 Alt 松开事件的按键.</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="_NoEnv.htm">#NoEnv</a></td>
+    <td>不检查空变量是否为<a href="../Concepts.htm#environment-variables">环境变量</a>(建议所有新脚本使用).</td>
+  </tr>
+  <tr>
+    <td class="larger"><a href="_NoTrayIcon.htm">#NoTrayIcon</a></td>
+    <td>不显示托盘图标.</td>
+  </tr>
+  <tr>
+    <td><a href="_Persistent.htm">#Persistent</a></td>
+    <td>让脚本持续运行(即直到用户关闭或遇到 <a href="ExitApp.htm">ExitApp</a>).</td>
+  </tr>
+  <tr>
+    <td><a href="_Requires.htm">#Requires</a></td>
+    <td>如果不符合版本要求, 则显示错误并退出.</td>
+  </tr>
+  <tr>
+    <td><a href="_SingleInstance.htm">#SingleInstance</a></td>
+    <td>决定当脚本已经运行时是否允许它再次运行.</td>
+  </tr>
+  <tr>
+    <td><a href="_UseHook.htm">#UseHook</a></td>
+    <td>强制使用钩子实现全部或部分键盘<a href="../Hotkeys.htm">热键</a>.</td>
+  </tr>
+  <tr>
+    <td><a href="_Warn.htm">#Warn</a></td>
+    <td>启用或禁用特定条件下的警告, 这些条件可能表明一个错误, 如书写错误或缺少 "global" 声明.</td>
+  </tr>
+  <tr>
+    <td><a href="_WinActivateForce.htm">#WinActivateForce</a></td>
+    <td>跳过温和的方法而直接使用强制的方法激活窗口.</td>
+  </tr>
+</table>
+</body>
+</html>
