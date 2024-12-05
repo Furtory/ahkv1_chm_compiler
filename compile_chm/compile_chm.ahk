@@ -3,6 +3,8 @@
 所有开源项目 https://github.com/Furtory
 仅适用于封装V1版本的chm帮助文档 V2版本帮助文档请到此链接下载https://wyagd001.github.io/
 本封装源来自于https://github.com/wyagd001/wyagd001.github.io/tree/master
+AHK正版官方论坛https://www.autohotkey.com/boards/viewforum.php?f=26
+国内唯一完全免费开源AHK论坛请到QQ频道AutoHotKey12
 本人所有教程和脚本严禁转载到此论坛以防被用于收费盈利 https://www.autoahk.com/
 */
 
